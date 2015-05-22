@@ -1,0 +1,381 @@
+﻿<style type="text/css">
+        html {
+            font-size:2em;
+        }
+        html,body {
+            margin:0px;            
+        }
+        .btn {
+            border-radius:5px;
+            border:1px solid #CAD7E0;
+            background-color:#FBFBFB;
+            width:160px;
+            height:60px;
+            line-height:60px;
+            vertical-align:middle;
+            text-align:center;
+            font-size:1.5em;
+        }
+
+        #wrapper {
+            width:100%;
+        }
+        
+        #wrapper #r1
+        {
+            @*background-image:url(@Url.Content("~/Images/mdetail_r1.png"));
+            background-image: -moz-linear-gradient(top, #00FF00, #FF0000); /*火狐*/
+            background: -o-linear-gradient(top, #00FF00 0%,red 100%);/*Opera*/
+            background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #00FF00), color-stop(1,#FF0000)); /*Chrome*/
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00FF00', endColorstr='#FF0000', GradientType='0'); /*IE*/
+            *@
+
+            background:none, linear-gradient(#299FFF 0px, #C1EFFD 100%);
+            background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#299FFF), to(#C1EFFD));
+            background:-moz-linear-gradient(top, #299FFF, #C1EFFD);
+            background:-o-linear-gradient(top, #299FFF 0%,#C1EFFD 100%);
+            FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#299FFF,endColorStr=#C1EFFD);
+
+            height:120px;
+            width:100%;
+            text-align:center;
+            color:#FFF;
+            font-size:1.4em;
+            line-height:120px;
+            vertical-align:middle;
+        }
+
+        #wrapper #r1 img {
+            float:left;
+            margin-left:20px;
+            margin-top:18px;
+            height:70%;
+        }
+
+        #wrapper #r2 {
+            height:198px;
+            background-color:#fff;
+            border-top:1px solid #0280B9;
+        }
+
+        #wrapper #r2 .l {
+            width:15%;
+            height:198px;
+            @*background-color:#0280B9;*@
+            float:left;
+            text-align:center;
+        }
+        #wrapper #r2 .l img {
+            margin-top:24px;
+            width:150px;
+            height:150px;
+        }
+        #wrapper #r2 .c {
+            width:58%;
+            height:168px;
+            @*background-color:#f0f0f0;*@
+            float:left;
+            margin-top:15px;
+            padding-left:8px;
+        }
+
+
+
+        #wrapper #r2 .c .row_c_row {
+            height:56px;
+            line-height:56px;
+            vertical-align:middle;
+            color:#777777;
+            font-size:1.2em;
+            overflow:hidden;
+            text-overflow:ellipsis;
+            white-space:nowrap;
+        }
+
+        #wrapper #r2 .c .row_c_row .title
+        {
+            color:#2F98D3;
+            font-size:1.3em;
+        }
+        #wrapper #r2 .c .row_c_row .version
+        {
+            color:#666666;
+        }
+
+        #wrapper #r2 .r {
+            width:26%;
+            height:198px;
+            @*background-color:#0280B9;*@
+            float:right;
+            text-align:center;
+            line-height:198px;
+            vertical-algin:middle;
+        }
+
+        #wrapper #r2 .r .button_group {
+            width:100%;
+            height:100%;
+            line-height:198px;
+            font-size:0.9em;
+        }
+
+        #wrapper #r2 .r .button_group #btnInstall {
+            width:190px;
+            margin-left:auto;
+            margin-right:auto;
+            height:60px;
+            line-height:60px;
+            margin-top:20px;
+        }
+
+        #wrapper #r2 .r .button_group #btnInstall a {
+            color:#000000;
+            text-decoration:none;
+            
+        }
+
+        #wrapper #r2 .r .button_group #btnSC {
+            width:190px;
+            margin-left:auto;
+            margin-right:auto;
+            height:60px;
+            line-height:60px;
+            margin-top:25px;
+        }
+
+        #wrapper #r2 .r .button_group #btnSC a {
+            color:#000000;
+            text-decoration:none;
+        }
+
+        #wrapper #r3 {
+            background-color:#E9F5FB;
+            height:82px;
+            border-bottom:1px solid #fff;
+            line-height:82px;
+            vertical-align:middle;
+            width:100%;
+            font-size:1.2em;
+            white-space:normal;
+            text-align:left;
+            text-indent:2px;
+        }
+        #wrapper #r4 {
+            height:580px;
+            @*background-image:url(@Url.Content("~/images/mdetail_r4_bg.png"));*@
+            width:100%;
+            background:none, linear-gradient(#299FFF 0px, #C1EFFD 100%);
+            background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#299FFF), to(#C1EFFD));
+            background:-moz-linear-gradient(top, #299FFF, #C1EFFD);
+            background:-o-linear-gradient(top, #299FFF 0%,#C1EFFD 100%);
+            FILTER: progid:DXImageTransform.Microsoft.Gradient(gradientType=0,startColorStr=#299FFF,endColorStr=#C1EFFD);
+        }
+
+        /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+/*截图*/
+    #wrapper #r4  #contentrow {
+        line-height:580px;
+        height:100%;
+    }
+
+    #wrapper #r4  .larrow{
+        float:left;
+        line-height:580px;
+        vertical-align:middle;
+        width:10%;
+        heigth:380px;
+    }
+    #wrapper #r4  .larrow #left_btn_1{
+        margin-left:26%;
+        margin-top:0px;
+        height:580px;
+    }
+    #wrapper #r4  .larrow #left_btn_1 img{
+        margin-top:115px;
+    }
+
+    #wrapper #r4  .center{
+        float:left;
+        heigth:580px;
+        line-height:580px;
+        vertical-align:middle;
+        text-align:center;
+        width:79.8%;
+        
+    }
+
+    #wrapper #r4  .rarrow{
+        float:right;
+        line-height:580px;
+        vertical-align:middle;
+        width:10%;
+        heigth:580px;
+    }
+    #wrapper #r4  .rarrow #right_btn_1{
+        margin-right:26%;
+        margin-top:100px;
+        height:580px;
+    }
+    #wrapper #r4  .rarrow #right_btn_1 img{
+        margin-top:150px;
+        float:right;
+    }
+
+    #wrapper #r4 #content {
+        line-height:580px;
+        height:100%;
+        vertical-align:middle;
+    }
+    
+    
+    #wrapper #r4 .center #content img{
+        vertical-align:bottom;
+        border-width:0px;
+        padding-left:5px;
+        padding-right:5px;
+        margin-top:0px;
+        margin-bottom:10px;
+        width:339px;
+        height:560px;
+    }
+    
+    /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/
+
+        #wrapper #r5 {
+            width:100%;
+            height:180px;
+            font-size:1.3em;
+            padding:5px;
+        }
+        #wrapper #r6 {
+            width:100%;
+            background-color:#E2E8E9;
+            height:6px;
+        }
+        #wrapper #r7 {
+            width:100%;
+            height:150px;            
+        }
+        #wrapper #r7 textarea{
+            width:99%;
+            height:100%;
+            background-color:#E2E8E9;
+            margin-left:auto;
+            margin-right:auto;
+            font-size:1.2em;
+        }
+        #wrapper #r8 {
+            height:95px;
+            line-height:95px;
+        }
+
+        #wrapper #r8 #btnFeedback {
+            float:right;   
+            margin-top:20px;
+            margin-right:20px;  
+            width:180px;
+            font-size:1.2em;
+        }
+
+
+   /*pictures*/
+   @@media screen and (orientation: portrait)
+{
+/*竖屏*/
+}
+
+@@media screen and (orientation: landscape)
+{
+    /*横屏*/
+}
+
+@@media only screen and (max-width : 480px)
+{
+}
+
+@@media screen and (min-width: 802px)  and (max-width: 975px) {
+    #wrapper #r2 .c {
+        width:45%;
+    }
+
+    #wrapper #r2 .r {
+        width:40%;
+    }
+
+    #wrapper #r4 .center #content img{
+        vertical-align:bottom;
+        border-width:0px;
+        padding-left:5px;
+        padding-right:5px;
+        margin-top:0px;
+        margin-bottom:10px;
+        width:200px;
+    }
+}
+
+@@media screen and (min-width: 768px)  and (max-width: 801px) {
+
+    #wrapper #r2 .c {
+        width:45%;
+    }
+
+    #wrapper #r2 .r {
+        width:40%;
+    }
+
+    #wrapper #r4 .center #content img{
+        vertical-align:bottom;
+        border-width:0px;
+        padding-left:5px;
+        padding-right:5px;
+        margin-top:0px;
+        margin-bottom:10px;
+        width:190px;
+    }
+}
+
+    @@media screen and (min-width: 715px) and (max-width: 767px) {
+
+    #wrapper #r2 .c {
+        width:25%;
+    }
+
+    #wrapper #r2 .r {
+        width:60%;
+    }
+
+    #wrapper #r4 .center #content img{
+        vertical-align:bottom;
+        border-width:0px;
+        padding-left:2px;
+        padding-right:2px;
+        margin-top:0px;
+        margin-bottom:10px;
+        width:185px;
+    }
+}
+
+@@media screen and (max-width: 714px) {
+    #wrapper #r2 .c {
+        width:20%;
+    }
+
+    #wrapper #r2 .r {
+        width:65%;
+    }
+
+    /*宽度小于715只显示两个截图*/
+        #wrapper #r4 .center #content img{
+        vertical-align:bottom;
+        border-width:0px;
+        padding-left:5px;
+        padding-right:5px;
+        margin-top:0px;
+        margin-bottom:10px;
+        width:200px;
+    }
+}
+
+
+   
+    </style>

@@ -1,0 +1,312 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link href="../../telerik/styles/kendo.common.min.css" rel="stylesheet" type="text/css" />
+<link href="../../telerik/styles/kendo.default.min.css" rel="stylesheet" type="text/css" />
+<link href="../../telerik/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+@Html.Partial("_StyleML3Partial")
+<script src="../../telerik/js/jquery.min.js" type="text/javascript"></script>
+<script src="../../telerik/js/kendo.all.min.js" type="text/javascript"></script>
+    <link href="../../Content/loading.css" rel="stylesheet" type="text/css" />
+    <script src="../../Scripts/loading.js" type="text/javascript"></script>
+    <script src="../../Scripts/spin.min.js" type="text/javascript"></script>
+    <title>ML3</title>
+    <script type="text/javascript">
+        var page = 1;
+        function listViewDataBound(_page) {
+            
+            _clientType = '@Request.QueryString["t"]';
+            var _cate = '@Request.QueryString["cate"]';
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                //contentType: "application/json; charset=utf-8",
+                url: "@Url.Content("~/home/GetMobileListItems")",
+                data: {
+                page: _page,
+                pageSize: pageSize,
+                clientType: _clientType,
+                cateCode: _cate
+                },
+            success: function (json) {
+                //var max = i + pageSize;
+                //$('#scroller ul').empty();
+
+                //var wrapperTemplate = $('#wrapper').html();
+                //$('#scroller ul').append(wrapperTemplate);
+                var tmpStr = '';
+
+                
+                
+                for (var i = 0; i < json.items.length; i++) {
+                    var o = json.items[i];
+                    var template = $('#template').html();
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: appName #', o.appName);
+                    template = template.replace('#: appVersion #', o.appVersion);
+                    template = template.replace('#: appCate #', o.appCate);
+                    template = template.replace('#: unit #', o.unit);
+                    template = template.replace('#: appDate #', o.appDate);
+                    template = template.replace('#: downloadUrl #', o.downloadUrl);
+                    template = template.replace('#: pe_pictureurl #', o.pictureurl);
+                    var s = '安装';
+                    if (o.pe_clienttype.toLowerCase() == "web")
+                    {
+                        s = '打开';
+                    }
+                    template = template.replace('#: acn #', s);
+                    tmpStr += template;
+                    
+                }
+                if (page == 1 && json.items.length == pageSize) {
+                    tmpStr += '<li></li>';
+                }
+                $('#scroller ul').prepend(tmpStr);
+                total_page = json.page_count;
+                total_records = json.record_count;
+                if (json === undefined || json.items.length == 0) {
+                    var noRecordTemplate = $('#noRecordTemplate').html();
+                    $('#scroller ul').append(noRecordTemplate);
+                }
+                
+                //setTimeout(function() {
+                    //$('#loading').css('display', 'none');
+                //    hideWaiting();
+                //}, 1000);
+                //$.loading.remove();
+                //var pageTemplate = $('#pageTemplate').html();
+                //pageTemplate = pageTemplate.replace('#: page_count #', json.page_count);
+                //pageTemplate = pageTemplate.replace('#: record_count #', json.record_count);
+                //pageTemplate = pageTemplate.replace('#: page #', page);
+                //$('ul#listView').append(pageTemplate);
+
+
+                //
+
+            }, failure: function (json) {
+                //$.loading().close();
+                //showMessage(json.d, function () { window.close(); });
+            }, error: function (xhr, status) {
+                //$.loading().close();
+                //showMessage("Sorry, there was a problem!", function () { window.close(); });
+            }
+              });
+        }
+
+        var total_page = 0;
+        var total_records = 0;
+        var _clientType = 'all';
+        function first_click() {
+            if (page > 1)
+                page = 1;
+            listViewDataBound(page);
+        }
+        function prev_click() {
+            if (page > 1)
+                --page;
+            listViewDataBound(page);
+        }
+        function next_click() {
+            if (page < total_page)
+                ++page;
+            listViewDataBound(page);
+        }
+        function last_click() {
+            if (page < total_page)
+                page = total_page;
+            listViewDataBound(page);
+        }
+        var _last_client_type = '';
+        function tap(act) {
+            _clientType = act;
+            if (act != _last_client_type)
+                page = 1;
+            listViewDataBound(page);
+            $("#r1 li").removeClass("focus");
+            $("#r1 li[id='" + act + "']").addClass("focus");
+            _last_client_type = act;
+            //$('#listview li').not('first-child').remove();
+        }
+        var spinner = null;
+        function showWaiting() {
+            var opts = {
+              lines: 10, // The number of lines to draw
+              length: 15, // The length of each line
+              width: 5, // The line thickness
+              radius: 15, // The radius of the inner circle
+              corners: 1, // Corner roundness (0..1)
+              rotate: 0, // The rotation offset
+              direction: 1, // 1: clockwise, -1: counterclockwise
+              color: '#0480BA', // #rgb or #rrggbb or array of colors
+              speed: 1, // Rounds per second
+              trail: 60, // Afterglow percentage
+              shadow: true, // Whether to render a shadow
+              hwaccel: false, // Whether to use hardware acceleration
+              className: 'spinner', // The CSS class to assign to the spinner
+              zIndex: 2e9, // The z-index (defaults to 2000000000)
+              top: '35%', // Top position relative to parent
+              left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('wait');
+            spinner = new Spinner(opts).spin(target);
+        }
+        function hideWaiting() {
+            if (spinner)
+                spinner.stop();
+        }
+    </script>
+</head>
+<body onload="parent.hideWaiting();">
+<div id="wait"></div>
+    <div id="template" style="display:none;">
+        <li class="row">
+            <div class="rowdiv">
+                <div class="row_l"><div><a target="_parent" href="@Url.Content("~/Home/MD?pe_id=")#: id #"><img onerror="src='@Url.Content("~/AppIcons/no.png")'" style="" src="#: pe_pictureurl #" /></a></div></div>
+                <div class="row_c">
+                    <div class="row_c_row"><span class="title"><a target="_parent" href="@Url.Content("~/Home/MD?pe_id=")#: id #">#: appName #</a></span> <span class="version">（#: appVersion #）</span></div>
+                    <div class="row_c_row">#: appCate #</div>
+                    <div class="row_c_row">#: unit #/#: appDate #</div>
+                </div>
+                <div class="row_r">
+                    <a href="#: downloadUrl #"><div class="button">#: acn #</div></a>
+                </div>
+            </div>
+        </li>
+    </div>
+
+    <div id="noRecordTemplate" style="display:none;">
+        <li class="row">
+            <div class="norecord">
+                没有符合条件的数据！
+            </div>
+        </li>
+    </div>
+    <div data-role="view" data-title="Titanic Belfast" id="scroller-view" data-init="attachToScroller">
+
+    <div id="scroller" data-role="scroller" class="scroller-content" data-pull="foo" data-pull-to-refresh="false" data-pull-offset="20" data-refresh-template="progress">
+        <ul>
+        </ul>
+    </div>
+    </div>
+
+
+
+<style scoped>
+
+
+    
+
+   
+    
+</style>
+
+<script id="progress" type="text/x-kendo-template">
+    数据加载中。。。
+</script>
+
+<script>
+    //var tm = new Date();
+    var page = 1;
+    var pageSize = 10;
+    var lastTime;
+
+    $(document).ready(function () {
+        $('#scroller ul').empty();
+        listViewDataBound(1);
+        //loadData();
+        /*for (var i = 1; i <= pageSize; ++i) {
+            $('#scroller ul').append('<li>' + i + '</li>');
+        }*/
+    });
+
+    function loadData() {
+        $('#scroller ul').empty();
+        var startIndex = (page - 1) * pageSize + 1;
+        for (var i = startIndex; i <= page * pageSize; ++i) {
+            $('#scroller ul').append('<li>'+i+'</li>');
+        }
+    }
+
+    function attachToScroller(e) {
+        var scroller = e.view.scroller;
+        var lineHeight = $('#scroller ul li').css('height');
+        lineHeight = parseFloat(lineHeight);
+        var heightDiff = lineHeight * 12;
+
+        scroller.setOptions({
+            pullTemplate: "下拉刷新数据",
+            refreshTemplae: "数据加载中。。。",
+            releaseTemplate: "释放可刷新数据",
+            pullToRefresh: true,
+            pull: function () {
+                //updateClock();
+                next_click();
+                setTimeout(function () { scroller.pullHandled(); }, 400);
+            }
+        })
+
+        scroller.bind("scroll", function (e) {
+            return;
+            var scrollHeight = scroller.scrollHeight();
+            //alert(scrollHeight);
+            var tm = new Date();
+            var second = tm.getSeconds();
+            //alert(scrollHeight);
+            if (e.scrollTop > scrollHeight - heightDiff) {
+                if (lastTime != null) {
+                    var s = lastTime.getSeconds() - second;
+                    s = Math.abs(s);
+                    if (s > 0.5) {
+                        //scroller.reset();
+                        //++page;
+                        //alert(page);
+                        next_click();
+                        //scroller.reset();
+                    }
+                }
+            }
+            else if (e.scrollTop < 0) {
+
+                if (lastTime != null) {
+                    var s = lastTime.getSeconds() - second;
+                    s = Math.abs(s);
+                    if (s > 0.5) {
+                        //scroller.animatedScrollTo(0, 1);
+                        //--page;
+                        //alert(page);
+                        prev_click();
+                        //scroller.reset();
+                    }
+                } else {
+                    scroller.animatedScrollTo(0, 1);
+                    //--page;
+                    //alert(page);
+                    prev_click();
+                    scroller.reset();
+                }
+
+
+            }
+            //$('#scroller ul').css('background-color', '#FFFFFF');
+            lastTime = tm;
+            //alert(e(e.scrollTop));
+        });
+    }
+
+    function foo() {
+        //alert("foo!");
+        $('#scroller ul').empty();
+        next_click();
+    }
+
+    var app = new kendo.mobile.Application(document.body);
+</script>
+</body>
+</html>

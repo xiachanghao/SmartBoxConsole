@@ -1,0 +1,39 @@
+BODY {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; FONT-SIZE: 12px; PADDING-BOTTOM: 0px; MARGIN: 0px; PADDING-TOP: 0px; BACKGROUND-COLOR: #fff
+}
+.mainpanel {
+	MARGIN-TOP: -220px; WIDTH: 100%; POSITION: absolute; TOP: 50%
+}
+.loginpanel {
+	PADDING-RIGHT: 0px; PADDING-LEFT: 0px; PADDING-BOTTOM: 45px; WIDTH: 100%; PADDING-TOP: 45px; HEIGHT: 320px; BACKGROUND-COLOR: #557ca5
+}
+.loginpanel-appname {
+	PADDING-LEFT: 162px; BACKGROUND: url(images/appname.png) no-repeat left top; LEFT: 40%; MARGIN-LEFT: -162px; WIDTH: 163px; POSITION: relative; HEIGHT: 25px
+}
+.loginpanel-dott {
+	BACKGROUND: url(images/dott.png) no-repeat left top; HEIGHT: 25px
+}
+.loginpanel-loginform {
+	MARGIN-TOP: 20px; BACKGROUND: url(images/formbg.gif) #bccedf; LEFT: 40%; MARGIN-LEFT: -162px; WIDTH: 500px; POSITION: relative; HEIGHT: 245px
+}
+.loginpanel-loginform TD {
+	HEIGHT: 45px
+}
+.loginpanel-loginform SPAN {
+	PADDING-RIGHT: 3px; PADDING-LEFT: 3px; FONT-WEIGHT: bolder; FONT-SIZE: 14px; FLOAT: right; PADDING-BOTTOM: 3px; COLOR: #fff; MARGIN-RIGHT: 5px; PADDING-TOP: 3px; FONT-STYLE: normal
+}
+.loginforminput {
+	BORDER-RIGHT: #bccedf 1px solid; BORDER-TOP: #bccedf 1px solid; PADDING-LEFT: 10px; FONT-WEIGHT: bolder; FONT-SIZE: 14px; MARGIN-LEFT: 5px; BORDER-LEFT: #bccedf 1px solid; WIDTH: 325px; COLOR: #333; PADDING-TOP: 6px; BORDER-BOTTOM: #bccedf 1px solid; HEIGHT: 22px; BACKGROUND-COLOR: #fff
+}
+.loginformsubmitbtn {
+	BACKGROUND: url(images/loginbtn.png) no-repeat left top; FLOAT: right; WIDTH: 98px; BORDER-TOP-STYLE: none; MARGIN-RIGHT: 45px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 37px; BORDER-BOTTOM-STYLE: none
+}
+.regsubmitbtn {
+	BACKGROUND: url(images/regbtn.png) no-repeat left top; FLOAT: right; WIDTH: 98px; BORDER-TOP-STYLE: none; MARGIN-RIGHT: 45px; BORDER-RIGHT-STYLE: none; BORDER-LEFT-STYLE: none; HEIGHT: 37px; BORDER-BOTTOM-STYLE: none
+}
+.copyrigthpanel {
+	BACKGROUND-COLOR: #fff
+}
+.copyright {
+	PADDING-RIGHT: 40px; PADDING-LEFT: 25px; BACKGROUND: url(images/logo.gif) no-repeat left center; FLOAT: right; PADDING-BOTTOM: 1px; COLOR: #557ca5; PADDING-TOP: 5px; HEIGHT: 20px
+}

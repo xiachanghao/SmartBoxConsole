@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://beyondbit.com/msg" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://beyondbit.com/msg" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://beyondbit.com/msg">
+      <s:element name="Access">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="requestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AccessResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccessResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Manage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="requestXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ManageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ManageResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AccessSoapIn">
+    <wsdl:part name="parameters" element="tns:Access" />
+  </wsdl:message>
+  <wsdl:message name="AccessSoapOut">
+    <wsdl:part name="parameters" element="tns:AccessResponse" />
+  </wsdl:message>
+  <wsdl:message name="ManageSoapIn">
+    <wsdl:part name="parameters" element="tns:Manage" />
+  </wsdl:message>
+  <wsdl:message name="ManageSoapOut">
+    <wsdl:part name="parameters" element="tns:ManageResponse" />
+  </wsdl:message>
+  <wsdl:portType name="MsgServiceSoap">
+    <wsdl:operation name="Access">
+      <wsdl:input message="tns:AccessSoapIn" />
+      <wsdl:output message="tns:AccessSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Manage">
+      <wsdl:input message="tns:ManageSoapIn" />
+      <wsdl:output message="tns:ManageSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MsgServiceSoap" type="tns:MsgServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Access">
+      <soap:operation soapAction="http://beyondbit.com/msg/Access" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Manage">
+      <soap:operation soapAction="http://beyondbit.com/msg/Manage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MsgServiceSoap12" type="tns:MsgServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Access">
+      <soap12:operation soapAction="http://beyondbit.com/msg/Access" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Manage">
+      <soap12:operation soapAction="http://beyondbit.com/msg/Manage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MsgService">
+    <wsdl:port name="MsgServiceSoap" binding="tns:MsgServiceSoap">
+      <soap:address location="http://msgservice.huangpuqu.sh.cn/WebService/MsgService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MsgServiceSoap12" binding="tns:MsgServiceSoap12">
+      <soap12:address location="http://msgservice.huangpuqu.sh.cn/WebService/MsgService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

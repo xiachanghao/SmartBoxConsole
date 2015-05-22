@@ -1,0 +1,190 @@
+﻿@{
+    ViewBag.Title = "用户登录";
+    Layout = "~/Views/Shared/_common.cshtml";
+}
+
+@section _script {
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('input#btnButton').bind('click', submit_form);
+        $('input#btnGuest').bind('click', submit_form);
+        var r2_height = $('#r2').height();
+
+        var clientHeight = document.documentElement.clientHeight || document.body.clientHeight || 0;
+        $('#wrapper').css('height', clientHeight);
+        var dvLoginHeight = $('#r4_c_r1_c2').height();
+        var dvLoginHeightMarginTop = (clientHeight - r2_height - dvLoginHeight) / 2;
+        $('#r4_c_r1_c2').css('padding-top', dvLoginHeightMarginTop);
+
+        
+        $('#r3').css('height', $('#wrapper').height() - r2_height - 2);
+    });
+
+    function submit_form(e) {
+        if (e.target.value != "游客身份访问") {
+            $('#userTp').val('authUser');
+            var username = $('#tbName');
+            var Password = $('#tbPassword');
+            if (username.val() == '') {
+                username.focus();
+                alert('请输入登录帐号！');
+                //$("#msg").data("kendoWindow").open();
+                return false;
+            }
+
+//            if (Password.val() == '') {
+//                Password.focus();
+//                alert('请输入登录密码！');
+//                return false;
+//            }
+        }
+        else {
+            $('#userTp').val('guestUser');
+        }
+
+        $('#frmLogin').submit();
+    }
+    </script>
+} 
+
+@section _style {
+<style type="text/css">
+    #wrapper 
+    {
+        width:1000px;
+        @*background-color:#D6ECF5;*@
+        
+        margin:0px auto;
+    }
+    
+    #r4_c_r1_c2 
+    {
+        margin:0px auto;
+        width:360px;
+    }
+    
+    #r4_c_r1_c2_r1 
+    {
+        height:42px;
+        background-color:#F5F5F5;
+        border:1px solid #D8D8D8;
+        
+    }
+    #r4_c_r1_c2_r1 .tab2 
+    {
+        width:150px;
+        text-align:left;
+    }
+    
+    #r4_c_r1_c2_r2 
+    {
+        border-left:1px solid #D8D8D8;
+        border-right:1px solid #D8D8D8;
+        border-bottom:1px solid #D8D8D8;
+        background-color:#FFFFFF;
+        height:138px;
+        padding:8px;
+        margin:0px auto;
+    }
+
+    
+    
+    #dvLogin 
+    {
+        width:98%;
+        margin:0px auto;
+        padding-top:35px;
+    }
+    
+    #dvLogin input.box
+    {
+        width:148px;
+    }
+    
+.row {
+    border:0px solid #CCCCCC;
+    border-bottom-width:0px;
+    height:30px;
+    line-height:30px;
+    vertical-align:middle;
+}
+
+.row .left 
+{
+    float:left;
+    width:30%;
+    border-right:0px solid #CCCCCC;
+    text-align:right;
+}
+.row .right 
+{
+    float:right;
+    width:69.7%;
+    text-align:left;
+}
+
+.last 
+{
+    border-bottom:0px solid #CCCCCC;
+}
+
+#r2 
+{
+    height:100px;
+    line-height:100px;
+    vertical-align:middle;
+    background-image:url(@Url.Content("~/Images/top_bg.png"));
+}
+
+#r2 #log {
+    margin-top:16px;
+    margin-left:70px;
+}
+
+#r3 {
+    background-color:#ffffff;
+    background-image:url(@Url.Content("~/images/bodybg2.png"));
+    height:100%;
+    background-repeat:repeat-x;
+    border-top:1px solid #0081c9;
+}
+
+</style>
+
+}
+
+@section _body {
+@using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "frmLogin" }))
+{
+    <div id="wrapper">
+            <div id="r2">
+                
+
+                    <img id="log" src="@Url.Content("~/Images/log.png")">
+
+            </div>
+            <div id="r3">
+                <div style="" id="r4_c_r1_c2">
+                    <div id="r4_c_r1_c2_r1">
+                        <div class="tab1">
+                            <img src="@Url.Content("~/Images/play.png")">
+                        </div>
+                        <div class="tab2">
+                        用户登录
+                        </div>
+                    </div>
+                    <div id="r4_c_r1_c2_r2">
+		                <div id="dvLogin">
+                            <div class="row"><div class="left">账号：</div><div class="right"><input class="box" type=text id="tbName" name="tbName" /></div></div>
+                            @*<div class="row"><div class="left">密码：</div><div class="right"><input class="box" type=password id="tbPassword" name="tbPassword" /></div></div>*@
+                            <div class="row last"><div class="left"></div><div class="right"><input type=hidden id="userTp" name="userTp" /><input id="btnButton" name="btnButton" type="button" value="登录" /><input id="btnGuest" name="btnGuest" type="button" value="游客身份访问" /></div></div>
+                        </div>
+		            </div>
+                </div>
+            </div>
+
+
+
+    </div>
+}
+}

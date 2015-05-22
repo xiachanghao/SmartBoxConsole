@@ -1,0 +1,213 @@
+﻿input.bbit-smartselect-dropdown
+{
+	border: solid 1px #3C7FB1 !important;
+	background: url("images/smartselect/dropdown.gif") no-repeat right center;
+	padding-right: 15px;
+	cursor: pointer;
+	overflow: hidden;
+}
+input.bbit-smartselect-dropdown.hover
+{
+	padding-right: 15;
+	background: url("images/smartselect/dropdownhover.gif") no-repeat right center;
+}
+.smartselect-container
+{
+	padding: 0;
+	display: inline;
+	overflow-x: hidden !important;
+}
+.gridcontainer
+{
+	overflow:auto;
+}
+.bbit-smartselect-grid tr.erow td
+{
+    background: #F5FFEF;				
+}
+	.bbit-smartselect-grid table.grid
+    {
+        border-collapse:collapse;
+        margin-left:1px;
+        margin-top:1px;
+        overflow:auto;
+    }
+   .bbit-smartselect-grid  table.grid td
+    {
+     border:solid 1px #ccc;	
+    }
+    .bbit-smartselect-grid thead td
+    {
+    	text-align:center;
+    	border-bottom:none !important;
+    }
+    .bbit-smartselect-grid thead tr
+    {
+         background: #ccc url(../../Themes/Default/images/flexigrid/gridth.gif) repeat-x left center;	
+         
+    }
+    .bbit-smartselect-grid  tbody tr.trOver td
+{
+    background: #FFFFBB;
+    border-left: 1px solid #eef8ff;
+    border-bottom: 1px dotted #a8d8eb;
+}
+.bbit-smartselect-grid
+{
+    font-family: "微软雅黑","宋体",Arial, sans-serif;
+    font-size: 12px;
+    position: relative;
+    border: none;
+    overflow: hidden;
+    color: #000;
+}
+.bbit-smartselect-grid div.query
+{
+    border:solid 1px #cccccc;
+    margin:1px 1px 0px 1px;
+    height:25px;
+}
+.bbit-smartselect-grid .querytext
+{
+	width:160px;
+	height:19px;
+}
+.bbit-smartselect-grid .querybtn
+{
+	width:38px;
+	
+    border-right: #2C59AA 1px solid;
+	padding-right: 2px;
+	border-top: #2C59AA 1px solid;
+	padding-left: 2px;
+	font-size: 12px;
+	filter: progid:DXImageTransform.Microsoft.Gradient(GradientType=0, StartColorStr=#ffffff, EndColorStr=#C3DAF5);
+	border-left: #2C59AA 1px solid;
+	cursor: hand;
+	color: black;
+	padding-top: 2px;
+	border-bottom: #2C59AA 1px solid;
+}
+
+.bbit-smartselect-grid div.pDiv
+{
+    background: url(images/flexigrid/page-bg.gif) repeat-x;
+    /*padding-top: 3px;*/
+    border: 1px solid #ccc;
+    border-top: 0px;
+   /* border-bottom: 1px solid #77ABF2; */
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    padding-left:0px;
+    padding-top:2px;
+    padding-bottom:0px;
+    margin:1px 0px 0px 0px;
+    height:25px;
+}
+.bbit-smartselect-grid div.pDiv div.pDiv2
+{
+    margin: 3px;
+    margin-left: -2px;
+    float: left;
+    width: 1024px;
+}
+.bbit-smartselect-grid div.pGroup
+{
+    float: left;
+    background: none;
+    height: 24px;
+    margin: 0px 5px;
+}
+.bbit-smartselect-grid div.pGroup select
+{
+    width:50px;
+}
+.bbit-smartselect-grid div.pDiv .pPageStat, .bbit-smartselect-grid div.pDiv .pcontrol
+{
+    position: relative;
+    top: 5px;
+    overflow: visible;
+}
+
+.bbit-smartselect-grid div.pDiv input
+{
+    vertical-align: text-top;
+    position: relative;
+    top: -5px;
+}
+
+.bbit-smartselect-grid div.pDiv  div.pButton
+{
+    float: left;
+    width: 22px;
+    height: 22px;
+    border: 0px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.bbit-smartselect-grid div.pDiv  div.pButton:hover, .bbit-smartselect-grid div.pDiv  div.pButton.pBtnOver
+{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.bbit-smartselect-grid div.pDiv  div.pButton span
+{
+    width: 20px;
+    height: 20px;
+    display: block;
+    float: left;
+}		
+
+.bbit-smartselect-grid div.pDiv  div.pButton:hover span, .bbit-smartselect-grid div.pDiv  div.pButton.pBtnOver span
+{
+    width: 19px;
+    height: 19px;
+    border-top: 1px solid #fff;
+    border-left: 1px solid #fff;
+}		
+
+
+.bbit-smartselect-grid .pSearch
+{
+    background: url(images/flexigrid/magnifier.png) no-repeat center;
+}
+
+.bbit-smartselect-grid .pFirst
+{
+    background: url(images/flexigrid/page-first.png) no-repeat center;
+}
+
+.bbit-smartselect-grid .pPrev
+{
+    background: url(images/flexigrid/page-prev.png) no-repeat center;
+}
+
+.bbit-smartselect-grid .pNext
+{
+    background: url(images/flexigrid/page-next.png) no-repeat center;
+}
+
+.bbit-smartselect-grid .pLast
+{
+    background: url(images/flexigrid/page-last.png) no-repeat center;
+}
+
+.bbit-smartselect-grid .pReload
+{
+    background: url(images/flexigrid/load.png) no-repeat center;
+}
+
+.bbit-smartselect-grid .pReload.loading
+{
+    background: url(images/flexigrid/load.gif) no-repeat center;
+}	
+/* ie adjustments */
+.bbit-smartselect-grid.ie div.hDiv th div, .bbit-smartselect-grid.ie  div.bDiv td  div, div.colCopy.ie div /* common inner cell properties*/
+{
+    overflow: hidden;
+}										

@@ -1,0 +1,33 @@
+﻿
+<script type="text/javascript">
+    function search() {
+        var s = 'List?keyword=';
+        if (document.URL.toLowerCase().indexOf('gridlist') != -1)
+            s = 'GridList?keyword=';
+        var keyword = $('#tbKeyword').val();
+        if (keyword != '')
+            window.location = '@Url.Content("~/Home/")' + s + keyword;
+    }
+    function navigateMenu(e) {
+        var s = 'List?cat=';
+        if (document.URL.toLowerCase().indexOf('gridlist') != -1)
+            s = 'GridList?cat=';
+        var url = '@Url.Content("~/Home/")' + s;
+        switch (e.target.id) {
+            case 'home':
+                url = '@Url.Content("~/")';
+                break;
+            default:
+                url += e.target.id;
+                break;
+        }
+        location.href = url;
+    }
+    $(document).ready(function () {
+        $('#btnSearch').bind('click', search);
+        $('#r3_c div').bind('click', navigateMenu);
+        var cat = '@Request.QueryString["cat"]';
+        if (cat != '')
+            $('div#' + cat).addClass('selected').removeClass('focus');
+    });
+    </script>

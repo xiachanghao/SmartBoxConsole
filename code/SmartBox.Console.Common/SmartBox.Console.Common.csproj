@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{263F1DA2-47A3-44D1-B928-A9DCD77A4C19}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartBox.Console.Common</RootNamespace>
+    <AssemblyName>SmartBox.Console.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugNoLogon|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugNoLogon\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IIS6|AnyCPU' ">
+    <OutputPath>bin\IIS6\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Beyondbit.AutoUpdate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.AutoUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.Framework, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.Framework.Sor.Attributes, Version=1.0.1.0, Culture=neutral, PublicKeyToken=0df0eadfec688073, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.Framework.Sor.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.SingleSignOn.ClientForAspNet20, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.SingleSignOn.ClientForAspNet20.dll</HintPath>
+    </Reference>
+    <Reference Include="FtpSupport">
+      <HintPath>..\RefDll\FtpSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Routing">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccordionItem.cs" />
+    <Compile Include="AppCenterPlatform.cs" />
+    <Compile Include="AppCenterSearchType.cs" />
+    <Compile Include="AppConfig.cs" />
+    <Compile Include="CommonMethods.cs" />
+    <Compile Include="Configuration\IOSConfiguration.cs" />
+    <Compile Include="Configuration\IOSPublishElement.cs" />
+    <Compile Include="Configuration\IOSPublishElementCollection.cs" />
+    <Compile Include="DbSqlHelper.cs" />
+    <Compile Include="Entities\Action4Android.cs" />
+    <Compile Include="Entities\ActionExtend.cs" />
+    <Compile Include="Entities\App4AI.cs" />
+    <Compile Include="Entities\Application.cs" />
+    <Compile Include="Entities\ApplicationCategory.cs" />
+    <Compile Include="Entities\ApplyDeviceBind.cs" />
+    <Compile Include="Entities\AppPrivilege.cs" />
+    <Compile Include="Entities\Auth\SMC_AutoTableID.cs" />
+    <Compile Include="Entities\Auth\SMC_Collect.cs" />
+    <Compile Include="Entities\Auth\SMC_FunctionRole.cs" />
+    <Compile Include="Entities\Auth\SMC_Functions.cs" />
+    <Compile Include="Entities\Auth\SMC_PackageExtSyncToOutside.cs" />
+    <Compile Include="Entities\Auth\SMC_PackagePicture.cs" />
+    <Compile Include="Entities\Auth\SMC_PackageSync.cs" />
+    <Compile Include="Entities\Auth\SMC_Role.cs" />
+    <Compile Include="Entities\Auth\SMC_Unit.cs" />
+    <Compile Include="Entities\Auth\SMC_UserList.cs" />
+    <Compile Include="Entities\Auth\SMC_User.cs" />
+    <Compile Include="Entities\Auth\SMC_PackageExt.cs" />
+    <Compile Include="Entities\Auth\SMC_Package4Out.cs" />
+    <Compile Include="Entities\Auth\SMC_PackageFAQ.cs" />
+    <Compile Include="Entities\Auth\SMC_PackageManual.cs" />
+    <Compile Include="Entities\Auth\SMC_BUAUserSyncToInside.cs" />
+    <Compile Include="Entities\Auth\SMC_BUAUserSyncToOutside.cs" />
+    <Compile Include="Entities\Auth\SMC_UserException.cs" />
+    <Compile Include="Entities\Auth\DeviceException.cs" />
+    <Compile Include="Entities\Auth\SMC_PackageExtHistory.cs" />
+    <Compile Include="Entities\BaseModels.cs" />
+    <Compile Include="Entities\ClientTypes.cs" />
+    <Compile Include="Entities\ConfigCategory.cs" />
+    <Compile Include="Entities\ConfigInfo.cs" />
+    <Compile Include="Entities\ConfigTemp.cs" />
+    <Compile Include="Entities\Constants.cs" />
+    <Compile Include="Entities\DeviceBind.cs" />
+    <Compile Include="Entities\Enum\ApplyDeviceBindStatus.cs" />
+    <Compile Include="Entities\Enum\EnableType.cs" />
+    <Compile Include="Entities\Enum\PackageClientType.cs" />
+    <Compile Include="Entities\Enum\PackageTrait.cs" />
+    <Compile Include="Entities\Enum\PrivilegeType.cs" />
+    <Compile Include="Entities\Enum\UserAuthStatusType.cs" />
+    <Compile Include="Entities\Enum\UserEnabledStatusType.cs" />
+    <Compile Include="Entities\Enum\UserLockedStatusType.cs" />
+    <Compile Include="Entities\HomePlan.cs" />
+    <Compile Include="Entities\HomePlanDesign.cs" />
+    <Compile Include="Entities\Image.cs" />
+    <Compile Include="Entities\IMGroupInfo.cs" />
+    <Compile Include="Entities\IOSOutsideApp.cs" />
+    <Compile Include="Entities\JsonEntity\JsonFlexiGridData.cs" />
+    <Compile Include="Entities\JsonEntity\JsonJqGridData.cs" />
+    <Compile Include="Entities\JsonEntity\JsonReturnMessages.cs" />
+    <Compile Include="Entities\LogInfo.cs" />
+    <Compile Include="Entities\ManagerInfo.cs" />
+    <Compile Include="Entities\monitor\monitor_cmd.cs" />
+    <Compile Include="Entities\monitor\Monitor_Config.cs" />
+    <Compile Include="Entities\monitor\Monitor_Defind.cs" />
+    <Compile Include="Entities\monitor\Monitor_linkman.cs" />
+    <Compile Include="Entities\monitor\monitor_log.cs" />
+    <Compile Include="Entities\monitor\monitor_sendwarn.cs" />
+    <Compile Include="Entities\Package4AI.cs" />
+    <Compile Include="Entities\PluginCategory.cs" />
+    <Compile Include="Entities\PluginInfo.cs" />
+    <Compile Include="Entities\PluginInfoTemp.cs" />
+    <Compile Include="Entities\PrivilegeUser.cs" />
+    <Compile Include="Entities\PushManage\NotificationReport.cs" />
+    <Compile Include="Entities\PushManage\SMC_PushDll.cs" />
+    <Compile Include="Entities\Search\SearchApp4AI.cs" />
+    <Compile Include="Entities\Search\SearchConfig.cs" />
+    <Compile Include="Entities\Search\SearchPlugin.cs" />
+    <Compile Include="Entities\Search\SearchStatisticOnlineTime.cs" />
+    <Compile Include="Entities\Search\SearchVersionTrack.cs" />
+    <Compile Include="Entities\Search\SearchWebApplication.cs" />
+    <Compile Include="Entities\GlobalParam.cs" />
+    <Compile Include="Entities\Statist.cs" />
+    <Compile Include="Entities\UserInfo.cs" />
+    <Compile Include="Entities\UserPluginRef.cs" />
+    <Compile Include="Entities\UserUsingLog.cs" />
+    <Compile Include="Entities\VersionTrack.cs" />
+    <Compile Include="Entities\WebApplication.cs" />
+    <Compile Include="Entities\ConfigInfoPC.cs" />
+    <Compile Include="Entities\Style.cs" />
+    <Compile Include="Entities\StyleHomeItem.cs" />
+    <Compile Include="Entities\Device.cs" />
+    <Compile Include="Entities\DeviceConfig.cs" />
+    <Compile Include="Entities\DeviceUser.cs" />
+    <Compile Include="Entities\SystemConfig.cs" />
+    <Compile Include="Entities\DeviceUserApply.cs" />
+    <Compile Include="Entities\UserOnLine.cs" />
+    <Compile Include="Extension\ConvertFlexGridToJqGrid.cs" />
+    <Compile Include="Extension\ConvertToDataTableExtension.cs" />
+    <Compile Include="Extension\ForEachListExtension.cs" />
+    <Compile Include="Extension\ImageResultExtension.cs" />
+    <Compile Include="Extension\HtmlHelperExtension.cs" />
+    <Compile Include="FtpClass.cs" />
+    <Compile Include="FtpHelper.cs" />
+    <Compile Include="ICreateApplicationPackage.cs" />
+    <Compile Include="JsonTreeNode.cs" />
+    <Compile Include="Log4NetHelper.cs" />
+    <Compile Include="Manager.cs" />
+    <Compile Include="MVCSSOClient.cs" />
+    <Compile Include="PackageClientTypeTranslator.cs" />
+    <Compile Include="PageView.cs" />
+    <Compile Include="PageViewBase.cs" />
+    <Compile Include="Privilege.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceDropDownListExtensions.cs" />
+    <Compile Include="SelectPagnationEx.cs" />
+    <Compile Include="SerializeHelp.cs" />
+    <Compile Include="StoredProcedureHelper.cs" />
+    <Compile Include="TreeRootDefine.cs" />
+    <Compile Include="TypeCreator.cs" />
+    <Compile Include="TypeToHashtable.cs" />
+    <Compile Include="User.cs" />
+    <Compile Include="Utility\SelectHelper.cs" />
+    <Compile Include="XmlConfigInfo.cs" />
+    <Compile Include="ZipHelper.cs" />
+    <Compile Include="_OnLineUser.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Plugin.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

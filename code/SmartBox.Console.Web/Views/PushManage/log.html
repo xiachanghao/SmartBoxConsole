@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>推送通道日志</title>
+    <link rel="stylesheet" type="text/css" href="css/main.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/easyui/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="plugin/easyui/themes/icon.css" />
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/purl.min.js"></script>
+    <script type="text/javascript" src="js/moment.min.js"></script>
+    <script type="text/javascript" src="plugin/easyui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="plugin/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="plugin/easyui/datagrid-detailview.min.js"></script>
+    <style type="text/css">
+        .dg_detail_content {
+            width: 700px;
+            padding: 5px;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div style="width: 800px; text-align: center; padding: 10px; margin: 0 auto;">
+        <div id="toolbar">
+            <select id="select_level" class="easyui-combobox" editable="false" panelheight="auto" style="width: 100px">
+                <option value="">全部</option>
+                <option value="info">信息</option>
+                <option value="warn">警告</option>
+                <option value="error">错误</option>
+            </select>
+        </div>
+        <table id="dg" title="日志列表" style="width: 800px; height: 600px"></table>
+    </div>
+
+</body>
+<script type="text/javascript">
+    $(function () {
+        var cid = $.url(location.href).param('cid');
+        if (cid == null) return;
+
+        $('#dg').datagrid({
+            url: "config.ashx?m=QueryLogs",
+            toolbar: '#toolbar',
+            queryParams: { ChannelId: cid, Level: 'warn' },
+            view: detailview,
+            pagination: false,
+            rownumbers: true,
+            fitColumns: true,
+            singleSelect: true,
+            idField: 'Id',
+            onLoadError: function () {
+                $.messager.alert('出错了', '服务异常', 'error');
+            },
+            columns: [[
+                { field: 'Title', title: '标题', width: 100 },
+                { field: 'UserUid', title: '用户标识', width: 50 },
+                {
+                    field: 'Level', title: '记录级别', width: 50, styler: function (value, row, index) {
+                        if (value == 'info') {
+                            return 'color:green;';
+                        }
+                        else if (value == 'warn') {
+                            return 'color:darkorange;';
+                        }
+                        else {
+                            return 'color:red;';
+                        }
+                    }
+                },
+                {
+                    field: 'LogTime', title: '记录时间', width: 100, formatter: function (value, row, index) {
+                        return moment(value).format('YYYY/MM/DD HH:mm:ss');
+                    }
+                }
+            ]],
+            detailFormatter: function (index, row) {
+                return '<div class="dg_detail"/>';
+            },
+            onExpandRow: function (index, row) {
+                var dg_detail = $(this).datagrid('getRowDetail', index).find('div.dg_detail');
+                if (dg_detail.find('.dg_detail_content').length) return;
+                var message = $('<p class="dg_detail_content"/>').text(row.Message);
+                dg_detail.append(message);
+                if (row.StackTrace != null) {
+                    var stacktrace = $('<p class="dg_detail_content" style="background-color:#fafce5;"/>').text(row.StackTrace);
+                    dg_detail.append(stacktrace);
+                }
+                $('#dg').datagrid('fixDetailRowHeight', index);
+            }
+        });
+
+        $('#select_level').combobox({
+            onSelect: function (record) {
+                $('#dg').datagrid('load', { ChannelId: cid, Level: record.value });
+            }
+        }).combobox('setValue', 'warn');
+
+    });
+</script>
+</html>

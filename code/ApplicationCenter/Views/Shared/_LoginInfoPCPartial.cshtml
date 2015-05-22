@@ -1,0 +1,10 @@
+﻿<div id="LoginInfoPC">
+@if (Request.IsAuthenticated) {
+    <div class="logout"> @Html.ActionLink("退出", "Logout", null, new { id = "aLogout"})</div> 
+}
+else
+{
+    <div class="logout">@Html.ActionLink("登录", "Logout", null, new { id = "aLogout" })</div>
+}
+<div class="lbaInfo">欢迎您：@ViewBag.userName</div>
+</div>

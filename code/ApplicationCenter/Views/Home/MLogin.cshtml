@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "用户登录";
+    Layout = "~/Views/Shared/_common.cshtml";
+}
+
+@section _script {
+    <meta name="viewport" content="width=device-width" />
+    <script src="../../Scripts/mobile.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#btnButton').bind('click', submit_form);
+        $('#btnGuest').bind('click', submit_form);
+        //alert(browser.os());
+        //alert(get_mobile_os_version());
+        //$(window).resize(resize);
+        //alert(window.navigator.userAgent);
+        //var os = get_mobile_os();
+        //alert(os);
+        //os = get_mobile_os_version();
+        //alert(os);
+        //if (os != 'iPhone')
+        //resize();
+    });
+
+    function resize() {
+        //var r2_height = $('#r2').height();
+
+        var clientHeight = document.documentElement.clientHeight || document.body.clientHeight || 0;
+
+        $('#wrapper').css('height', clientHeight);
+        var dvLoginHeight = $('#r4_c_r1_c2').height();
+
+        var dvLoginHeightMarginTop = (clientHeight - dvLoginHeight) / 2;
+        $('#r4_c_r1_c2').css('padding-top', dvLoginHeightMarginTop);
+
+
+        //$('#r3').css('height', $('#wrapper').height() - r2_height - 2);
+    }
+
+    function submit_form(e) {
+        if ($(e.target).text() != "游客访问") {
+            $('#userTp').val('authUser');
+            var username = $('#tbName');
+            var Password = $('#tbPassword');
+            if (username.val() == '') {
+                username.focus();
+                alert('请输入登录帐号！');
+                //$("#msg").data("kendoWindow").open();
+                return false;
+            }
+
+            //if (Password.val() == '') {
+                //Password.focus();
+                //alert('请输入登录密码！');
+                //return false;
+            //}
+        }
+        else {
+            $('#userTp').val('guestUser');
+        }
+
+        $('#frmLogin').submit();
+    }
+    </script>
+} 
+
+@section _style {
+@Html.Partial("_StyleMLoginPartial")
+}
+
+
+@section _body {
+@using (Html.BeginForm("MLogin", "Home", FormMethod.Post, new { id = "frmLogin" }))
+{
+    <div id="wrapper">
+            <div id="r4">
+                <div style="" id="r4_c_r1_c2">
+                    <div id="r4_c_r1_c2_r1">
+                        <div class="tab1">
+                            <img src="@Url.Content("~/Images/play.png")">
+                        </div>
+                        <div class="tab2">
+                        用户登录
+                        </div>
+                    </div>
+                    <div id="r4_c_r1_c2_r2">
+		                <div id="dvLogin">
+                            <div class="row"><div class="left">账号：</div><div class="right"><input class="box" type=text id="tbName" name="tbName" /></div></div>
+                            <!--div class="row"><div class="left">密码：</div><div class="right"><input class="box" type=password id="tbPassword" name="tbPassword" /></div></div-->
+                            <div><div class="left"></div><div class="right"><span class="_btn" id="btnButton" name="btnButton" >登录</span><span class="_btn" id="btnGuest" name="btnGuest" >游客访问</span></div></div>
+                        </div>
+		            </div>
+                </div>
+            </div>
+
+
+
+    </div><input type=hidden id="userTp" name="userTp" />
+}
+}

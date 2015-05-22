@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{60927FB2-F087-4934-8CEA-0E5BF679DE23}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartBox.Console.Bo</RootNamespace>
+    <AssemblyName>SmartBox.Console.Bo</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugNoLogon|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugNoLogon\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IIS6|AnyCPU' ">
+    <OutputPath>bin\IIS6\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.AutoUpdate, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.AutoUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.BUA.Client">
+      <HintPath>..\RefDll\Beyondbit.BUA.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.Framework, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.Framework.Sor.Attributes, Version=1.0.1.0, Culture=neutral, PublicKeyToken=0df0eadfec688073, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.Framework.Sor.Attributes.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="BeyondBit.PushClientLib">
+      <HintPath>..\RefDll\BeyondBit.PushClientLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.SingleSignOn.ClientForAspNet20, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.SingleSignOn.ClientForAspNet20.dll</HintPath>
+    </Reference>
+    <Reference Include="Beyondbit.SmartBox.Publisher, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.SmartBox.Publisher.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib, Version=0.85.4.369, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\04技术研究\BeyondbitPush\Beyondbit.Push.Service\RefDll\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NPinyin">
+      <HintPath>..\RefDll\NPinyin.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Apple">
+      <HintPath>..\RefDll\PushSharp.Apple.dll</HintPath>
+    </Reference>
+    <Reference Include="PushSharp.Core">
+      <HintPath>..\RefDll\PushSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.ServiceModel.Web" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Mvc, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WebGrease">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action4AndroidBO.cs" />
+    <Compile Include="ActionExtendBO.cs" />
+    <Compile Include="AppCenter\AppCenterBO.cs" />
+    <Compile Include="AppCenter\AppCenterBO2.cs" />
+    <Compile Include="AppCenter\BoFactoryAppCenter.cs" />
+    <Compile Include="AppCenter\SMC_PackageExtBO.cs" />
+    <Compile Include="AppCenter\SMC_PackageFAQBO.cs" />
+    <Compile Include="ApplicationBO.cs" />
+    <Compile Include="AppPrivilegeBO.cs" />
+    <Compile Include="Auth\SMC_AutoTableIDBo.cs" />
+    <Compile Include="Auth\SMC_FunctionRoleBo.cs" />
+    <Compile Include="Auth\SMC_FunctionsBo.cs" />
+    <Compile Include="Auth\SMC_PackageExtSyncToOutsideBO.cs" />
+    <Compile Include="Auth\SMC_RoleBo.cs" />
+    <Compile Include="Auth\SMC_UnitBo.cs" />
+    <Compile Include="Auth\SMC_UserListBo.cs" />
+    <Compile Include="Auth\SMC_BUAUserSyncToInsideBO.cs" />
+    <Compile Include="Auth\SMC_BUAUserSyncToOutsideBO.cs" />
+    <Compile Include="Auth\SMC_UserBo.cs" />
+    <Compile Include="Auth\SMC_UserExceptionBo.cs" />
+    <Compile Include="Auth\DeviceExceptionBo.cs" />
+    <Compile Include="BaseBO.cs" />
+    <Compile Include="BoFactory.cs" />
+    <Compile Include="CommonBO.cs" />
+    <Compile Include="CreateApplicationPackageV2.cs" />
+    <Compile Include="DeviceBO.cs" />
+    <Compile Include="DeviceUserApplyBO.cs" />
+    <Compile Include="MonitorBO.cs" />
+    <Compile Include="PushBo\Channel.cs" />
+    <Compile Include="PushBo\ConfigHelp.cs" />
+    <Compile Include="PushBo\DeviceSubscription.cs" />
+    <Compile Include="PushBo\IPushService.cs" />
+    <Compile Include="PushBo\Logger.cs" />
+    <Compile Include="PushBo\LogInfo.cs" />
+    <Compile Include="PushBo\PushBo.cs" />
+    <Compile Include="PushBo\PushBrokerManager.cs" />
+    <Compile Include="PushBo\PushService.svc.cs">
+      <DependentUpon>PushService.svc</DependentUpon>
+    </Compile>
+    <Compile Include="PushBo\PushSharpLogImpl.cs" />
+    <Compile Include="PushBo\SMC_PushDllBO.cs" />
+    <Compile Include="PushManageBO.cs" />
+    <Compile Include="StatisticsBO.cs" />
+    <Compile Include="SystemConfigBO.cs" />
+    <Compile Include="UserInfoBO.cs" />
+    <Compile Include="UserService.cs" />
+    <Compile Include="UserServiceFactory.cs" />
+    <Compile Include="VersionTrackBo.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StyleBO.cs" />
+    <Compile Include="StyleHomeItemBO.cs" />
+    <Compile Include="GlobalParamBO.cs" />
+    <Compile Include="SMC_PackageExtHistoryBO.cs" />
+    <Compile Include="App4AIBO.cs" />
+    <Compile Include="Package4AIBO.cs" />
+    <Compile Include="MonitorDefindBO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBox.Console.Common\SmartBox.Console.Common.csproj">
+      <Project>{263F1DA2-47A3-44D1-B928-A9DCD77A4C19}</Project>
+      <Name>SmartBox.Console.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartBox.Console.Dao\SmartBox.Console.Dao.csproj">
+      <Project>{3E1465B3-0028-41CB-ABD7-6F84D45B656D}</Project>
+      <Name>SmartBox.Console.Dao</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartBox.Console.Reminder\SmartBox.Console.Reminder.csproj">
+      <Project>{CE556088-904F-4BBC-85F8-FEE8F29F8FC5}</Project>
+      <Name>SmartBox.Console.Reminder</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SmartBox.Console.Service\SmartBox.Console.Service.csproj">
+      <Project>{06CFEFA9-2EF2-4628-948E-D75118DC714E}</Project>
+      <Name>SmartBox.Console.Service</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="PushBo\PushService.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+    <None Include="PushBo\log4net.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

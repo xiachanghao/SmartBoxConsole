@@ -1,0 +1,85 @@
+﻿<script type="text/javascript">
+    function submit_form(s) {
+        //var tp = $('#modalview-guest-button').text();
+        if (s != "游客登录") {
+            $('#userTp').val('authUser');
+            var username = $('#tbName');
+            if (username.val() == '') {
+                username.focus();
+                alert('请输入登录帐号！');
+                return false;
+            } else {
+                $("#modalview-login").kendoMobileModalView("close");
+            }
+        }
+        else {
+            $('#userTp').val('guestUser');
+            $("#modalview-login").kendoMobileModalView("close");
+        }
+
+        $('#frmLogin').submit();
+    }
+
+    function closeModalViewCancel() {
+        //取消
+        $("#modalview-login").kendoMobileModalView("close");
+    }
+    function closeModalViewLogin() {
+        //登录
+        submit_form('');
+        
+    }
+
+    function closeModalViewExit() {
+        //注销
+        window.location = '@Url.Content("~/home/mlogout")';
+        $("#modalview-login").kendoMobileModalView("close");
+    }
+
+    function closeModalViewGuestLogin() {
+        //游客登录
+        submit_form('游客登录');
+    }
+
+    function onPull() {
+
+    }
+
+    function clickitem(o) {
+        showWaiting();
+        $(o).parent().parent().find('div.txtfocus').removeClass('txtfocus');
+        $(o).parent().parent().find('div.linefocus').removeClass('linefocus');
+        $(o).parent().find('div:nth-child(1)').addClass('txtfocus');
+        $(o).parent().find('div:nth-child(2)').addClass('linefocus');
+    }
+
+    function closePopover() {
+        showWaiting();
+        //$('#foo').parent().parent().hide();
+        //$('#foo').parent().parent().parent().css('background-color', 'none');
+        //return;
+        //var pane = $("#foo").data("kendoMobilePopOver").pane;
+        //var popover = $("#foo").data("kendoMobilePopOver");
+        //pane.closeActiveDialogs();
+        /*setTimeout(function () {
+            pane.hideLoading();
+        }, 1000);
+        document.body.click();*/
+    }
+
+    var popoverLoaded = false;
+    function initPopoverData(e) {
+        if (popoverLoaded)
+            return;
+        $('ul#listview').empty();
+        for (var i = 0; i < clsData.items.length; ++i) {
+            $('ul#listview').append('<li><a onclick="loadCate(' + clsData.items[i].categoryCode + ');" href="#">' + clsData.items[i].categoryName + '</a></li>')
+        }
+        popoverLoaded = true;
+    }
+    $(document).ready(function () {
+        //$('#contentView').css('display', 'block');
+        //var ifheight = $('iframe').height();
+        //$('iframe').height(ifheight - 180);
+    });
+</script>

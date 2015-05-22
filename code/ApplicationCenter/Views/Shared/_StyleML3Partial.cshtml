@@ -1,0 +1,178 @@
+﻿<style>
+    /*240*320  640*360   480*800   480*850  960**540    1280*720   1280*768   1920*1080*/
+    html {
+
+    }
+
+    a img {
+        border-width: 0px;
+    }
+
+
+
+
+
+    #scroller-view ul li {
+        list-style-type: none;
+        height: 90px;
+        border-bottom: 1px solid orange;
+    }
+
+    #scroller-view .scroller-content {
+        font-weight: normal;
+        @*height: 600px;
+        *@ margin: 0px 0;
+        background-color: rgba(243, 212, 232, 1);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45) inset;
+    }
+
+
+
+    #scroller ul {
+        list-style-type: none;
+        width: 100%;
+        height: 100%;
+        padding: 0px;
+        margin:0px;
+        margin-top:3px;
+    }
+
+        #scroller ul li {
+            vertical-align: middle;
+            height: 90px;
+            line-height: 90px;
+            color: #000;
+            border-bottom: 1px solid #ababab;
+            width: 100%;
+            background-color: #e9f5fb;
+            list-style-type: none;
+        }
+
+
+            #scroller ul li:nth-child(even) {
+                background-color: #fff;
+            }
+
+            #scroller ul li .norecord {
+                text-align: center;
+            }
+
+            #scroller ul li .rowdiv {
+                height: 100%;
+                padding-top: 0px;
+                padding-bottom: 0px;
+                margin:0px;
+            }
+
+            #scroller ul li .row_l {
+                float: left;
+                width: 25%;
+                height: 100%;
+                line-height: 90px;
+                vertical-align: middle;
+            }
+
+                #scroller ul li .row_l div {
+                    text-align: center;
+                    height: 100%;
+                }
+                    #scroller ul li .row_l div a {
+                        height:0px;
+                    }
+                    #scroller ul li .row_l div img {
+                        padding-top: 15px;
+                        margin-top: px;
+                        width: 60px;
+                        height: 60px;
+                    }
+
+            #scroller ul li .rowdiv .row_c {
+                float: left;
+                width: 60%;
+                height: 100%;
+                line-height: 90px;
+            }
+
+            #scroller ul li .row_c .row_c_row {
+                height: 28.2px;
+                line-height: 28.2px;
+                vertical-align: middle;
+                color: #777777;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+                #scroller ul li .row_c .row_c_row .title {
+                    color: #2F98D3;
+                    font-size: 1.2em;
+                    height: 100%;
+                }
+
+                    #scroller ul li .row_c .row_c_row .title a {
+                        color: #2F98D3;
+                        text-decoration: none;
+                        height: 100%;
+                    }
+
+                #scroller ul li .row_c .row_c_row .version {
+                    color: #666666;
+                }
+
+            #scroller ul li .row_r {
+                float: left;
+                width: 10%;
+                height: 100%;
+                text-align: center;
+            }
+
+                #scroller ul li .row_r a {
+                    text-decoration:none;
+                }
+                 #scroller ul li .row_r .button {
+                    border: 1px solid #155c9b;
+                    border-radius: 5px;
+                    height: 30px;
+                    line-height: 30px;
+                    width: 100%;
+                    vertical-align: middle;
+                    margin-top: 25px;
+                    color: #0081c9;
+                    background-color: #f0f0f0;
+                    text-decoration: none;
+                }
+    .km-scroll-container {
+        /*padding-bottom:0px!important;*/
+        background-color: 0px !important;
+    }
+     @@media screen and (orientation: portrait) {
+        /*竖屏*/
+    }
+
+    @@media screen and (orientation: landscape) {
+        /*横屏*/
+    }
+
+    @@media screen and (min-width: 471px) and (max-width: 801px) {
+        .row .rowdiv .row_c {
+            width:40%;
+        }
+    }
+
+    @@media screen and (min-width: 451px) and (max-width: 470px) {
+        
+    }
+
+    @@media screen and (max-width: 450px) {
+
+        .row .rowdiv .row_c {
+            width:60%!important;
+        }
+        .row .row_r {
+            width:14.5%!important;
+        }
+        .row .row_r .button {
+            width:45px!important;
+        }
+    }
+</style>

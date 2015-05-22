@@ -1,0 +1,5 @@
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\Beyondbit.SignleSignOn.ClientForAspNet20_2.0.1.0\bin\Debug\Beyondbit.SingleSignOn.ClientForAspNet20.dll
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\Beyondbit.SignleSignOn.ClientForAspNet20_2.0.1.0\bin\Debug\Beyondbit.SingleSignOn.ClientForAspNet20.pdb
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\Beyondbit.SignleSignOn.ClientForAspNet20_2.0.1.0\obj\Debug\Beyondbit.SingleSignOn.ClientForAspNet20.csprojResolveAssemblyReference.cache
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\Beyondbit.SignleSignOn.ClientForAspNet20_2.0.1.0\obj\Debug\Beyondbit.SingleSignOn.ClientForAspNet20.dll
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\Beyondbit.SignleSignOn.ClientForAspNet20_2.0.1.0\obj\Debug\Beyondbit.SingleSignOn.ClientForAspNet20.pdb

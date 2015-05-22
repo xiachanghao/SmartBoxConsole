@@ -1,0 +1,407 @@
+﻿@{
+    ViewBag.Title = "应用中心";
+    Layout = "~/Views/Shared/_common.cshtml";
+}
+
+ @section _script {
+ @Html.Partial("_ScriptCommonPartial")
+ <script type="text/javascript">
+    var clsData = @Html.Raw(ViewBag.clsData);
+    var unitData = @Html.Raw(ViewBag.unitData);
+    function updatecount(obj, _pe_id) {
+    var txt = $(obj).text();
+
+    var obj2 = $(obj).clone();
+    obj2.removeAttr('onclick');
+    obj2[0].id += '_';
+    obj2.appendTo(document.body);
+    obj2[0].click();    
+    obj2.remove();
+    
+    if ($.trim(txt) == '下载安装') {
+        $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/UpdateDownCount")",
+                  data: {
+                      pe_id: _pe_id
+                  },
+                  success: function (json) {
+                      if (json.r) {
+                        //alert(json.d);
+                      } else {
+                        //alert(json.d);
+                      }
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  }
+              });
+    }
+    return false;
+ }
+    
+
+    $(document).ready(function() {
+        $('#r4 #r4_c  #r4_c_r #r4_c_r_2 .row_parent .row .btns .down').hover(
+            function() {
+                $(this).addClass('hover');
+            },function() {
+                $(this).removeClass('hover');
+            }
+        );
+        $('#r4 #r4_c  #r4_c_r #r4_c_r_2 .row_parent .row .btns .help').hover(
+            function () {
+                $(this).addClass('hover2');
+            }, function () {
+                $(this).removeClass('hover2');
+            }
+        );
+        $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #cls').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        ).click(ClsTabClicked);
+        $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #unit').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        ).click(UnitTabClicked);
+
+        $('#btnFirst').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        ).click(firstClicked);
+        $('#btnLast').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        ).click(lastClicked);
+        $('#btnPrev').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        ).click(prevClicked);
+        $('#btnNext').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        ).click(nextClicked);
+        
+        var keyword = '@Request.QueryString["keyword"]';
+        if (keyword != '') {
+            $('#r4_c_r_1 .info').html('“' + keyword + '”的查询结果');
+        }
+
+
+        
+
+        ClsTabClicked();
+
+            var cat2 = '@Request.QueryString["cat2"]';
+            $('#r4_c_l_r2').css('background-color', '#F8F8F8');
+            $('#r4_c_l_r3').css('background-color', '#F8F8F8');
+            $('#r4_c_l_r4').css('background-color', '#F8F8F8');
+            var searTitle = $('#r4_c_r_1 .info').html();
+            switch (cat2) {
+                case "bb":
+                $('#r4_c_l_r2').css('background-color', '#CFCFCF').find('.title a').css('color', '#FFFFFF');
+                searTitle = '必备' + searTitle;
+                break;
+                case "tj":
+                $('#r4_c_l_r3').css('background-color', '#CFCFCF').find('.title a').css('color', '#FFFFFF');
+                searTitle = '推荐' + searTitle;
+                break;
+                case "sc":
+                $('#r4_c_l_r4').css('background-color', '#CFCFCF').find('.title a').css('color', '#FFFFFF');
+                searTitle = '收藏' + searTitle;
+                break;
+            }
+            var cat = '@Request.QueryString["cat"]';
+            var s = '';
+            if (cat != '') {
+                switch (cat) {
+                    case "adphone":
+                        $('#r3_c #adphone').addClass('focus');
+                        s = 'Android手机';
+                    break;
+                    case "adpad":
+                        $('#r3_c #adpad').addClass('focus');
+                        s = 'Android平板';
+                    break;
+                    case "iphone":
+                        $('#r3_c #iphone').addClass('focus');
+                        s = 'iPhone';
+                    break;
+                    case "ipad":
+                        $('#r3_c #ipad').addClass('focus');
+                        s = 'iPad';
+                    break;
+                    case "web":
+                        $('#r3_c #web').addClass('focus');
+                        s = '轻应用';
+                    break;
+                }
+                searTitle = s + searTitle;
+            }
+
+            var cat3 = '@Request.QueryString["cat3"]';
+            $('#r4_c_l_r5_itms_wrap div[code="'+cat3+'"]').css('background-color',  '#CFCFCF');
+            var catName = $('#r4_c_l_r5_itms_wrap div[code="'+cat3+'"] a').html();
+            if (cat3 != '') {
+                searTitle = catName + searTitle;
+            }
+
+            var unitcode = '@Request.QueryString["unitcode"]';
+            
+            $('#r4_c_l_r5_itms_wrap div[unitcode="'+unitcode+'"]').css('background-color',  '#CFCFCF');
+            if (unitcode != '') {
+                //$('#r4_c_l_r5 #unit').click();
+                UnitTabClicked();
+                var unitName = $('#r4_c_l_r5_itms_wrap div[unitcode="'+unitcode+'"] a').html();
+                if (unitName != '') {
+                    searTitle = unitName + searTitle;
+                }
+            }
+
+            $('#r4_c_r_1 .info').html(searTitle);
+        });
+
+        function ClsTabClicked() {
+            $('#r4_c_l_r5_itms_wrap').empty();
+            $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #cls').addClass('focus');
+            $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #unit').addClass('unfocus');
+            $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #unit').removeClass('focus');
+            var str = '';
+            
+            for (var i = 0; i < clsData.items.length; ++i) {
+                str = '<div class="r5_itm" code="'+clsData.items[i].categoryCode+'">' +
+                '<div class="icon"></div>' +
+                '<div class="title"><a href="' + clsData.items[i].url + '" title="'+clsData.items[i].categoryName+'">' + clsData.items[i].categoryName + '</a></div>' +
+                '</div>'
+                $('#r4_c_l_r5_itms_wrap').append(str);
+            }
+        }
+
+        function UnitTabClicked() {            
+            $('#r4_c_l_r5_itms_wrap').empty();
+            $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #cls').removeClass('focus');
+            $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #cls').addClass('unfocus');
+            $('#r4 #r4_c #r4_c_l #r4_c_l_r5 #unit').addClass('focus');
+            var str = '';
+            
+            for (var i = 0; i < unitData.items.length; ++i) {
+                str = '<div class="r5_itm" unitcode='+unitData.items[i].unitcode+'>' +
+                '<div class="icon"></div>' +
+                '<div class="title"><a href="' + unitData.items[i].url + '" title="'+unitData.items[i].UnitName+'">' + unitData.items[i].UnitName + '</a></div>' +
+                '</div>'
+                $('#r4_c_l_r5_itms_wrap').append(str);
+            }
+
+            var unitcode = '@Request.QueryString["unitcode"]';
+            
+            $('#r4_c_l_r5_itms_wrap div[unitcode="'+unitcode+'"]').css('background-color',  '#CFCFCF');
+        }
+
+        function firstClicked() {
+            var pageIndex = '@Request.QueryString["page"]';
+            if (pageIndex == '')
+                pageIndex = 1;
+            else {
+                pageIndex = parseInt(pageIndex);
+            }
+
+            if (pageIndex > 1) {
+                var params = [];
+        
+                o = new Object();
+                o.name = 'page';
+                o.value = 1;
+                params.push(o);
+        
+                var url = $.request.replaceQueryString(params);
+                window.location = url;
+            }
+        }
+        function lastClicked() {
+            var pageIndex = '@Request.QueryString["page"]';
+            if (pageIndex == '')
+                pageIndex = 1;
+            else {
+                pageIndex = parseInt(pageIndex);
+            }
+
+            if (pageIndex < @ViewBag.pageCount) {
+                var params = [];
+        
+                o = new Object();
+                o.name = 'page';
+                o.value = @ViewBag.pageCount;
+                params.push(o);
+        
+                var url = $.request.replaceQueryString(params);
+                window.location = url;
+            }
+        }
+        function prevClicked() {
+            var pageIndex = '@Request.QueryString["page"]';
+            if (pageIndex == '')
+                pageIndex = 1;
+            else {
+                pageIndex = parseInt(pageIndex);
+            }
+            if (pageIndex < @ViewBag.pageCount) {
+            }
+
+            if (pageIndex > 1) {
+                var params = [];
+        
+                o = new Object();
+                o.name = 'page';
+                o.value = --pageIndex;
+                params.push(o);
+        
+                var url = $.request.replaceQueryString(params);
+                window.location = url;
+            }
+        }
+        function nextClicked() {
+            var pageIndex = '@Request.QueryString["page"]';
+            if (pageIndex == '')
+                pageIndex = 1;
+            else {
+                pageIndex = parseInt(pageIndex);
+            }
+
+            if (pageIndex < @ViewBag.pageCount) {
+                var params = [];
+        
+                o = new Object();
+                o.name = 'page';
+                o.value = ++pageIndex;
+                params.push(o);
+        
+                var url = $.request.replaceQueryString(params);
+                window.location = url;
+            }
+        }
+    </script>
+} 
+
+@section _style {
+
+}
+
+@Html.Partial("_StyleListPartial")
+@Html.Partial("_ScriptCommonPartial")
+@section _body {
+<div id="c">
+    @Html.Partial("_LoginInfoPCPartial")
+    @Html.Partial("_Top")
+    <div id="r4">
+        <div id="r4_c">
+            <div id="r4_c_l">
+                <div id="r4_c_l_r1">
+                    <div class="icon"></div>
+                    <div class="title">全部分类</div>
+                    <div class="ricon"></div>
+                </div>
+                <div style="width:100%;height:10px;">
+                </div>
+                <div id="r4_c_l_r2">
+                    <div class="icon"></div>
+                    <div class="title"><a href="@Url.Content("~/Home/List?cat2=bb")">必备<span class="cnt">（@ViewBag.bbcnt）</span></a></div>
+                </div>
+                <div id="r4_c_l_r3">
+                    <div class="icon"></div>
+                    <div class="title"><a href="@Url.Content("~/Home/List?cat2=tj")">推荐<span class="cnt">（@ViewBag.tjcnt）</span></a></div>
+                </div>
+                <div id="r4_c_l_r4">
+                    <div class="icon"></div>
+                    <div class="title"><a href="@Url.Content("~/Home/List?cat2=sc")">收藏<span class="cnt">（@ViewBag.sccnt）</span></a></div>
+                    
+                </div>
+                <div style="width:100%;height:10px;">
+                </div>
+                <div id="r4_c_l_r5">
+                    <div id="cls" class="focus">分类</div>
+                    <div id="unit" class="unfocus">单位</div>
+                </div>
+                <div id="r4_c_l_r5_itms_wrap">
+
+                </div>
+            </div>
+            <div id="r4_c_r">
+                <div id="r4_c_r_1"><div class="topic"></div><div class="info">查询结果</div></div>
+                <div id="r4_c_r_2">
+                    <div class="row_parent">
+                    @foreach (System.Collections.Hashtable obj in ViewBag.source["listItems"])
+                    {
+                    <div class="row">
+                        <div class="img">
+                            <a href="@obj["appUrl"]" target="_blank" title="@obj["ItemName"]"><img onerror="src='@Url.Content("~/AppIcons/no.png")'" src="@obj["appImage"]" /></a>
+                        </div>
+                        <div class="desc">
+                            <div><span class="itemName"><a href="@obj["appUrl"]" title="@obj["ItemName"]" target="_blank">@obj["ItemName"]</a></span>
+                            (@obj["ItemVersion"])
+                            </div>
+                            <div>@obj["Desc"]</div>
+                            <div>@obj["Class"] | @obj["Unit"]</div>
+                            <div>
+                                发布时间：@obj["ItemDate"]|
+                                支持固件：@obj["os"]|
+                                已下载：@obj["DownloadCount"]
+                            </div>
+                        </div>
+                        <div class="btns">
+                            <div class="down">
+                                <a id="down_a_@obj["pe_id"].ToString()" onclick="javascript:return updatecount(this, @obj["pe_id"].ToString());" href="@obj["downUrl"]" target="_blank">
+                                @{
+                                    if (obj["pe_ClientType"].ToString().ToLower() == "web") {
+                                        @:打开
+                                    } else {
+                                        @:下载安装
+                                    }
+                                }
+                                    </a>
+                            </div>
+                            <div class="help"><a href="@Url.Content("~/home/detail?packageid=" + obj["pe_id"].ToString() + "#manual")" target="_blank">使用手册</a></div>
+                        </div>
+                    </div>
+                    }
+                    </div>
+                    <div id="page_wrap">
+                        <div class="l">共 @ViewBag.pageCount 页，当前第 @{
+                            if (String.IsNullOrEmpty(Request.QueryString["page"]))
+                            {
+                                @:1
+                            }
+                            else
+                            {
+                                @Request.QueryString["page"];
+                            }
+                            } 页，</div><div class="r"><div id="btnFirst" class="btn">首页</div><div class="btn" id="btnPrev">上一页</div><div class="btn" id="btnNext">下一页</div><div id="btnLast" class="btn">尾页</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @Html.Partial("_foot")
+</div>
+@Html.Partial("_ScriptPartial")
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="FileTransfer">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="content" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="filename" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FileTransferResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="FileTransferResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="FileTransferSoapIn">
+    <wsdl:part name="parameters" element="tns:FileTransfer" />
+  </wsdl:message>
+  <wsdl:message name="FileTransferSoapOut">
+    <wsdl:part name="parameters" element="tns:FileTransferResponse" />
+  </wsdl:message>
+  <wsdl:portType name="FileTransferServiceSoap">
+    <wsdl:operation name="FileTransfer">
+      <wsdl:input message="tns:FileTransferSoapIn" />
+      <wsdl:output message="tns:FileTransferSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="FileTransferServiceSoap" type="tns:FileTransferServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FileTransfer">
+      <soap:operation soapAction="http://tempuri.org/FileTransfer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="FileTransferServiceSoap12" type="tns:FileTransferServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="FileTransfer">
+      <soap12:operation soapAction="http://tempuri.org/FileTransfer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="FileTransferService">
+    <wsdl:port name="FileTransferServiceSoap" binding="tns:FileTransferServiceSoap">
+      <soap:address location="http://localhost:4979/FileTransferService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="FileTransferServiceSoap12" binding="tns:FileTransferServiceSoap12">
+      <soap12:address location="http://localhost:4979/FileTransferService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

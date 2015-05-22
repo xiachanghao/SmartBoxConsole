@@ -1,0 +1,250 @@
+﻿<style>
+
+            /*240*320  640*360   480*800   480*850  960**540    1280*720   1280*768   1920*1080*/
+            html 
+            {
+                font-size:2.0em;
+            }
+            a img
+            {
+                border-width:0px;
+            }
+    #wrapper
+    {        
+        width:100%;
+    }
+    ul
+    {
+        padding:0px;
+        margin:0px;
+        list-style-type:none;
+    }
+    
+    ul#listView 
+    {
+        width:400px;
+    }
+        ul#listView li #r1
+        {
+
+            white-space:nowrap;
+        }
+        
+        ul#listView li #r1 li 
+        {
+            list-style-type:none;
+            white-space:nowrap;
+            font-size:1.2em;
+        }
+
+            ul#listView li #r1 li
+            {
+                float:left;
+                width:14.3%;
+                border-bottom:1px solid #BCBCBC;
+                background-color:#EAEAEA;
+                vertical-align:middle;
+                text-align:center;
+                color:#000000;
+                height:80px;
+                line-height:80px;
+                vertical-align:middle;                
+            }
+            ul#listView li #r1 li:last-child {
+                width:14.2%;
+            }
+
+            ul#listView li #r1 li.focus {
+                background-color:#50C4F9;
+                color:#FFFFFF;
+                border-bottom:5px solid #0280BA;
+                height:75px;
+                line-height:75px;
+            }
+            ul#listView li #r1 li div 
+            {
+                width:100%;
+                height:100%;
+            }
+            
+            div#page_row 
+            {
+                height:100%;
+            }
+            
+            div#page_info 
+            {
+                height:50%;
+                line-height:75.5px;
+                vertical-align:middle;
+                text-align:center;
+            }
+            
+           div#page 
+           {
+               list-style-type:none;
+               width:80%;
+               height:50%;
+               line-height:75.5px;
+               vertical-align:middle;
+               margin-left:auto;
+               margin-right:auto;
+           }
+           
+           div#page div 
+           {
+               width:22.8%;
+               margin-left:1%;
+               margin-right:1%;
+               float:left;
+               text-align:center;
+               height:100%;
+           }
+            
+            ul#listView
+            {
+                list-style-type:none;
+                width:100%;
+                height:100%;
+                
+            }
+
+            ul#listView li
+            {
+                vertical-align:middle;
+                height:151px;
+                line-height:151px;                
+                color:#000;
+                border-bottom:1px solid #ababab;
+                width:100%;
+                background-color:#e9f5fb;
+                list-style-type:none;
+
+            }
+            
+            ul#listView li:first-child 
+            {
+                height:80px;
+                line-height:80px;
+                vertical-align:middle;
+            }
+            
+            ul#listView li:nth-child(even) 
+            {
+                background-color:#fff;
+            }
+            ul#listView li .norecord 
+            {
+                text-align:center;
+            }
+
+    ul#listView li .rowdiv {
+        height:100%;
+        padding-top:5px;
+        padding-bottom:5px;
+    }
+
+    ul#listView li .row_l {
+        float:left;
+        width:15%;
+        height:100%;
+        line-height:100px;
+        vertical-align:middle;
+    }
+
+    ul#listView li .row_l div {
+
+        text-align:center;
+        height:100%;
+    }
+
+            ul#listView li .row_l div img
+            {
+                padding-top:0px;
+                margin-top:11px;
+                width:120px;
+                height:120px;
+            }
+
+    ul#listView li .rowdiv .row_c {
+        float:left;
+        width:70%;
+        height:100%;
+        line-height:100%;
+    }
+
+    ul#listView li .row_c .row_c_row {
+        height:47px;
+        line-height:47px;
+        vertical-align:middle;
+        color:#777777;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+            ul#listView li .row_c .row_c_row .title
+            {
+                color:#2F98D3;
+                font-size:1.2em;
+                height:100%;
+            }
+            ul#listView li .row_c .row_c_row .title a 
+            {
+                color:#2F98D3;
+                text-decoration:none;
+                height:100%;
+            }
+            ul#listView li .row_c .row_c_row .version
+            {
+                color:#666666;
+            }
+
+    ul#listView li .row_r {
+        float:right;
+        width:15%;
+        height:100%;
+        text-align:center;
+    }
+    
+    ul#listView li .row_r .button 
+    {
+        border:2px solid #155c9b;
+        border-radius:5px;
+        height:90px;
+        line-height:90px;
+        width:100%;
+        vertical-align:middle;
+        margin-top:23px;
+        color:#0081c9;
+        background-color:#f0f0f0;
+        text-decoration:none;
+    }
+    
+
+    @@media screen and (orientation: portrait)
+    {
+        /*竖屏*/
+    }
+    @@media screen and (orientation: landscape)
+    {
+        /*横屏*/
+    }
+
+@@media screen and (min-width: 471px)  and (max-width: 801px) 
+{
+    .row .rowdiv .row_c 
+    {
+        @*width:40%;*@
+    }
+}
+
+@@media screen and (min-width: 451px)  and (max-width: 470px) 
+{
+}
+
+@@media screen and (max-width: 450px) 
+{
+
+}
+</style>

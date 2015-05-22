@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SmartBox.Console.Service.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="SmartBox_Console_Service_ApplicationCenterWS_WebService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://sbws/WebService.asmx</Value>
+    </Setting>
+    <Setting Name="SmartBox_Console_Service_FileTransferService_FileTransferService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://localhost:4979/FileTransferService.asmx</Value>
+    </Setting>
+    <Setting Name="SmartBox_Console_Service_msg_MsgService" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://msgservice.huangpuqu.sh.cn/WebService/MsgService.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

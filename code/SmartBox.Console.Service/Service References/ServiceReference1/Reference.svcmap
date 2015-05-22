@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="4345ac9b-6e04-4c0e-8613-c513cb5f4779" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="ManagerService.wsdl" MetadataType="Wsdl" ID="73a7c1bf-eefb-436e-ba7b-95ea1f98b144" SourceId="1" SourceUrl="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?wsdl" />
+    <MetadataFile FileName="item.xsd" MetadataType="Schema" ID="d6aedc17-c09f-4613-b649-8b478e621a35" SourceId="1" SourceUrl="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd1" />
+    <MetadataFile FileName="item1.xsd" MetadataType="Schema" ID="f93823a6-f52b-4798-be47-61b3e8f4748c" SourceId="1" SourceUrl="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd0" />
+    <MetadataFile FileName="item2.xsd" MetadataType="Schema" ID="57a7a0ee-54a9-4b98-bac1-ecfb0d859a19" SourceId="1" SourceUrl="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd3" />
+    <MetadataFile FileName="item3.xsd" MetadataType="Schema" ID="b3639846-e31b-4a35-a671-84986acea18a" SourceId="1" SourceUrl="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd2" />
+    <MetadataFile FileName="item.disco" MetadataType="Disco" ID="68af3cb9-b303-45c5-bb72-b38af2fca16f" SourceId="1" SourceUrl="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

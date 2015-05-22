@@ -1,0 +1,11 @@
+﻿div.table_box{border:1px solid #DDDDDD;}
+div.table_box h4 {padding-left:5px;font-size:14px;background-color: #E6F0F6;background-image: url(../jquery-easyui-1.3.6/themes/bootstrap/images/datagrid_toolbar_easyui.png);}
+div.table_box_data table tfoot tr td {background-image: url(../jquery-easyui-1.3.6/themes/bootstrap/images/datagrid_toolbar_easyui.png)!important;}
+div.table_box_data .btnskin_b {font-size:13px;}
+.easyui-panel {border:1px solid #DDDDDD;width:auto;}
+div.cHead {height:24px;line-height:24px;vertical-align:middle;}
+div.cHead img {height:16px;line-height:24px;vertical-align:middle;}
+div.cHead span {height:24px;line-height:24px;vertical-align:middle;padding-left:3px;}
+.datagrid {border-top:1px solid #DDDDDD;}
+
+input.Wdate {width:84px; border-color:#95B8E7;}

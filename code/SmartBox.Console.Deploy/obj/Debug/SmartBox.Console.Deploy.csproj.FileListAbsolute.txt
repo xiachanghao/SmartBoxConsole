@@ -1,0 +1,11 @@
+D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.dll
+D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.pdb
+D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.dll
+D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.pdb
+D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.csprojResolveAssemblyReference.cache
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.dll.config
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.dll
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.pdb
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.csprojResolveAssemblyReference.cache
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.dll
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.pdb

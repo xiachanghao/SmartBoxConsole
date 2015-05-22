@@ -1,0 +1,303 @@
+﻿@{
+    ViewBag.Title = "应用列表";
+    Layout = "~/Views/Shared/_common.cshtml";
+}
+
+<html>
+    <head>
+
+
+
+<script type="text/javascript" src="../../Scripts/jquery-1.10.2.min.js"></script>
+@*<script type="text/javascript" src="../../Scripts/kendo.all.min.js"></script>*@
+
+<script type="text/javascript">
+//    $(window).scroll(function () {
+
+//        var scrollTop = $(this).scrollTop();
+//        var scrollHeight = $(document).height();
+//        var windowHeight = $(this).height();
+//        if (scrollTop + windowHeight == scrollHeight) {
+//            //alert("you are in the bottom");
+//        }
+//        //alert(scrollTop);
+//    });
+
+    var webData = @Html.Raw(ViewBag.webData);
+    var androidPadData = @Html.Raw(ViewBag.androidPadData);
+    var androidPhoneData = @Html.Raw(ViewBag.androidPhoneData);
+    var iPadData = @Html.Raw(ViewBag.iPadData);
+    var iPhoneData = @Html.Raw(ViewBag.iPhoneData);
+    var allData = @Html.Raw(ViewBag.allData);
+    function updatecount(obj, _pe_id) {
+    var txt = $(obj).text();
+
+    //var obj2 = $(obj).clone();
+    //obj2.removeAttr('onclick');
+    //obj2[0].id += '_';
+    //obj2.appendTo(document.body);
+    //obj2[0].click();    
+    //obj2.remove();
+    //var o = document.createElement('a');
+    //o.href = $(obj).attr('href');
+    //document.body.appendChild(o);
+    //o.click();
+    //document.body.removeChild(o);
+    var _aid = $(obj).attr('id') + '__';
+    
+    
+    if ($.trim(txt) == '下载安装') {
+        $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/UpdateDownCount")",
+                  data: {
+                      pe_id: _pe_id
+                  },
+                  success: function (json) {
+                      if (json.r) {
+                        //alert(json.d);
+                        alert(_aid);
+                        
+                      } else {
+                        //alert(json.d);
+                      }
+                      
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                      
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  }
+              });
+    }
+    document.getElementById(_aid).click();
+    return false;
+ }
+
+    function refineString(o) {
+        if (o == null)
+            return '';
+        if (o === undefined)
+            return '';
+        if (o.toString() == '0001-01-01T00:00:00')
+            return ''
+        if (o.toString().indexOf('T00:00:00') != -1)
+            return o.replace('T00:00:00', '');
+        return o;
+    }
+
+    function loadData() {
+
+            //var li = e.target;
+            //$('li.focused').removeClass('focused');
+            //alert(li.innerHTML);
+            //$(this).addClass('focused');
+            var _data = [];
+
+            $('#rcontent ul#ulItem').empty();
+            //if(li.innerHTML == '首页') {
+            //}
+            var cat = "@Request.QueryString["cat"]";
+            var json = {};
+            switch (cat.toLowerCase()) {
+                case "":
+                    json = allData;
+                    break;
+                case "adphone":
+                    json = androidPhoneData;
+                    break;
+                case "adpad":
+                    json = androidPadData;
+                    break;
+                case "iphone":
+                    json = iPhoneData;
+                    break;
+                case "ipad":
+                    json = iPadData;
+                    break;
+                case "web":
+                    json = webData;
+                    break;
+            }
+            if (json.items.length > 0) {
+                for (var i = 0; i < json.items.length; i ++) {
+                    template = $('#itemTemplate').html();
+                    template = template.replace('$id', refineString(json.items[i].pe_id));
+                    template = template.replace('$id', refineString(json.items[i].pe_id));
+                    template = template.replace('$id', refineString(json.items[i].pe_id));
+                    template = template.replace('$id', refineString(json.items[i].pe_id));
+                    template = template.replace('$id', refineString(json.items[i].pe_id));
+                    template = template.replace('$id', refineString(json.items[i].pe_id));
+                    template = template.replace('$title', refineString(json.items[i].pe_DisplayName));
+                    template = template.replace('$version', refineString(json.items[i].pe_Version));
+                    template = template.replace('$firmware', refineString(json.items[i].pe_Firmware));
+                    template = template.replace('$date', refineString(json.items[i].pe_CreatedTime));
+                    template = template.replace('$desc', refineString(json.items[i].pe_Description));
+                    template = template.replace('$downloaduri', refineString(json.items[i].pe_DownloadUri));
+                    template = template.replace('$downloaduri', refineString(json.items[i].pe_DownloadUri));
+                    template = template.replace('$picture', refineString(json.items[i].picture));
+                    //template = template.replace('$manual', refineString(json.items[i].manualuri));
+                    
+                        $('#rcontent ul#ulItem').append(template);                      
+                }
+            } else {
+                $('#rcontent ul#ulItem').append('<div id="dvNoRecord">未找到符合条件的数据！</div>'); 
+            }
+        }
+
+    function setFootOffsetTop() {
+        var lastObj = $('ul#ulItem li:last-child');
+        var offsetTop = 240;
+        if (lastObj != null && lastObj.length > 0)
+            offsetTop = parseInt(lastObj[0].offsetTop);
+        $('#rcontent').css('height', offsetTop + 120);
+        //$('div#foot').attr('margin-top', offsetTop + 50);
+        //alert(o);
+    }
+    $(document).ready(function (e) {
+        loadData();
+        setFootOffsetTop();
+        //$('#wrapper #rcontent #ulItem').empty();
+    });
+
+</script>
+ @Html.Partial("_ScriptCommonPartial")
+ @Html.Partial("_StyleGridListPartial")
+</head>
+<body>
+<div>
+
+
+</div>
+<div id="itemTemplate" style="display:none;">
+<li>
+    <div class="l">
+        <div class="divImg"><a href="Detail?packageid=$id"><img onerror="src='@Url.Content("~/AppPictures/pictureno.png")'" src="$picture" /></a></div>
+    </div>
+    <div class="r">
+        <div class="divCnt">
+            <div class="title"><a href="Detail?packageid=$id">$title</a></div>
+            <div class="version">$version</div>
+            <div class="firmware">固件支持：$firmware</div>
+            <div class="date">发布日期：$date</div>
+            <div class="dotline1"></div>
+            <div class="desc">
+
+            软件简介：$desc
+            </div>
+            <div class="dotline2"></div>
+            <div class="buttondv">
+                <div class="button"><a id="down_a_$id" onclick="javascript:return updatecount(this, $id);" href="$downloaduri">下载安装</a><a id="down_a_$id__" href="$downloaduri" style="display:none;"></a></div>
+                <div class="button"><a href="Detail?packageid=$id#manual">使用手册</a></div>
+            </div>
+        </div>
+    </div>
+</li>
+</div>
+ <div id="wrapper">
+ @Html.Partial("_LoginInfoPCPartial")
+    @Html.Partial("_Top")
+
+    <div id="rcontent">
+<ul id="ulItem">
+<li>
+    <div class="l">
+        <div class="divImg"><img src="../../AppPictures/jt1.png" /></div>
+    </div>
+    <div class="r">
+        <div class="divCnt">
+            <div class="title">竞彩258</div>
+            <div class="version">Android手机版</div>
+            <div class="firmware">固件支持：Android4.1</div>
+            <div class="date">发布日期：2014-3-21</div>
+            <div class="dotline1"></div>
+            <div class="desc">
+
+            软件简介：去哪儿旅游搜索目前市场上最炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验
+            </div>
+            <div class="dotline2"></div>
+            <div class="buttondv">
+                <div class="button"><a href="www.baidu.com">下载安装</a></div>
+                <div class="button"><a href="www.baidu.com">使用手册</a></div>
+            </div>
+        </div>
+    </div>
+</li>
+<li>
+    <div class="l">
+        <div class="divImg"><img src="../../AppPictures/jt2.png" /></div>
+    </div>
+    <div class="r">
+        <div class="divCnt">
+            <div class="title">竞彩258</div>
+            <div class="version">Android手机版</div>
+            <div class="firmware">固件支持：Android4.1</div>
+            <div class="date">发布日期：2014-3-21</div>
+            <div class="dotline1"></div>
+            <div class="desc">
+
+            软件简介：去哪儿旅游搜索目前市场上最炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验
+            </div>
+            <div class="dotline2"></div>
+            <div class="buttondv">
+                <div class="button"><a href="www.baidu.com">下载安装</a></div>
+                <div class="button"><a href="www.baidu.com">使用手册</a></div>
+            </div>
+        </div>
+    </div>
+</li><li>
+    <div class="l">
+        <div class="divImg"><img src="../../AppPictures/jt3.png" /></div>
+    </div>
+    <div class="r">
+        <div class="divCnt">
+            <div class="title">竞彩258</div>
+            <div class="version">Android手机版</div>
+            <div class="firmware">固件支持：Android4.1</div>
+            <div class="date">发布日期：2014-3-21</div>
+            <div class="dotline1"></div>
+            <div class="desc">
+
+            软件简介：去哪儿旅游搜索目前市场上最炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验
+            </div>
+            <div class="dotline2"></div>
+            <div class="buttondv">
+                <div class="button"><a href="www.baidu.com">下载安装</a></div>
+                <div class="button"><a href="www.baidu.com">使用手册</a></div>
+            </div>
+        </div>
+    </div>
+</li><li>
+    <div class="l">
+        <div class="divImg"><img src="../../AppPictures/jt4.png" /></div>
+    </div>
+    <div class="r">
+        <div class="divCnt">
+            <div class="title">竞彩258</div>
+            <div class="version">Android手机版</div>
+            <div class="firmware">固件支持：Android4.1</div>
+            <div class="date">发布日期：2014-3-21</div>
+            <div class="dotline1"></div>
+            <div class="desc">
+
+            软件简介：去哪儿旅游搜索目前市场上最炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验炫酷的旅游应用的最佳用户体验，特价机票酒店，在线订购飞机用户体验
+            </div>
+            <div class="dotline2"></div>
+            <div class="buttondv">
+                <div class="button"><a href="www.baidu.com">下载安装</a></div>
+                <div class="button"><a href="www.baidu.com">使用手册</a></div>
+            </div>
+        </div>
+    </div>
+</li>
+</ul>
+
+</div>
+
+@Html.Partial("_Foot")
+</div>
+
+</body>
+</html>

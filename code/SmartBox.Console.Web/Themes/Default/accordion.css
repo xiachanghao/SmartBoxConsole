@@ -1,0 +1,63 @@
+﻿.bbit-accordion
+{
+   font-size:12px;
+   background-color:#fff;
+   text-align:left;
+   overflow:hidden;
+}
+.bbit-accordion .acitem
+{  
+     overflow:hidden;
+}
+ .bbit-accordion .acitem .item-head
+{
+    background: url("images/accordion/panel-title-bg.gif") repeat-x left top;
+    border-bottom: 1px solid #98C0F4;
+    padding: 1px 4px 1px 5px;
+    cursor: pointer;
+}
+.bbit-accordion .acitem .activity 
+{
+ font-weight:bolder;    
+}
+.bbit-accordion .acitem .item-head-hover
+{
+    background-position: 0 -5px; 
+}
+.bbit-accordion .acitem .item-head img
+{
+    margin-top:-1px;
+    margin-bottom:-1px;
+    vertical-align:middle;
+} 
+.bbit-accordion .acitem .item-head span
+{
+    padding: 0px 1px 0px 4px;
+    font-size: 12px;
+    display:inline;
+    line-height:150%;
+}
+.bbit-accordion .acitem .item-head .acc-toggle
+{
+   float:right;   
+   width:12px;
+   height:12px; 
+   background: url("images/accordion/ns-expand.gif") no-repeat 50% 50%;
+   padding:2px;
+}
+.bbit-accordion .acitem .activity .acc-toggle
+{  
+    background: url("images/accordion/expand.gif") no-repeat 50% 50%;  
+}
+
+.bbit-accordion .acitem  .item-head .acc-toggle-hover
+{
+  padding:1px;
+  background-color:#fff;
+  border:1px solid #98C0F4;
+}
+ .bbit-accordion .acitem  .pwrap
+ {
+    OVERFLOW: hidden;	
+    ZOOM: 1;
+ }

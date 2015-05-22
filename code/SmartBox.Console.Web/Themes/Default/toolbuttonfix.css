@@ -1,0 +1,22 @@
+﻿.toolBotton {
+    height:32px;
+}
+.ctoolbar {
+    height:32px!important;
+}
+.ctoolbar .fbutton 
+{
+    height:100%;
+    margin:0px!important;
+    padding:0px!important;
+}
+.ctoolbar .fbutton div 
+{
+    margin:0px!important;
+    padding:0px!important;
+}
+.ctoolbar .fbutton div span 
+{
+    margin:0px!important;
+    padding:0px!important;
+}

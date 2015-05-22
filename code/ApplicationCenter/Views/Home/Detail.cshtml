@@ -1,0 +1,323 @@
+﻿@{
+    ViewBag.Title = "应用下载";
+    Layout = "~/Views/Shared/_common.cshtml";
+}
+
+ @section _script {
+ <script type="text/javascript">
+ var collected = @Html.Raw(ViewBag.Collected.ToString().ToLower());
+ function updatecount() {
+    var txt = $(event.target).text();
+    var href = $(event.target).attr('href');
+    window.open(href);
+    if ($.trim(txt) == '下载安装') {
+        $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/UpdateDownCount")",
+                  data: {
+                      pe_id: @Request.QueryString["packageid"]
+                  },
+                  success: function (json) {
+                      if (json.r) {
+                        //alert(json.d);
+                      } else {
+                        //alert(json.d);
+                      }
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  }
+              });
+    }
+    return false;
+ }
+ function sc() {
+            $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/SCPost")",
+                  data: {
+                      pe_id: @Request.QueryString["packageid"]
+                  },
+                  success: function (json) {
+                      if (json.r) {
+                        alert(json.d);
+                        if (json.d.indexOf("收藏成功") == 0) {
+                            $('#btnSC a').text('取消收藏');
+                        } else if(json.d.indexOf("取消收藏成功") == 0) {
+                            $('#btnSC a').text('收藏');
+                        }
+                      } else {
+                        alert(json.d);
+                      }
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  },
+              });
+              return false;
+        }
+
+    var picData = @Html.Raw(ViewBag.picData);
+     $(document).ready(function () {
+        if (collected) {
+            $('#btnSC a').text('取消收藏');
+        } else {
+            $('#btnSC a').text('收藏');
+        }
+         $('#c #c_r6 #c_c6_r2 .row .btns .down').hover(
+            function () {
+                $(this).addClass('hover');
+            }, function () {
+                $(this).removeClass('hover');
+            }
+        );
+         $('#c #c_r6 #c_c6_r2 .row .btns .help').hover(
+            function () {
+                $(this).addClass('hover2');
+            }, function () {
+                $(this).removeClass('hover2');
+            }
+        );
+
+         $('#c #c_r2 #left_btn_1').click(LeftClick);
+         $('#c #c_r2 #right_btn_1').click(RightClick);
+         setScrollItemDisplay();
+         $('#btnFeedback').bind('click', sendQuestion);
+         $('#btnSC').bind('click', sc);
+         //$('#btnDown').bind('click', download);
+     });
+
+        //向前翻页
+        function LeftClick() {
+            if (picData.pageIndex > 1) {
+                --picData.pageIndex;
+                setScrollItemDisplay();
+                setScrollItemWidth();
+            }
+        }
+
+        //向后翻页
+        function RightClick() {
+            if (picData.pageIndex < picData.pageCount) {
+                ++picData.pageIndex;
+                setScrollItemDisplay();
+                setScrollItemWidth();
+            }
+        }
+
+        //滚动应用区 必备
+        function setScrollItemDisplay() {
+
+            $('#c #c_r2 .center #content img').each(function () {
+                $(this).fadeOut();
+            });
+            $('#c #c_r2 .center #content').empty();
+
+
+            var pageSize = 5;
+            var _centerWidth = $('#c #c_r2 .center').width();
+            if (_centerWidth < 860 && _centerWidth >= 681) {
+                pageSize = 4;
+            }
+            else if (_centerWidth < 680 && _centerWidth >= 621) {
+                pageSize = 3;
+            }
+            else if (_centerWidth < 620 && _centerWidth >= 611) {
+                pageSize = 2;
+            }
+            else if (_centerWidth < 610) {
+                pageSize = 1;
+            }
+            pageSize = 3;
+
+            var cnt = picData.items.length / pageSize;
+            cnt = Math.ceil(cnt);
+            picData.pageCount = cnt;
+            var startItemIndex = pageSize * (picData.pageIndex - 1);
+            for (var i = startItemIndex; i < startItemIndex + pageSize; ++i) {
+                if (i == picData.items.length)
+                    break;
+
+                $('#c #c_r2 .center #content').append('<img src="' + picData.items[i].picture + '" />');
+            }
+        }
+
+        function setScrollItemWidth() {
+
+            var contentWidth = $('#c #c_r2 .center #content').width();
+            var _centerWidth = $('#c #c_r2 .center').width();
+            //alert(_centerWidth);
+            var pageSize = 5;
+            if (_centerWidth < 860 && _centerWidth >= 681) {
+                pageSize = 4;
+            }
+            else if (_centerWidth < 680 && _centerWidth >= 621) {
+                pageSize = 3;
+            }
+            else if (_centerWidth < 620 && _centerWidth >= 611) {
+                pageSize = 2;
+            }
+            else if (_centerWidth < 610) {
+                pageSize = 1;
+            }
+            pageSize = 3;
+            var itemAppWidth = 146 * 3 + 20;
+            //alert(itemAppWidth);
+            $('#c #c_r2 .center #content .appItem').css('width', itemAppWidth + '%');
+            var _contenWidth = $('#c #c_r2 .center #content').width();
+
+            $('#c #c_r2 .center').css('width', _contenWidth - 1);
+        }
+
+//        function download() {
+//            $('#anchorDown')[0].click();
+//        }
+
+        
+
+        function sendQuestion() {
+        var qs_content = $('#txtarea').val();
+        if ($.trim(qs_content) == '') {
+            alert('请录入问题！');
+            return;
+        }
+        $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/PostQuestion")",
+                  data: {
+                      question: qs_content,
+                      pe_id: @Request.QueryString["packageid"]
+                  },
+                  success: function (json) {
+                      if (json.d) {
+                        alert('反馈成功！');
+                        location.reload();
+                      } else {
+                        alert('反馈操作失败！');
+                      }
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  },
+              });
+              }
+ </script>
+ }
+ @section _style {
+
+}
+
+@Html.Partial("_StyleDetailPartial")
+@Html.Partial("_ScriptCommonPartial")
+@section _body {
+<div id="c">
+@Html.Partial("_LoginInfoPCPartial")
+    @Html.Partial("_Top")
+    <div id="c_r1">
+        <div id="c_r1_c1">
+            <img onerror="src='@Url.Content("~/AppIcons/no.png")'" src="@ViewBag.entityObj["appImage"]" />
+        </div>
+        <div id="c_r1_c2">
+            <div id="c_r1_c2_r1">@ViewBag.entityObj["displayname"]</div>
+            <div id="c_r1_c2_r2">@ViewBag.entityObj["Class"]</div>
+            <div id="c_r1_c2_r3"><a target="_blank" href="@ViewBag.entityObj["downloaduri"]" style="display:none;" id="anchorDown"></a>发布时间：@ViewBag.entityObj["ItemDate"] | 支持固件：@ViewBag.entityObj["os"] | 已下载：@ViewBag.entityObj["DownloadCount"]次</div>
+        </div>
+        <div id="c_r1_c3">
+            <div id="btnDown"><a target="_blank" onclick="javascript:return updatecount();" href="@ViewBag.entityObj["downloaduri"]">@if(ViewBag.entityObj["pe_clienttype"].ToString().ToLower() == "web") {
+                                                                                              @:打开
+                                                                                              } else {
+                                                                                              @:下载安装
+                                                                                              }</a></div>
+            <div id="btnSC"><a href="#">收藏</a></div>
+            <div id="btnManual"><a href="#manual">使用手册</a></div>
+        </div>
+        <div id="c_r1_c4">二维码下载</div>
+        <div id="c_r1_c5"><img onerror="src='@Url.Content("~/AppIcons/no2d.png")'" src="../../PackageExt/@Request.QueryString["packageid"]/二维码图片.jpeg" /></div>
+    </div>
+    <div id="c_r2">
+        <div id="contentrow">
+            <div class="larrow" style="height:300px;">
+                <input id="left_btn_1" type="image" src="@Url.Content("~/Images/lbtn.png")" />
+            </div>
+            <div class="center">
+                <div id="content"></div>
+            </div>
+            <div class="rarrow" style="height:300px;">
+                <input id="right_btn_1" type="image" src="@Url.Content("~/Images/rbtn.png")" />
+            </div>
+        </div>
+    </div>
+    <div id="c_r3">
+            <div class="l">软件介绍</div>
+    </div>
+    <div id="c_r4">
+        <div id="c_r4_r1">@ViewBag.entityObj["description"]</div>
+    </div>
+    <div id="c_manual">
+            <div class="l">使用手册</div>
+    </div>
+    <div id="c_manual2">
+        <div id="c_manual2_r1">
+        <a name="manual" style=""></a>
+        <ul>
+        @foreach (SmartBox.Console.Common.Entities.SMC_PackageManual m in ViewBag.manuals)
+        {
+            @:<li>@m.pm_name <a href="@m.pm_url.Replace("~/", "../")" target="_blank">下载</a></li>
+        }
+        </ul>
+        </div>
+    </div>
+    <div id="c_r5">
+        <div id="c_c5_r1">问题反馈</div>
+        <div id="c_c5_r2">
+        <textarea id="txtarea"></textarea>
+        </div>
+        <div id="c_c5_r3">
+            <div id="btnFeedback"><a href="#">反馈问题</a></div>
+        </div>
+    </div>
+    <div id="c_r6">
+        <div id="c_c6_r1">相关应用</div>
+        <div id="c_c6_r2">
+            @foreach (System.Collections.Hashtable obj in ViewBag.source["listItems"])
+                    {
+                    <div class="row">
+                        <div class="img">
+                            <a href="@obj["url"]" target="_blank"><img src="@Url.Content("~/AppIcons/App1.png")" /></a>
+                        </div>
+                        <div class="desc">
+                            <div><span class="itemName"><a href="@obj["url"]" target="_blank">@obj["ItemName"]</a></span>
+                            (@obj["ItemVersion"])
+                            </div>
+                            <div>@obj["Desc"]</div>
+                            <div>@obj["Class"] | @obj["Unit"]</div>
+                            <div>
+                                发布时间：@obj["ItemDate"]|
+                                支持固件：@obj["os"]|
+                                已下载：@obj["DownloadCount"]
+                            </div>
+                        </div>
+                        <div class="btns">
+                            <div class="down">
+                                <a href="@obj["downloadurl"]" target="_blank">下载安装</a>
+                            </div>
+                            <div class="help"><a href="@obj["HelpUrl"]" target="_blank">使用手册</a></div>
+                        </div>
+                    </div>
+                    <div class="row_span">
+                    </div>
+                    }
+        </div>
+    </div>
+    @Html.Partial("_foot")
+</div>
+}

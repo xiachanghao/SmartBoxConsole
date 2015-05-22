@@ -1,0 +1,236 @@
+.icon-blank{
+	background:url('icons/blank.gif') no-repeat center center;
+}
+.icon-add{
+	background:url('icons/edit_add.png') no-repeat center center;
+}
+.icon-edit{
+	background:url('icons/pencil.png') no-repeat center center;
+}
+.icon-remove{
+	background:url('icons/edit_remove.png') no-repeat center center;
+}
+.icon-save{
+	background:url('icons/filesave.png') no-repeat center center;
+}
+.icon-cut{
+	background:url('icons/cut.png') no-repeat center center;
+}
+.icon-ok{
+	background:url('icons/ok.png') no-repeat center center;
+}
+.icon-no{
+	background:url('icons/no.png') no-repeat center center;
+}
+.icon-cancel{
+	background:url('icons/cancel.png') no-repeat center center;
+}
+.icon-reload{
+	background:url('icons/reload.png') no-repeat center center;
+}
+.icon-search{
+	background:url('icons/search.png') no-repeat center center;
+}
+.icon-print{
+	background:url('icons/print.png') no-repeat center center;
+}
+.icon-help{
+	background:url('icons/help.png') no-repeat center center;
+}
+.icon-undo{
+	background:url('icons/undo.png') no-repeat center center;
+}
+.icon-redo{
+	background:url('icons/redo.png') no-repeat center center;
+}
+.icon-back{
+	background:url('icons/back.png') no-repeat center center;
+}
+.icon-sum{
+	background:url('icons/sum.png') no-repeat center center;
+}
+.icon-tip{
+	background:url('icons/tip.png') no-repeat center center;
+}
+.icon-filter{
+	background:url('icons/filter.png') no-repeat center center;
+}
+
+
+.icon-mini-add{
+	background:url('icons/mini_add.png') no-repeat center center;
+}
+.icon-mini-edit{
+	background:url('icons/mini_edit.png') no-repeat center center;
+}
+.icon-mini-refresh{
+	background:url('icons/mini_refresh.png') no-repeat center center;
+}
+
+.icon-large-picture{
+	background:url('icons/large_picture.png') no-repeat center center;
+}
+.icon-large-clipart{
+	background:url('icons/large_clipart.png') no-repeat center center;
+}
+.icon-large-shapes{
+	background:url('icons/large_shapes.png') no-repeat center center;
+}
+.icon-large-smartart{
+	background:url('icons/large_smartart.png') no-repeat center center;
+}
+.icon-large-chart{
+	background:url('icons/large_chart.png') no-repeat center center;
+}
+/*
+* {
+    font-size: 14px;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: verdana,helvetica,arial,sans-serif;
+    background: #fafafa;
+    text-align: center;
+}
+
+h3 {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 12px 0;
+}
+
+h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #CC0000;
+    margin: 10px 0;
+}
+
+h5 {
+    font-size: 14px;
+    font-weight: bold;
+    color: #990000;
+    margin: 5px 0;
+}
+*/
+textarea.html, textarea.js {
+    width: 100%;
+    height: 80px;
+    overflow: hidden;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+#header {
+    text-align: center;
+    background: #666;
+    direction: ltr;
+}
+
+#header-inner {
+    text-align: left;
+    margin: 0 auto;
+    width: 960px;
+    padding: 10px 0;
+}
+
+#mainwrap {
+    text-align: center;
+    margin-top: 5px;
+}
+
+#content {
+    text-align: left;
+    width: 1024px;
+    margin: 0 auto;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+    #content img {
+        margin: 0;
+    }
+
+#footer {
+    text-align: center;
+    padding: 10px;
+}
+
+#topmenu {
+    text-align: right;
+}
+
+    #topmenu a {
+        display: inline-block;
+        padding: 1px 3px;
+        text-decoration: none;
+        color: #fff;
+    }
+
+        #topmenu a:hover {
+            text-decoration: underline;
+        }
+
+a.download-link {
+    color: #0000ff;
+}
+
+.doc-table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+    .doc-table th, .doc-table td {
+        border: 1px solid #8CACBB;
+        padding: 0.3em 0.7em;
+    }
+
+    .doc-table th {
+        background: #eee;
+    }
+
+    .doc-table pre {
+        font-family: Verdana;
+        font-size: 12px;
+        color: #006600;
+        background: #fafafa;
+        padding: 5px;
+    }
+
+#dlg_form {
+    margin: 0;
+    padding: 10px 30px;
+}
+
+.ftitle {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 5px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.fitem {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+    .fitem label {
+        display: inline-block;
+        vertical-align: baseline;
+        width: 80px;
+    }
+
+    .fitem input {
+        width:220px;
+    }

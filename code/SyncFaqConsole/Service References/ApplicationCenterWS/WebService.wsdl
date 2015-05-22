@@ -1,0 +1,508 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SMC_UnitSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="units" type="tns:ArrayOfSMC_Unit" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSMC_Unit">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SMC_Unit" nillable="true" type="tns:SMC_Unit" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SMC_Unit">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntry">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Unit_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Unit_Name" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Upper_Unit_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Unit_Demo" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Unit_Path" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Unit_CreatedTime" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Unit_CreatedUser" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Unit_UpdateTime" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Unit_UpdateUser" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Unit_Sequence" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="BaseEntry" abstract="true">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ObjectEntryState" type="tns:EnumObjectState" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="EnumObjectState">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Added" />
+          <s:enumeration value="Upded" />
+          <s:enumeration value="Deleted" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="SMC_UnitSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SMC_UnitSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SMC_UserSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="users" type="tns:ArrayOfSMC_User" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSMC_User">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SMC_User" nillable="true" type="tns:SMC_User" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="SMC_User">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntry">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="U_ID" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="U_UID" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="U_NAME" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="U_UNITCODE" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="U_PASSWORD" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="U_CREATEDDATE" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="SMC_UserSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SMC_UserSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackagePictuerSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entity" type="tns:SMC_PackagePicture" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SMC_PackagePicture">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntry">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="pp_id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="pp_path" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="pp_CreatedDate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="pp_desc" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pp_title" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="PackagePictuerSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackagePictuerSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackageManualSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entity" type="tns:SMC_PackageManual" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SMC_PackageManual">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntry">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="pm_id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="pm_name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pm_url" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="pm_createdtime" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="pm_updatetime" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_id" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="PackageManualSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackageManualSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackageFAQSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="faq" type="tns:SMC_PackageFAQ" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SMC_PackageFAQ">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntry">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="pf_id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_uid" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_uname" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_question" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_answer" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="pf_askdate" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_askemail" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_id" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_askmobile" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pf_peplyman" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="pf_need_syncto_inside" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="pf_need_syncto_outside" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="PackageFAQSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackageFAQSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetNeedSyncToInsideFAQ">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetNeedSyncToInsideFAQResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetNeedSyncToInsideFAQResult" type="tns:ArrayOfSMC_PackageFAQ" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSMC_PackageFAQ">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="SMC_PackageFAQ" nillable="true" type="tns:SMC_PackageFAQ" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PackageExtSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="entity" type="tns:SMC_PackageExt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="SMC_PackageExt">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:BaseEntry">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="pe_id" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_UpdateTime" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_UpdateUid" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_CreateUid" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_DownloadUri" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_BuildVer" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_Version" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_Description" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_DisplayName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_ClientType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_IsTJ" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_IsBB" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_PictureUrl" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_2dPictureUrl" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_Firmware" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TableName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_UnitCode" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_UnitName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_Name" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TableID" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_DownCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_Size" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="pe_CreatedTime" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_Category" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="pe_CategoryID" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="PackageExtSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackageExtSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackageFilesSync">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="files" type="tns:ArrayOfFileEntity" />
+            <s:element minOccurs="1" maxOccurs="1" name="pe_id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfFileEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="FileEntity" nillable="true" type="tns:FileEntity" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="FileEntity">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="FileName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Content" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="PackageFilesSyncResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PackageFilesSyncResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SMC_UnitSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:SMC_UnitSync" />
+  </wsdl:message>
+  <wsdl:message name="SMC_UnitSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:SMC_UnitSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="SMC_UserSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:SMC_UserSync" />
+  </wsdl:message>
+  <wsdl:message name="SMC_UserSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:SMC_UserSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackagePictuerSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:PackagePictuerSync" />
+  </wsdl:message>
+  <wsdl:message name="PackagePictuerSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:PackagePictuerSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackageManualSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:PackageManualSync" />
+  </wsdl:message>
+  <wsdl:message name="PackageManualSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:PackageManualSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackageFAQSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:PackageFAQSync" />
+  </wsdl:message>
+  <wsdl:message name="PackageFAQSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:PackageFAQSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetNeedSyncToInsideFAQSoapIn">
+    <wsdl:part name="parameters" element="tns:GetNeedSyncToInsideFAQ" />
+  </wsdl:message>
+  <wsdl:message name="GetNeedSyncToInsideFAQSoapOut">
+    <wsdl:part name="parameters" element="tns:GetNeedSyncToInsideFAQResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackageExtSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:PackageExtSync" />
+  </wsdl:message>
+  <wsdl:message name="PackageExtSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:PackageExtSyncResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackageFilesSyncSoapIn">
+    <wsdl:part name="parameters" element="tns:PackageFilesSync" />
+  </wsdl:message>
+  <wsdl:message name="PackageFilesSyncSoapOut">
+    <wsdl:part name="parameters" element="tns:PackageFilesSyncResponse" />
+  </wsdl:message>
+  <wsdl:portType name="WebServiceSoap">
+    <wsdl:operation name="SMC_UnitSync">
+      <wsdl:input message="tns:SMC_UnitSyncSoapIn" />
+      <wsdl:output message="tns:SMC_UnitSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SMC_UserSync">
+      <wsdl:input message="tns:SMC_UserSyncSoapIn" />
+      <wsdl:output message="tns:SMC_UserSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackagePictuerSync">
+      <wsdl:input message="tns:PackagePictuerSyncSoapIn" />
+      <wsdl:output message="tns:PackagePictuerSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackageManualSync">
+      <wsdl:input message="tns:PackageManualSyncSoapIn" />
+      <wsdl:output message="tns:PackageManualSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackageFAQSync">
+      <wsdl:input message="tns:PackageFAQSyncSoapIn" />
+      <wsdl:output message="tns:PackageFAQSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetNeedSyncToInsideFAQ">
+      <wsdl:input message="tns:GetNeedSyncToInsideFAQSoapIn" />
+      <wsdl:output message="tns:GetNeedSyncToInsideFAQSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackageExtSync">
+      <wsdl:input message="tns:PackageExtSyncSoapIn" />
+      <wsdl:output message="tns:PackageExtSyncSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackageFilesSync">
+      <wsdl:input message="tns:PackageFilesSyncSoapIn" />
+      <wsdl:output message="tns:PackageFilesSyncSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WebServiceSoap" type="tns:WebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SMC_UnitSync">
+      <soap:operation soapAction="http://tempuri.org/SMC_UnitSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SMC_UserSync">
+      <soap:operation soapAction="http://tempuri.org/SMC_UserSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackagePictuerSync">
+      <soap:operation soapAction="http://tempuri.org/PackagePictuerSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageManualSync">
+      <soap:operation soapAction="http://tempuri.org/PackageManualSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageFAQSync">
+      <soap:operation soapAction="http://tempuri.org/PackageFAQSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNeedSyncToInsideFAQ">
+      <soap:operation soapAction="http://tempuri.org/GetNeedSyncToInsideFAQ" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageExtSync">
+      <soap:operation soapAction="http://tempuri.org/PackageExtSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageFilesSync">
+      <soap:operation soapAction="http://tempuri.org/PackageFilesSync" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="WebServiceSoap12" type="tns:WebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SMC_UnitSync">
+      <soap12:operation soapAction="http://tempuri.org/SMC_UnitSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SMC_UserSync">
+      <soap12:operation soapAction="http://tempuri.org/SMC_UserSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackagePictuerSync">
+      <soap12:operation soapAction="http://tempuri.org/PackagePictuerSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageManualSync">
+      <soap12:operation soapAction="http://tempuri.org/PackageManualSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageFAQSync">
+      <soap12:operation soapAction="http://tempuri.org/PackageFAQSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetNeedSyncToInsideFAQ">
+      <soap12:operation soapAction="http://tempuri.org/GetNeedSyncToInsideFAQ" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageExtSync">
+      <soap12:operation soapAction="http://tempuri.org/PackageExtSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackageFilesSync">
+      <soap12:operation soapAction="http://tempuri.org/PackageFilesSync" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="WebService">
+    <wsdl:port name="WebServiceSoap" binding="tns:WebServiceSoap">
+      <soap:address location="http://localhost:6918/WebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="WebServiceSoap12" binding="tns:WebServiceSoap12">
+      <soap12:address location="http://localhost:6918/WebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

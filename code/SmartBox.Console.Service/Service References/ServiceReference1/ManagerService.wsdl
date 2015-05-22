@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="ManagerService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd2" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Beyondbit.SmartBox.Server.Service" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IManagerService_ForceQuitUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitUser" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitUsers" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitUsers_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitUsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitSession_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitSession" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitSession_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitSessionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitSessions_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitSessions" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitSessions_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitSessionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitClient_InputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitClient" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ForceQuitClient_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ForceQuitClientResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_QueryLoginUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:QueryLoginUser" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_QueryLoginUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QueryLoginUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ModifySystemRuntimeConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifySystemRuntimeConfig" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ModifySystemRuntimeConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifySystemRuntimeConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ModifySystemRuntimeConfigs_InputMessage">
+    <wsdl:part name="parameters" element="tns:ModifySystemRuntimeConfigs" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ModifySystemRuntimeConfigs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ModifySystemRuntimeConfigsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_QuerySystemRuntimeConfigs_InputMessage">
+    <wsdl:part name="parameters" element="tns:QuerySystemRuntimeConfigs" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_QuerySystemRuntimeConfigs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:QuerySystemRuntimeConfigsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_AddSystemRuntimeConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddSystemRuntimeConfig" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_AddSystemRuntimeConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddSystemRuntimeConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_AddSystemRuntimeConfigs_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddSystemRuntimeConfigs" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_AddSystemRuntimeConfigs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddSystemRuntimeConfigsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_RemoveRuntimeConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRuntimeConfig" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_RemoveRuntimeConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRuntimeConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_RemoveRuntimeConfigs_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRuntimeConfigs" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_RemoveRuntimeConfigs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRuntimeConfigsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ResetRuntimeConfigs_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetRuntimeConfigs" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ResetRuntimeConfigs_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetRuntimeConfigsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ResetClientVer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetClientVer" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ResetClientVer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetClientVerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ResetApplication_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetApplication" />
+  </wsdl:message>
+  <wsdl:message name="IManagerService_ResetApplication_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetApplicationResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IManagerService">
+    <wsdl:operation name="ForceQuitUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ForceQuitUser" message="tns:IManagerService_ForceQuitUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ForceQuitUserResponse" message="tns:IManagerService_ForceQuitUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ForceQuitUsers" message="tns:IManagerService_ForceQuitUsers_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ForceQuitUsersResponse" message="tns:IManagerService_ForceQuitUsers_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitSession">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ForceQuitSession" message="tns:IManagerService_ForceQuitSession_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ForceQuitSessionResponse" message="tns:IManagerService_ForceQuitSession_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitSessions">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ForceQuitSessions" message="tns:IManagerService_ForceQuitSessions_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ForceQuitSessionsResponse" message="tns:IManagerService_ForceQuitSessions_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitClient">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ForceQuitClient" message="tns:IManagerService_ForceQuitClient_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ForceQuitClientResponse" message="tns:IManagerService_ForceQuitClient_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QueryLoginUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/QueryLoginUser" message="tns:IManagerService_QueryLoginUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/QueryLoginUserResponse" message="tns:IManagerService_QueryLoginUser_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifySystemRuntimeConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ModifySystemRuntimeConfig" message="tns:IManagerService_ModifySystemRuntimeConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ModifySystemRuntimeConfigResponse" message="tns:IManagerService_ModifySystemRuntimeConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ModifySystemRuntimeConfigs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ModifySystemRuntimeConfigs" message="tns:IManagerService_ModifySystemRuntimeConfigs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ModifySystemRuntimeConfigsResponse" message="tns:IManagerService_ModifySystemRuntimeConfigs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="QuerySystemRuntimeConfigs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/QuerySystemRuntimeConfigs" message="tns:IManagerService_QuerySystemRuntimeConfigs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/QuerySystemRuntimeConfigsResponse" message="tns:IManagerService_QuerySystemRuntimeConfigs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemRuntimeConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/AddSystemRuntimeConfig" message="tns:IManagerService_AddSystemRuntimeConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/AddSystemRuntimeConfigResponse" message="tns:IManagerService_AddSystemRuntimeConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemRuntimeConfigs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/AddSystemRuntimeConfigs" message="tns:IManagerService_AddSystemRuntimeConfigs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/AddSystemRuntimeConfigsResponse" message="tns:IManagerService_AddSystemRuntimeConfigs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRuntimeConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/RemoveRuntimeConfig" message="tns:IManagerService_RemoveRuntimeConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/RemoveRuntimeConfigResponse" message="tns:IManagerService_RemoveRuntimeConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRuntimeConfigs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/RemoveRuntimeConfigs" message="tns:IManagerService_RemoveRuntimeConfigs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/RemoveRuntimeConfigsResponse" message="tns:IManagerService_RemoveRuntimeConfigs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetRuntimeConfigs">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ResetRuntimeConfigs" message="tns:IManagerService_ResetRuntimeConfigs_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ResetRuntimeConfigsResponse" message="tns:IManagerService_ResetRuntimeConfigs_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetClientVer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ResetClientVer" message="tns:IManagerService_ResetClientVer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ResetClientVerResponse" message="tns:IManagerService_ResetClientVer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetApplication">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerService/ResetApplication" message="tns:IManagerService_ResetApplication_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IManagerService/ResetApplicationResponse" message="tns:IManagerService_ResetApplication_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IManagerService" type="tns:IManagerService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ForceQuitUser">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ForceQuitUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitUsers">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ForceQuitUsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitSession">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ForceQuitSession" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitSessions">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ForceQuitSessions" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ForceQuitClient">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ForceQuitClient" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QueryLoginUser">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/QueryLoginUser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifySystemRuntimeConfig">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ModifySystemRuntimeConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ModifySystemRuntimeConfigs">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ModifySystemRuntimeConfigs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="QuerySystemRuntimeConfigs">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/QuerySystemRuntimeConfigs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemRuntimeConfig">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/AddSystemRuntimeConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddSystemRuntimeConfigs">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/AddSystemRuntimeConfigs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRuntimeConfig">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/RemoveRuntimeConfig" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRuntimeConfigs">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/RemoveRuntimeConfigs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetRuntimeConfigs">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ResetRuntimeConfigs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetClientVer">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ResetClientVer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetApplication">
+      <soap:operation soapAction="http://tempuri.org/IManagerService/ResetApplication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="ManagerService">
+    <wsdl:port name="BasicHttpBinding_IManagerService" binding="tns:BasicHttpBinding_IManagerService">
+      <soap:address location="http://192.168.50.252:8733/Beyondbit.SmartBox.Server.Service/ManagerService/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,392 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>安装包列表</title>
+    @Html.Partial("_Telerik")
+    @*@Html.Partial("_Lungo")*@
+    @Html.Partial("_StyleMLLungoPartial")
+    @Html.Partial("_ScriptMLLungoPartial")
+    <script src="../../Scripts/spin.min.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../../Scripts/jquery.hashtable.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var clsData= @Html.Raw(ViewBag.clsData);
+        var spinner = null;
+        function showWaiting() {
+            var opts = {
+              lines: 10, // The number of lines to draw
+              length: 15, // The length of each line
+              width: 5, // The line thickness
+              radius: 15, // The radius of the inner circle
+              corners: 1, // Corner roundness (0..1)
+              rotate: 0, // The rotation offset
+              direction: 1, // 1: clockwise, -1: counterclockwise
+              color: '#0480BA', // #rgb or #rrggbb or array of colors
+              speed: 1, // Rounds per second
+              trail: 60, // Afterglow percentage
+              shadow: true, // Whether to render a shadow
+              hwaccel: false, // Whether to use hardware acceleration
+              className: 'spinner', // The CSS class to assign to the spinner
+              zIndex: 2e9, // The z-index (defaults to 2000000000)
+              top: '50%', // Top position relative to parent
+              left: '50%' // Left position relative to parent
+            };
+            var target = document.getElementById('wait');
+            spinner = new Spinner(opts).spin(target);
+        }
+        function hideWaiting() {
+            if (spinner)
+                spinner.stop();
+        }
+
+        var last_scrollTop = 0;
+        function dvscroll(o) {
+            var ul = document.getElementById('ul');
+            var info = $('#dvLog li:nth-child(2)');
+            var s = 'st:' + o.scrollTop + ',ch:' + ul.clientHeight + ',sh:' + o.scrollHeight
+            //document.getElementById('info').innerHTML = o.scrollTop + ':' + ul.clientHeight + ':' + o.scrollHeight;
+            last_scrollTop = o.scrollTop;
+            var scroll2Height = $('#scroll2').height();
+            s += ' ,scroll2:' + scroll2Height;
+            //info.html(s);
+            //$('#scroller2 ul .load').remove();
+            //if (last_scrollTop > 0 && ((o.scrollHeight - 70) == (o.scrollTop + ul.clientHeight))) {
+                //$('#scroller2 ul').append('<li class="load">加载中....</li>');
+            //}
+
+            if (last_scrollTop > 0 && o.scrollHeight == o.scrollTop + ul.clientHeight) {
+                //appenditem(ul);
+                
+                next_click();
+                
+            }
+        }
+
+        function showInfo(s) {
+            var info = $('#dvLog li:nth-child(2)');
+            var oldinfo = info.html();
+            info.html(s);
+            setTimeout(function() {info.html('应用中心');}, 1000);
+        }
+
+        function first_click() {
+            if (page > 1)
+                page = 1;
+            listViewDataBound(page);
+        }
+        function prev_click() {
+            if (page > 1)
+                --page;
+            listViewDataBound(page);
+        }
+        function next_click() {
+            if (page < total_page) {
+                ++page;
+                //showWaiting();
+                listViewDataBound(page);
+                showInfo('当前第' + page + '页');
+                //setTimeout(function() {hideWaiting();}, 2000);
+            }
+        }
+        function last_click() {
+            if (page < total_page)
+                page = total_page;
+            listViewDataBound(page);
+            showInfo('当前第' + page + '页');
+        }
+
+        function validateImages(o){
+            if (o.complete)
+            {
+                //showInfo('ok:' + o.id);
+            }
+        }
+        var _last_client_type = '';
+
+        var __t = 'all';
+        var __cate = '';
+        function listViewDataBound(_page) {
+            
+            _clientType = __t;
+            var _cate = __cate;
+            $.ajax({
+                type: "post",
+                dataType: "json",
+                //contentType: "application/json; charset=utf-8",
+                url: "@Url.Content("~/home/GetMobileListItems")",
+                data: {
+                page: _page,
+                pageSize: pageSize,
+                clientType: _clientType,
+                cateCode: _cate
+                },
+            success: function (json) {
+                //var max = i + pageSize;
+                //$('#scroller ul').empty();
+
+                //var wrapperTemplate = $('#wrapper').html();
+                //$('#scroller ul').append(wrapperTemplate);
+                var tmpStr = '';
+
+                
+                
+                for (var i = 0; i < json.items.length; i++) {
+                    var o = json.items[i];
+                    var img = new Image();
+                    img.id = 'img_' + o.id;
+                    //var cacheImg = $.cookie("img_" + o.id);
+                    var cacheImg = hashtable.get("img_" + o.id);
+
+                    if (cacheImg) {
+                        img = cacheImg;//从缓存加载
+                    } else {
+                        img.src = o.pictureurl;
+                        img.onLoad=validateImages(img);
+                        //img.onerror = 'src="@Url.Content("~/AppIcons/no.png")"';
+                        img.onerror = nofind;
+                        //$.cookie("img_" + o.id, img);
+                        hashtable.add("img_" + o.id, img);//添加到缓存
+                    }
+                    $('#template').find('.row .row_l img').remove();
+                    $('#template').find('.row .row_l a[id^="a_"]').append(img);
+                    var template = $('#template').html();
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: id #', o.id);
+                    template = template.replace('#: appName #', o.appName);
+                    template = template.replace('#: appVersion #', o.appVersion);
+                    template = template.replace('#: appCate #', o.appCate);
+                    template = template.replace('#: unit #', o.unit);
+                    template = template.replace('#: appDate #', o.appDate);
+                    template = template.replace('#: downloadUrl #', o.downloadUrl);
+                    template = template.replace('#: pe_pictureurl #', o.pictureurl);
+                    var s = '安装';
+                    if (o.pe_clienttype.toLowerCase() == "web")
+                    {
+                        s = '打开';
+                    }
+                    template = template.replace('#: acn #', s);
+                    tmpStr += template;
+                    
+                }
+                //if (page == 1 && json.items.length == pageSize) {
+                //    tmpStr += '<li></li>';
+                //}
+                $('#scroller2 ul').append(tmpStr);
+                //setTimeout(function() {
+                //$('#scroller2 ul .load').remove();
+                //}, 500);
+                total_page = json.page_count;
+                total_records = json.record_count;
+                //var lilength = $('#scroll2 ul li').length();
+                //alert(lilength);
+                if ((json === undefined || json.items.length == 0) && total_records == 0) {
+                    $('#scroller2 ul').empty();
+                    var noRecordTemplate = $('#noRecordTemplate').html();
+                    $('#scroller2 ul').append(noRecordTemplate);
+                }
+                
+            }, failure: function (json) {
+                //alert('failure');
+            }, error: function (xhr, status) {
+                //alert('error');
+            }
+              });
+        }
+
+        function nofind(){
+            var img = event.srcElement;
+            img.src = "@Url.Content("~/AppIcons/no.png")";
+            img.onerror = null;
+            var _id = img.id.replace('img_', '');
+            $('#row_'+_id+' .row_l img#' + img.id).remove();
+            $('#row_'+_id+' .row_l a[id^="a_"]').append(img);
+        }
+
+        function load(t) {
+            __t = t;
+            __cate = '';
+            page = 1;
+            $('#scroller2 ul').empty();
+            listViewDataBound(page);
+            //hideWaiting();
+            setTimeout(function() {hideWaiting();}, 100);
+        }
+
+        function loadCate(c) {
+            __t = '';
+            __cate = c;
+            page = 1;
+            showWaiting();
+            $('#scroller2 ul').empty();
+            listViewDataBound(page);
+            setTimeout(function() {hideWaiting();}, 100);
+        }
+
+        var hashtable = null;
+        $(document).ready(function() {
+            //var bodyHeight = document.documentElement.clientHeight;
+            //var scrollHeight = bodyHeight - 45;
+            //alert(scrollHeight);
+            //$('#scroller').css('height', scrollHeight);
+            hashtable = new jQuery.Hashtable();
+            //var img = new Image();
+            //img.src = '@Url.Content("~/AppPictures/p3.png")';
+            //$.cookie("abc", img);
+            $('#scroller2 ul').empty();
+            listViewDataBound(1);
+        });
+        var page = 1;
+        var pageSize = 10;
+        var total_page = 0;
+        var total_records = 0;
+    </script>
+</head>
+<body onload="showWaiting();setTimeout(hideWaiting, 1000);"> 
+<div id="wait"></div>
+   <div id="dvLog">
+   <ul>
+   <li><img src="../../Images/icologl.png" /></li>
+   <li>应用中心</li>
+   <li><a data-role="button" data-rel="modalview" href="#modalview-login" id="modalview-open-button"><img src="../../Images/icologin2.png" /></a></li>
+   </ul>
+   </div> 
+   
+   
+
+
+   <div data-role="modalview" id="modalview-login" style="width: 90%;display:none;">
+    <div data-role="header">
+        <div data-role="navbar">
+            <span>用户登录</span>
+            <a data-click="closeModalViewCancel" data-role="button" data-align="right">取消</a>
+        </div>
+    </div>
+    @using (Html.BeginForm("MLogin", "Home", FormMethod.Post, new { id = "frmLogin" }))
+    {
+        <input type=hidden id="userTp" name="userTp" />
+        <input type=hidden id="tbPassword" name="tbPassword" />
+    <ul data-role="listview" data-style="inset">
+        <li>账号: <input type="text" id="tbName" name="tbName" /></li>
+    </ul>
+    <a data-click="closeModalViewLogin" id="modalview-login-button" type="button" data-role="button">登录</a>
+    <a data-click="closeModalViewGuestLogin" id="modalview-guest-button" type="button" data-role="button">游客登录</a>
+    <a data-click="closeModalViewExit" id="modalview-exit-button" type="button" data-role="button">注销</a>
+    }
+</div>
+
+
+
+
+   
+   <div id="menuView" data-role="view" style="display:">
+
+      <div id="scroller" data-role="scroller" data-elastic="false">
+        <div class="item">
+            <a href="#" target="ifr" onclick="clickitem(this);load('all');"><div class="txt txtfocus">全部</div></a>
+            <div class="line linefocus"></div>
+        </div>
+        <div class="item">
+            <a href="#" target="ifr" onclick="clickitem(this);load('tj');">
+                <div class="txt">推荐</div>
+            </a>
+                <div class="line"></div>
+</div>
+        <div class="item">
+            <a href="#" target="ifr" onclick="clickitem(this);load('zx');">
+                <div class="txt">最新</div>
+            </a>
+                <div class="line"></div>
+</div>
+        <div class="item">
+            <a href="#" target="ifr" onclick="clickitem(this);load('bb');">
+                <div class="txt">必备</div>
+            </a>
+                <div class="line"></div>
+</div>
+        <div class="item">
+            <a href="#" target="ifr" onclick="clickitem(this);load('sc');">
+                <div class="txt">收藏</div>
+            </a>
+                <div class="line"></div>
+</div>
+        <div class="item">
+            <div class="txt"><a data-role="button" href="#foo" data-rel="popover">分类</a></div>
+            <div class="line"></div>
+        </div>
+        <div class="item">
+            <a href="#" target="ifr" onclick="clickitem(this);load('qyy');">
+                <div class="txt">轻应用</div>
+            </a>
+                <div class="line"></div>
+</div>
+      </div>
+
+
+      <div id="foo" data-role="popover" data-popup='{ "height": "300" }' data-pane='{ "initial": "#view2","transition": "slide" }'>
+          <div data-role="view" id="view1" data-title="选择分类" data-show="initPopoverData">
+              <header data-role="header">
+                  <div data-role="navbar">
+                      <span data-role="view-title"></span>
+                  </div>
+              </header>
+              <ul class="listview" data-role="listview" id="listview"></ul>
+          </div>
+    <div data-role="view" id="view2" data-title="view2">
+
+    </div>
+  </div>
+
+
+    
+
+    </div>
+    
+    <div id="list" style="display:none;">
+    <iframe src="ML3" name="ifr" style="display:none;"></iframe>
+    </div>
+     <div id="scroller2" onscroll="dvscroll(this);">
+  <ul id="ul" style="margin:0px;padding:0px;">
+
+            
+        </ul>
+        </div>
+        <div id="template" style="display:none;">
+        <li class="row" id="row_#: id #">
+            <div class="rowdiv">
+                <div class="row_l"><div><a id="a_#: id #" target="_parent" href="@Url.Content("~/Home/MD?pe_id=")#: id #"><img id="img_#: id #" onerror="src='@Url.Content("~/AppIcons/no.png")'" style="" src="#: pe_pictureurl #" /></a></div></div>
+                <div class="row_c">
+                    <div class="row_c_row"><span class="title"><a target="_parent" href="@Url.Content("~/Home/MD?pe_id=")#: id #">#: appName #</a></span> <span class="version">（#: appVersion #）</span></div>
+                    <div class="row_c_row">#: appCate #</div>
+                    <div class="row_c_row">#: unit #/#: appDate #</div>
+                </div>
+                <div class="row_r">
+                    <a href="#: downloadUrl #"><div class="button">#: acn #</div></a>
+                </div>
+            </div>
+        </li>
+    </div>
+
+    <div id="noRecordTemplate" style="display:none;">
+        <li class="row">
+            <div class="norecord">
+                没有符合条件的数据！
+            </div>
+        </li>
+    </div>
+
+
+
+<script>
+    var app = new kendo.mobile.Application(document.body);
+</script>
+</body>
+</html>

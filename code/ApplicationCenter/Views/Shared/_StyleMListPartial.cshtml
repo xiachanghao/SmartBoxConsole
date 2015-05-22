@@ -1,0 +1,459 @@
+﻿<style>
+
+            /*240*320  640*360   480*800   480*850  960**540    1280*720   1280*768   1920*1080*/
+            html 
+            {
+                font-size:1.4em;
+            }
+    #wrapper
+    {        
+        width:100%;
+    }
+    
+    @*ul#ulCategory 
+    {
+        width:120px;
+        border:1px solid #ECECEC;
+        box-shadow:0 0 8px #CDCDCD;
+    }
+    
+    ul#ulCategory li 
+    {
+        list-style-type:none;
+        border-top:1px solid #ECECEC;
+        width:100%;
+    }*@
+        ul#listView li #r1
+        {
+            width:100%;
+        }
+        
+        ul#listView li #r1 li 
+        {
+            list-style-type:none;
+        }
+
+            ul#listView li #r1 li
+            {
+                float:left;
+                width:14%;
+                border-bottom:1px solid #BCBCBC;
+                background-color:#EAEAEA;
+                vertical-align:middle;
+                text-align:center;
+                color:#000000;
+                height:60px;
+                line-height:60px;
+                vertical-align:middle;                
+            }
+            ul#listView li #r1 li:last-child {
+                width:15.9%;
+            }
+
+            ul#listView li #r1 li.focus {
+                background-color:#50C4F9;
+                color:#FFFFFF;
+                border-bottom:5px solid #0280BA;
+            }
+            ul#listView li #r1 li div 
+            {
+                width:100%;
+                height:80px;
+                line-height:80px;
+            }
+            
+            div#page_row 
+            {
+                height:100%;
+            }
+            
+            div#page_info 
+            {
+                height:50%;
+                line-height:50px;
+                vertical-align:middle;
+                text-align:center;
+            }
+            
+           div#page 
+           {
+               list-style-type:none;
+               width:80%;
+               height:50%;
+               line-height:50px;
+               vertical-align:middle;
+               margin-left:auto;
+               margin-right:auto;
+           }
+           
+           div#page div 
+           {
+               width:22.8%;
+               margin-left:1%;
+               margin-right:1%;
+               float:left;
+               text-align:center;
+               height:100%;
+           }
+            
+            ul#listView
+            {
+                list-style-type:none;
+                width:100%;
+                height:100%;
+                
+            }
+
+            ul#listView li
+            {
+                vertical-align:middle;
+                height:100px;
+                line-height:100px;                
+                color:#000;
+                border-bottom:1px solid #ababab;
+                width:100%;
+                background-color:#e9f5fb;
+                list-style-type:none;
+            }
+            
+            ul#listView li:first-child 
+            {
+                height:60px;
+                line-height:60px;
+                vertical-align:middle;
+            }
+            
+            ul#listView li:nth-child(even) 
+            {
+                background-color:#fff;
+            }
+            ul#listView li .norecord 
+            {
+                text-align:center;
+            }
+
+    ul#listView li .rowdiv {
+        height:100%;
+    }
+
+    ul#listView li .row_l {
+        float:left;
+        width:15%;
+        height:100%;
+        line-height:100px;
+        vertical-align:middle;
+    }
+
+    ul#listView li .row_l div {
+
+        text-align:center;
+        height:100%;
+    }
+
+            ul#listView li .row_l div img
+            {
+                padding-top:0px;
+                margin-top:10px;
+                width:80px;
+                height:80px;
+            }
+
+    ul#listView li .rowdiv .row_c {
+        float:left;
+        width:70%;
+        height:100%;
+        line-height:100%;
+    }
+
+    ul#listView li .row_c .row_c_row {
+        height:33.328125px;
+        line-height:33.328125px;
+        vertical-align:middle;
+        color:#777777;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+            ul#listView li .row_c .row_c_row .title
+            {
+                color:#2F98D3;
+                font-size:1.2em;
+                height:100%;
+            }
+            ul#listView li .row_c .row_c_row .title a 
+            {
+                color:#2F98D3;
+                text-decoration:none;
+                height:100%;
+            }
+            ul#listView li .row_c .row_c_row .version
+            {
+                color:#666666;
+            }
+
+    ul#listView li .row_r {
+        float:right;
+        width:15%;
+        height:100%;
+        text-align:center;
+    }
+    
+    ul#listView li .row_r .button 
+    {
+        border:1px solid #155c9b;
+        border-radius:5px;
+        height:60px;
+        line-height:60px;
+        width:100%;
+        vertical-align:middle;
+        margin-top:20px;
+    }
+    
+    ul#listView li .row_r .button a 
+    {
+        color:#0081c9;
+    }
+    
+    @@media screen and (min-width: 800px) and (max-width: 1200px) {
+
+    }
+    @@media screen and (orientation: portrait)
+    {
+        /*竖屏*/
+    }
+    @@media screen and (orientation: landscape)
+    {
+        /*横屏*/
+    }
+
+
+            @@media only screen and (min-width : 320px) and (max-width : 480px)
+            {
+                
+                ul#listView li #r1 li
+                {
+                    float:left;
+                    width:13%;
+                    border-bottom:1px solid #BCBCBC;
+                    background-color:#EAEAEA;
+                    vertical-align:middle;
+                    text-align:center;
+                    color:#000000;
+                }
+
+                
+                @@media screen and (orientation: portrait)
+                {
+                    /*竖屏*/
+                    ul#listView li #r1 li:last-child {
+                        width:17.5%;
+                        font-size:0.99em;
+                    }
+                }
+            
+
+                ul#listView li #r1 li {
+                    font-size:1em;
+                    height:40px;
+                    line-height:40px;
+                }
+                ul#listView li #r1 li:last-child {
+                    
+                }
+
+                ul#listView li.row
+                {
+                    padding:0px;
+                    margin:0px;
+                    width:100%;
+                }
+
+                ul#listView li.row .row_l {
+                    float:left;
+                    width:20%;
+                    height:80px;
+                    line-height:80px;
+                    vertical-align:middle;
+                    margin:0px;
+                    padding:0px;
+                }
+
+                ul#listView li.row .row_l div {
+
+                    text-align:center;
+                    height:100%;
+                }
+
+                ul#listView li.row .row_l div img
+                {
+                    width:60px;
+                    height:60px;
+                    margin-top:3px;
+                }
+
+                    ul#listView li.row .row_c
+                    {
+                        font-size:0.8em;
+                        height:80px;
+                        width:60%;
+                        margin:0px;
+                        padding:0px;
+                        padding-left:5px;
+                    }
+                        ul#listView li.row .row_c .row_c_row
+                        {
+                            height:22px;
+                            line-height:22px;
+                        }
+
+                ul#listView li.row .row_c .row_c_row .title
+                {
+                    color:#2F98D3;
+                }
+                ul#listView li.row .row_c .row_c_row .version
+                {
+                    color:#666666;
+                }
+
+                ul#listView li.row .row_r
+                {
+                    margin-top:13px;
+                    width:20%;
+                }
+
+                    ul#listView li.row .row_r a
+                    {
+                        float:right;
+                    }
+
+                @@media screen and (orientation: landscape)
+                {
+                    ul#listView li.row #r1
+                    {
+                        width:100%;
+
+                    }
+                    /*横屏*/
+                    ul#listView li.row #r1 li
+                    {
+                        
+                        
+                    }
+                    ul#listView li.row #r1 li:last-child {
+                        width:16.0%;
+                    }
+
+                    ul#listView li.row .row_l div img
+                    {
+                        width:60px;
+                        height:60px;
+                        margin-top:3px;
+                    }
+
+                    ul#listView li.row .row_r
+                    {
+                        margin-top:13px;
+                    }
+                }
+
+                @@media only screen and (min-device-width : 640px) and (max-device-width : 1136px)
+                {
+                    ul#listView li.row .row_l {
+                        float:left;
+                        width:20%;
+                        height:100%;
+                    }
+                    ul#listView li.row .row_c {
+                        float:left;
+                        width:60%;
+                        height:100%;
+
+                    }
+                    ul#listView li.row .row_r {
+                        float:right;
+                        width:20%;
+                        height:100%;
+                    }
+                }
+    }
+@@media only screen  and (min-height : 520px)
+{
+    
+}
+
+@@media only screen and (min-height : 420px) and (max-height : 519px)
+{
+    ul#listView li.row #r1 div 
+    {
+
+    }
+}
+
+@@media only screen and (min-height : 320px) and (max-height : 419px) 
+{
+}
+
+
+ul, user agent stylesheetul, menu, dir {
+display: block;
+list-style-type: disc;
+-webkit-margin-before: 0em;
+-webkit-margin-after: 0em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
+-webkit-padding-start: 0px;
+}
+
+/*以下样式解决在firefox浏览器里显示不正常的问题*/
+ul#r1 
+{
+    padding-top:0px;
+    padding-left:0px;
+}
+ul#listView 
+{
+    margin-top:0px;
+    padding-left:0px;
+}
+/*以上样式解决在firefox浏览器里显示不正常的问题*/
+
+@@media screen and (min-width: 471px)  and (max-width: 544px) 
+{
+    ul#listView li.row .row_c 
+    {
+        width:65%;
+        margin-left:2%;
+    }
+}
+
+@@media screen and (min-width: 451px)  and (max-width: 470px) 
+{
+    ul#listView li.row .row_c 
+    {
+        width:60%;
+        margin-left:4%;
+    }
+}
+
+@@media screen and (max-width: 450px) 
+{
+    ul#listView li.row .row_c 
+    {
+        width:100px;
+        margin-left:2%;
+    }
+    ul#listView li.row .row_c .row_c_row 
+    {
+        width:100%;
+    }
+    ul#listView li.row .row_c .row_c_row .title 
+    {
+        width:50%;
+    }
+    ul#listView li.row .row_c .row_c_row .version 
+    {
+        width:50%;
+    }
+}
+</style>

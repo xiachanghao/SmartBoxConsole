@@ -1,0 +1,261 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @*<meta name="viewport" content="width=device-width" />*@
+    <title>MDetail</title>
+    <script src="../../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../../Scripts/kendo.all.min.js"></script>
+        <link href="../../Content/kendo.common.min.css" rel="stylesheet" />
+        <link href="../../Content/kendo.rtl.min.css" rel="stylesheet">
+        <link href="../../Content/kendo.default.min.css" rel="stylesheet">
+        <link href="../../Content/kendo.mobile.all.min.css" rel="stylesheet" />
+    <script type="text/javascript">
+        
+        var picData = @Html.Raw(ViewBag.picData);
+        $(document).ready(function () {
+        var width = document.documentElement.clientWidth;
+        var height = document.documentElement.clientHeight;
+        //alert(width + 'x' + height);
+            $('#wrapper #r1 img')
+            .kendoTouch({
+                tap: function (e) {
+                    history.back();
+                    //$(e.touch.target).addClass("tap");
+                    //$(e.touch.target).addClass("focus");
+                }
+            });
+            $('#btnFeedback').kendoTouch({
+                tap: function (e) {
+                    sendQuestion();
+                    //alert(e.touch.target.text());
+                    //$(e.touch.target).addClass("tap");
+                    //$(e.touch.target).addClass("focus");
+                }
+            });
+            $('#btnInstall').kendoTouch({
+                tap: function (e) {
+                    //alert(e.touch.target.text());
+                    //$(e.touch.target).addClass("tap");
+                    //$(e.touch.target).addClass("focus");
+                }
+            });
+
+            $('#wrapper #r4 #left_btn_1').kendoTouch({
+                tap: function (e) {
+                    LeftClick();
+                }
+            });
+            $('#wrapper #r4 #right_btn_1').kendoTouch({
+                tap: function (e) {
+                    RightClick();
+                }
+            });
+            setScrollItemDisplay();
+            
+        });
+
+        //向前翻页
+        function LeftClick() {
+            if (picData.pageIndex > 1) {
+                --picData.pageIndex;
+                setScrollItemDisplay();
+                setScrollItemWidth();
+            }
+        }
+
+        //向后翻页
+        function RightClick() {
+            if (picData.pageIndex < picData.pageCount) {
+                ++picData.pageIndex;
+                setScrollItemDisplay();
+                setScrollItemWidth();
+            }
+        }
+
+        //滚动应用区 必备
+        function setScrollItemDisplay() {
+
+            $('#wrapper #r4 .center #content img').each(function () {
+                $(this).fadeOut();
+            });
+            $('#wrapper #r4 .center #content').empty();
+
+
+            var pageSize = 5;
+            var _contentWidth = $('#wrapper #r4 .center #content').width();
+
+            var clientWidth = document.documentElement.clientWidth || document.body.clientWidth;
+            pageSize = 2;
+            if (clientWidth < 715 && clientWidth >= 527) {
+                pageSize = 2;
+            }
+            else if (clientWidth < 527) {
+                pageSize = 1;
+            }
+
+            var cnt = picData.items.length / pageSize;
+            cnt = Math.ceil(cnt);
+            picData.pageCount = cnt;
+            var startItemIndex = pageSize * (picData.pageIndex - 1);
+            for (var i = startItemIndex; i < startItemIndex + pageSize; ++i) {
+                if (i == picData.items.length)
+                    break;
+
+                $('#wrapper #r4 .center #content').append('<img src="' + picData.items[i].picture + '" />');
+                //$('#wrapper #r4 .center #content').append('<img src="@Url.Content("~/Images/")" />');
+                //$('#wrapper #r4 .center #content').append('<img src="@Url.Content("~/Images/")" />');
+            }
+        }
+
+        function setScrollItemWidth() {
+
+            var contentWidth = $('#wrapper #r4 .center #content').width();
+            var _centerWidth = $('#wrapper #r4 .center').width();
+            //alert(_centerWidth);
+            var pageSize = 5;
+            if (_centerWidth < 860 && _centerWidth >= 681) {
+                pageSize = 4;
+            }
+            else if (_centerWidth < 680 && _centerWidth >= 621) {
+                pageSize = 3;
+            }
+            else if (_centerWidth < 620 && _centerWidth >= 611) {
+                pageSize = 2;
+            }
+            else if (_centerWidth < 610) {
+                pageSize = 1;
+            }
+            pageSize = 2;
+            //var itemAppWidth = 146 * 2 + 20;
+            //alert(itemAppWidth);
+            //$('#wrapper #r4 .center #content .appItem').css('width', itemAppWidth + '%');
+            //var _contenWidth = $('#wrapper #r4 .center #content').width();
+
+            //$('#wrapper #r4 .center').css('width', _contenWidth - 1);
+        }
+
+        function downloadClick() {
+            alert('');
+        }
+
+        function sc() {
+            $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/SCPost")",
+                  data: {
+                      pe_id: @Request.QueryString["pe_id"]
+                  },
+                  success: function (json) {
+                      if (json.r) {
+                        alert(json.d);
+                      } else {
+                        alert(json.d);
+                      }
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  },
+              });
+              return false;
+        }
+
+        function sendQuestion() {
+        var txt = $('#txtarea').val();
+        if ($.trim(txt) == '') {
+            alert('请录入问题！');
+            return;
+        }
+        $.ajax({
+                    type: "post",
+                    dataType: "json",
+                    //contentType: "application/json; charset=utf-8",
+                    url: "@Url.Content("~/home/PostQuestion")",
+                  data: {
+                      question: txt,
+                      pe_id: @Request.QueryString["pe_id"]
+                  },
+                  success: function (json) {
+                      if (json.d) {
+                        alert('反馈成功！');
+                        location.reload();
+                      } else {
+                        alert('反馈操作失败！');
+                      }
+                  }, failure: function (json) {
+                      //showMessage(json.d, function () { window.close(); });
+                  }, error: function (xhr, status) {
+                      //showMessage("Sorry, there was a problem!", function () { window.close(); });
+                  },
+              });
+              }
+    </script>
+    @Html.Partial("_StyleMDetailPartial")
+</head>
+<body>
+    <div id="wrapper">
+        <div id="r1">
+            软件详情<img src="@Url.Content("~/Images/mdetail_back.png")" />
+        </div>
+        <div id="r2">
+            <div class="l">
+                <img style="" src="@ViewBag.package["appImage"]" />
+            </div>
+            <div class="c">
+                <div class="row_c_row"><span class="title">@ViewBag.package["displayname"]</span> <span class="version">@if (ViewBag.package["pe_clienttype"].ToString().ToLower() != "web")
+                                                                                                                {
+                                                                                                                            @ViewBag.package["size"]@:M
+                                                                                                                                         }</span></div>
+                <div class="row_c_row">@ViewBag.package["Class"]</div>
+                <div class="row_c_row">已下载：@ViewBag.package["DownloadCount"]</div>
+            </div>
+            <div class="r">
+                <div class="button_group">
+                    <div id="btnSC" class="btn"><a href="#" onclick="javascript:return sc();">收藏</a></div>
+                    <div id="btnInstall" class="btn"><a href="@ViewBag.package["downloaduri"]" target="_blank">@if (ViewBag.package["pe_clienttype"].ToString().ToLower() == "web")
+                                                                                                                {
+                                                                                              @:打开
+                                                                                              } else {
+                                                                                              @:下载安装
+                                                                                              }</a></div>
+                </div>
+            </div>
+        </div>
+        <div id="r3">发布时间：@ViewBag.package["ItemDate"] | 支持固件：@ViewBag.package["os"]</div>
+        <div id="r4">
+            <div id="contentrow">
+                <div class="larrow">
+                    @*<input id="left_btn_1" type="image" src="@Url.Content("~/Images/lbtn.png")" />*@
+                    <div id="left_btn_1"><img src="@Url.Content("~/Images/lbtn.png")" /></div>
+                </div>
+                <div class="center">
+                    <div id="content"></div>
+                </div>
+                <div class="rarrow">
+                    @*<input id="right_btn_1" type="image" src="@Url.Content("~/Images/rbtn.png")" />*@
+                    <div id="right_btn_1"><img src="@Url.Content("~/Images/rbtn.png")" /></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="r5">软件介绍：@ViewBag.package["description"]
+        </div>
+        <div id="r6"></div>
+        <div id="r7">
+            <textarea id="txtarea"></textarea>
+            
+        </div>
+        <div id="r8">
+            <div id="btnFeedback" class="btn">问题反馈</div>
+            </div>
+        </div>
+        
+</body>
+</html>

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3E1465B3-0028-41CB-ABD7-6F84D45B656D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SmartBox.Console.Dao</RootNamespace>
+    <AssemblyName>SmartBox.Console.Dao</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'DebugNoLogon|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\DebugNoLogon\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'IIS6|AnyCPU' ">
+    <OutputPath>bin\IIS6\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <CodeAnalysisUseTypeNameInSuppression>true</CodeAnalysisUseTypeNameInSuppression>
+    <CodeAnalysisModuleSuppressionsFile>GlobalSuppressions.cs</CodeAnalysisModuleSuppressionsFile>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Beyondbit.Framework, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\RefDll\Beyondbit.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApplicationCenter\SMC_Collect.cs" />
+    <Compile Include="ApplicationCenter\SMC_Package4OutDao.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageExtDao.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageFAQDao.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageManualDao.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackagePicture.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackagePictureDao.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageSync.cs" />
+    <Compile Include="ApplicationCenter\SMC_UserDao.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageExt.cs" />
+    <Compile Include="ApplicationCenter\SMC_Package4Out.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageFAQ.cs" />
+    <Compile Include="ApplicationCenter\SMC_PackageManual.cs" />
+    <Compile Include="ApplicationCenter\SMC_UserDao2.cs" />
+    <Compile Include="ApplicationManage\Action4AndroidDao.cs" />
+    <Compile Include="ApplicationManage\App4AIDao.cs" />
+    <Compile Include="ApplicationManage\ApplicationCategoryDao.cs" />
+    <Compile Include="ApplicationManage\ApplicationDao.cs" />
+    <Compile Include="ApplicationManage\ApplyDeviceBindDao.cs" />
+    <Compile Include="ApplicationManage\AppPrivilegeDao.cs" />
+    <Compile Include="ApplicationManage\ClientTypeDao.cs" />
+    <Compile Include="ApplicationManage\DeviceBindDao.cs" />
+    <Compile Include="ApplicationManage\HomePlanDao.cs" />
+    <Compile Include="ApplicationManage\HomePlanDesignDao.cs" />
+    <Compile Include="ApplicationManage\IOSOutsideAppDao.cs" />
+    <Compile Include="ApplicationManage\PrivilegeUserDao.cs" />
+    <Compile Include="ApplicationManage\StatisticsDAO.cs" />
+    <Compile Include="ApplicationManage\StyleDao.cs" />
+    <Compile Include="ApplicationManage\StyleHomeItemDao.cs" />
+    <Compile Include="ApplicationManage\DeviceDao.cs" />
+    <Compile Include="ApplicationManage\DeviceUserDao.cs" />
+    <Compile Include="ApplicationManage\DeviceUserApplyDao.cs" />
+    <Compile Include="ApplicationManage\DeviceConfigDao.cs" />
+    <Compile Include="ApplicationManage\SystemConfigDao.cs" />
+    <Compile Include="AuthManage\SMC_AutoTableIDDao.cs" />
+    <Compile Include="AuthManage\SMC_FunctionRoleDao.cs" />
+    <Compile Include="AuthManage\SMC_FunctionsDao.cs" />
+    <Compile Include="AuthManage\SMC_RoleDao.cs" />
+    <Compile Include="AuthManage\SMC_UnitDao.cs" />
+    <Compile Include="AuthManage\SMC_UserListDao.cs" />
+    <Compile Include="AuthManage\SMC_PackageExtSyncToOutsideDao.cs" />
+    <Compile Include="AuthManage\SMC_BUAUserSyncToInsideDao.cs" />
+    <Compile Include="AuthManage\SMC_BUAUserSyncToOutsideDao.cs" />
+    <Compile Include="AuthManage\SMC_UserExceptionDao.cs" />
+    <Compile Include="AuthManage\DeviceExceptionDao.cs" />
+    <Compile Include="AuthManage\GlobalParamDao.cs" />
+    <Compile Include="AuthManage\SMC_PackageExtHistoryDao.cs" />
+    <Compile Include="MainProgramManage\ConfigInfoPCDao.cs" />
+    <Compile Include="ImageManage\ImageDao.cs" />
+    <Compile Include="ApplicationManage\Package4AIDao.cs" />
+    <Compile Include="ApplicationManage\WebApplicationDao.cs" />
+    <Compile Include="BaseDao.cs" />
+    <Compile Include="MainProgramManage\ConfigCategoryDao.cs" />
+    <Compile Include="MainProgramManage\ConfigInfoDao.cs" />
+    <Compile Include="MainProgramManage\VersionTrackDao.cs" />
+    <Compile Include="MonitorManage\monitor_cmdDao.cs" />
+    <Compile Include="MonitorManage\Monitor_ConfigDao.cs" />
+    <Compile Include="MonitorManage\Monitor_DefindDao.cs" />
+    <Compile Include="MonitorManage\Monitor_linkmanDao.cs" />
+    <Compile Include="MonitorManage\monitor_logDao.cs" />
+    <Compile Include="MonitorManage\monitor_sendwarnDao.cs" />
+    <Compile Include="PluginManage\ActionExtendDao.cs" />
+    <Compile Include="PluginManage\ConfigTempDao.cs" />
+    <Compile Include="PluginManage\IMGroupDao.cs" />
+    <Compile Include="PluginManage\LogDao.cs" />
+    <Compile Include="PluginManage\ManagerDao.cs" />
+    <Compile Include="PluginManage\PluginDao.cs" />
+    <Compile Include="PluginManage\PluginInfoTempDao.cs" />
+    <Compile Include="PluginManage\UserInfoDao.cs" />
+    <Compile Include="PluginManage\UserPluginRefDao.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PushManage\PushManageDAO.cs" />
+    <Compile Include="PushManage\PushDllDAO.cs" />
+    <Compile Include="UserOnlineDAO.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SmartBox.Console.Common\SmartBox.Console.Common.csproj">
+      <Project>{263F1DA2-47A3-44D1-B928-A9DCD77A4C19}</Project>
+      <Name>SmartBox.Console.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

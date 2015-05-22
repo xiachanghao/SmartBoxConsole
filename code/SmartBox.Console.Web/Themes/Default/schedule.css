@@ -1,0 +1,42 @@
+﻿table.bbit-curritable
+{
+	background: #fff;
+	border-collapse: collapse !important; /* 关键属性：合并表格内外边框(其实表格边框有2px，外面1px，里面还有1px哦) */
+	margin: 1px auto 0px auto;
+	border-left: solid 1px #ccc;
+	border-top: solid 1px #ccc;
+	border-bottom: none !important;
+	border-right: none !important;
+}
+table.bbit-curritable td
+{
+	border-right: solid 1px #ccc;
+	border-bottom: solid 1px #ccc;
+	border-left: none !important;
+	border-top: none !important;
+	padding: 0px;
+	text-align: center; /* cursor:pointer; */
+	word-break: break-all;
+}
+table.bbit-curritable tr.erow td
+{
+	background: #F5FFEF;
+}
+.bbit-curritable thead tr
+{
+	background: #ccc url(../../Themes/Default/images/flexigrid/gridth.gif) repeat-x left center;
+}
+.bbit-curritable thead td
+{
+	/* border-bottom: none !important; */
+}
+.bbit-curritable tbody tr
+{
+	height: 40px;
+}
+td.disabled
+{
+	background-color: #DFDFDF !important;
+}
+
+

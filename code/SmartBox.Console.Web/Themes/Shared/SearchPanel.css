@@ -1,0 +1,17 @@
+﻿.ctoolbar 
+{
+    border:1px solid #e5e5e5;
+    margin-bottom:5px;
+}
+
+.Wdate 
+{
+    padding-bottom:2px;
+    padding-top:2px;
+}
+
+input
+{
+    height:21px!important;
+    line-height:21px!important;
+}

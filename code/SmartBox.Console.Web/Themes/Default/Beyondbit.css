@@ -1,0 +1,64 @@
+﻿body
+{
+	background-color: #eee;
+}
+
+
+
+.bbit-form-textbox-onblur{
+	padding:2px 4px;
+	border:1px solid #B0C4DE;
+	color:#666;	
+}
+
+.bbit-form-textbox-onfocus{
+	padding:2px 4px;
+	background:#F5FEEB;
+	border:1px solid #CDFA9C;
+	color:#666;
+}
+
+BODY {
+	FONT-SIZE: 9pt; MARGIN: 0px; OVERFLOW: auto; SCROLLBAR-ARROW-COLOR: #111111; SCROLLBAR-BASE-COLOR: #f8f8f8
+}
+TABLE {
+	FONT-SIZE: 9pt; BORDER-COLLAPSE: collapse
+}
+TD {
+	HEIGHT: 23px
+}
+
+/*InfoDataName*/
+TD.bbit-form-cell-name {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid
+}
+/*InfoDataValue*/
+TD.bbit-form-cell-value {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid
+}
+
+TD.bbit-form-cell-image {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid
+}
+TD.bbit-form-cell-name {
+	PADDING-RIGHT: 10px; BACKGROUND: #eaeff1; WIDTH: 30%; TEXT-ALIGN: right
+}
+TD.bbit-form-cell-value {
+	PADDING-LEFT: 10px; BACKGROUND: #ffffff; WIDTH: 70%
+}
+/*formSubmitOpbar*/
+.bbit-form-row-SubmitOpbar {
+	MARGIN-TOP: 10px; WIDTH: 100%; TEXT-ALIGN: center
+}
+/*TD.SearchDataName*/
+TD.bbit-form-cell-SearchDataName {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BACKGROUND: #eaeff1; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid
+}
+/*SearchDataValue*/
+TD.bbit-form-cell-SearchDataValue {
+	BORDER-RIGHT: #cccccc 1px solid; BORDER-TOP: #cccccc 1px solid; BACKGROUND: #eaeff1; BORDER-LEFT: #cccccc 1px solid; BORDER-BOTTOM: #cccccc 1px solid
+}
+/*TD.SearchDataName*/
+TD.bbit-form-cell-SearchDataName {
+	PADDING-RIGHT: 10px; WIDTH: 13%; TEXT-ALIGN: right
+}
