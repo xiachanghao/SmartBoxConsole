@@ -100,7 +100,9 @@
                 非常抱歉，无法执行您的操作，请稍后再试</div>
         </div>
         <% using (Html.BeginForm("Publishs", "MainProgramManage", new { IsLoadFile = ViewData["IsLoadFile"] }, FormMethod.Post, new { id = "fmEdit" }))
-           {%>
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);%>
         <div class="bbit-categorycontainer">
             <table width="100%" class="bbit-form" cellspacing="0" cellpadding="2">
                 <tr>

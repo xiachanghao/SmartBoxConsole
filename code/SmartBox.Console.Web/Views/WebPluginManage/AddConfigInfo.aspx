@@ -111,7 +111,9 @@
                     <span class="Close" title="¹Ø±Õ">¹Ø±Õ(<u>Esc</u>)</span></a>
         </div>
         <% using (Html.BeginForm("EditConfigs", "MainProgramManage", FormMethod.Post, new { id = "fmEdit" }))
-           {%>
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);%>
         <div class="bbit-categorycontainer">
             <table width="100%" class="bbit-form" cellspacing="0" cellpadding="2">
                 <tr>

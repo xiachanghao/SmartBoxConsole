@@ -8,7 +8,7 @@ using System.Collections;
 
 namespace SmartBox.Console.Dao
 {
-    public class Package4AIDao:BaseDao<Package4AI>
+    public class Package4AIDao : BaseDao<Package4AI>
     {
         public Package4AIDao(string key)
             : base(key)
@@ -23,7 +23,7 @@ namespace SmartBox.Console.Dao
                             (select DisplayName+',' from ClientType where ClientType in (select * from dbo.Split(package.ClientType,'|',1)) for xml path('')) DisplayClientType
                         from 
 	                        Package4AI package");
-            return base.QueryDataForFlexGridByPager(coloum, string.Format("({0}) as temp",sql.ToString()), view.OrderBy.ToString(), "ID", string.Empty, view);
+            return base.QueryDataForFlexGridByPager(coloum, string.Format("({0}) as temp", sql.ToString()), view.OrderBy.ToString(), "ID", string.Empty, view);
         }
 
         public JsonFlexiGridData QueryNeedImportedPackageList(PageView view)
@@ -92,7 +92,7 @@ namespace SmartBox.Console.Dao
             if (!String.IsNullOrEmpty(orderby))
             {
                 //orderby = " order by " + orderby;
-            }            
+            }
 
             if (where.StartsWith(" and ", StringComparison.CurrentCultureIgnoreCase))
                 where = where.Substring(5);
@@ -104,6 +104,15 @@ namespace SmartBox.Console.Dao
 
 
             return result;
+        }
+
+        public bool HasMainPackage(string clientType)
+        {
+            string sql = string.Format("SELECT * FROM [Package4AI] where [TYPE]='Main' and [ClientType]='{0}'", clientType);
+            if (base.Query(sql).Count > 0)
+                return true;
+            else
+                return false;
         }
     }
 }

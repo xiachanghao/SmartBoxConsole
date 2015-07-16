@@ -22,37 +22,36 @@
     <script src="../../Javascripts/intellisense/jquery-1.2.6-vsdoc.js" type="text/javascript"></script>
     <%} %>
     <style type="text/css">
-        .title
-        {
+        .title {
             background-color: #60a6cf;
             height: 24px;
             line-height: 24px;
             font-size: 12px;
         }
-        .title strong
-        {
-            font-size: 16px;
-        }
-        table
-        {
+
+            .title strong {
+                font-size: 16px;
+            }
+
+        table {
             border: 1px;
             border-style: solid;
             border-collapse: collapse;
             line-height: 30px;
         }
-        .form
-        {
+
+        .form {
             width: 100%;
             background-color: #fff;
             margin: 0px;
             padding: 0px;
         }
-        .notNull
-        {
+
+        .notNull {
             color: #F00;
         }
-        div.checkboxlist div.list
-        {
+
+        div.checkboxlist div.list {
             float: left;
             margin: 2px 2px 0px 3px;
         }
@@ -140,20 +139,24 @@
 <body>
     <div class="ajaxmsgpanel">
         <div id="loadingpannel" class="ptogtitle loadicon" style="display: none;">
-            正在保存数据...</div>
+            正在保存数据...
+        </div>
         <div id="errorpannel" class="ptogtitle loaderror" style="display: none;">
-            非常抱歉，无法执行您的操作，请稍后再试</div>
+            非常抱歉，无法执行您的操作，请稍后再试
+        </div>
     </div>
     <div class="toolBotton">
         <a id="Save" class="imgbtn"><span class="Save" title="保存">保存</span></a> <a id="CloseImgBtn1"
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>
     </div>
     <% using (Html.BeginForm("EditApplication", "ApplicationManage", FormMethod.Post, new { id = "frmApplicationInfo" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);
+    %>
     <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                应用标识：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">应用标识：
             </td>
             <td class="bbit-form-cell-value tdtop tdright">
                 <% if (Model.ID == null || Model.ID == 0)
@@ -168,24 +171,21 @@
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                显示名称：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">显示名称：
             </td>
             <td class="bbit-form-cell-value tdtop tdright">
                 <%= Html.TextBox("DisplayName", Model.DisplayName, new { @Style = "width:95%;", @Class = "DisplayName" })%>
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                所属单位：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">所属单位：
             </td>
             <td class="bbit-form-cell-value tdtop tdright">
                 <%= Html.DropDownList("Unit", ViewData["Unit"] as SelectList, new { @Style = "width:95%;", @Class = "EnableType" })%>
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                启用状态：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">启用状态：
             </td>
             <td class="bbit-form-cell-value tdtop tdright">
                 <%= Html.RadioButton("Enable",true, Model.Enable, new { @id = "rdoEnable"})%><label
@@ -195,8 +195,7 @@
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                启用模式：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">启用模式：
             </td>
             <td class="bbit-form-cell-value tdtop tdright">
                 <%=Html.DropDownListFor(model => Model.EnableType,
@@ -208,9 +207,8 @@
                                         new { @id = "EnableType", @name = "EnableType", @Class = "EnableType" })%>
             </td>
         </tr>
-        <tr style="display:none;">
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                应用权限：
+        <tr style="display: none;">
+            <td class="bbit-form-cell-name tdtop tdleft tdright">应用权限：
             </td>
             <td class="bbit-form-cell-value tdtop tdright" colspan="3">
                 <%=Html.DropDownListFor(model => Model.PrivilegeID,
@@ -219,24 +217,21 @@
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                应用类别：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">应用类别：
             </td>
             <td class="bbit-form-cell-value tdtop tdright" colspan="3">
                 <%=Html.DropDownList("AppCategory", ViewData["CategoryIDs"] as IEnumerable<SelectListItem>)%>
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                应用描述：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">应用描述：
             </td>
             <td class="bbit-form-cell-value tdtop tdright" colspan="3">
                 <%=Html.TextArea("Description", Model.Description, new { @Style = "width:95%;height:100px;", @Class = "Description" })%>
             </td>
         </tr>
         <tr>
-            <td class="bbit-form-cell-name tdtop tdleft tdright">
-                排序号：
+            <td class="bbit-form-cell-name tdtop tdleft tdright">排序号：
             </td>
             <td class="bbit-form-cell-value tdtop tdright">
                 <%= Html.TextBox("Seq", Model.Seq, new { @Style = "width:95%;", @Class = "Seq" })%>

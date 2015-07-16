@@ -5,16 +5,12 @@ using System.Text;
 using SmartBox.Console.Common.Entities;
 using SmartBox.Console.Common;
 using SmartBox.Console.Dao;
+using Beyondbit.Framework.Core.InterceptorHandler;
 
 namespace SmartBox.Console.Bo
 {
     public class Package4AIBO : SmartBox.Console.Bo.BaseBO<Package4AI>
     {
-        public Package4AIBO(BaseDao<Package4AI> dao)
-            : base(dao)
-        {
-        }
-
         public Package4AIBO()
         {
             base._dao = this.Package4AIDao;
@@ -31,6 +27,12 @@ namespace SmartBox.Console.Bo
                 }
                 return _Package4AIDao;
             }
+        }
+
+        [Frame(false,false)]
+        public virtual bool HasMainPackage(string clientType)
+        {
+            return Package4AIDao.HasMainPackage(clientType);
         }
     }
 }

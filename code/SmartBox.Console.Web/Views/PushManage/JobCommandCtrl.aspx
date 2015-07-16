@@ -109,7 +109,9 @@
             </div>
         </div>      
         <% using (Html.BeginForm("JobCommandCtrl", "PushManage", FormMethod.Post, new { id = "TopForm" }))
-           { %>
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true); %>
         <div class="bbit-categorycontainer">
             <div id="caltoolbar" class="ctoolbar" style="height:80%">
                 <div id="btnQuery" class="fbutton">

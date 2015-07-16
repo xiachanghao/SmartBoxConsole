@@ -221,7 +221,10 @@
         <a id="CloseImgBtn1" class="imgbtn"><span class="Close" title="关闭">关闭</span></a>
     </div>
     <% using (Html.BeginForm("BatchCreateApplicationPackage", "ApplicationManage", FormMethod.Post, new { id = "frmUploadPackage", enctype = "multipart/form-data" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);
+           %>
     <table class="sp-form" width="100%" cellspacing="1" cellpadding="0">
         <tr>
             <td class="sp-form-cell-name">

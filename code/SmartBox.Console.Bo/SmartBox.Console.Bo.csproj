@@ -94,6 +94,9 @@
     <Reference Include="Beyondbit.BUA.Client">
       <HintPath>..\RefDll\Beyondbit.BUA.Client.dll</HintPath>
     </Reference>
+    <Reference Include="Beyondbit.Cryptography">
+      <HintPath>..\RefDll\Beyondbit.Cryptography.dll</HintPath>
+    </Reference>
     <Reference Include="Beyondbit.Framework, Version=1.0.1.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\RefDll\Beyondbit.Framework.dll</HintPath>

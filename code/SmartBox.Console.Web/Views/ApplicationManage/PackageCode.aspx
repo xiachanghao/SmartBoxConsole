@@ -186,7 +186,9 @@
     <fieldset>
         <legend>生成二维码</legend>
         <% using (Html.BeginForm("CreatePackageCode", "ApplicationManage", FormMethod.Post, new { id = "frmPackageCode", enctype = "multipart/form-data" }))
-           { %>
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);%>
           
          <div class="toolBotton">
             <a id="Save" class="imgbtn"><span class="Save" title="保存">生成</span></a><%-- <a id="CloseImgBtn1"

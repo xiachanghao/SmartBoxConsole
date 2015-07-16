@@ -157,7 +157,9 @@
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>
     </div>
     <% using (Html.BeginForm("EditDevice", "Demo", FormMethod.Post, new { id = "frmDevice" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);%>
     <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">
         <tr>
             <td class="bbit-form-cell-name tdtop tdleft tdright">

@@ -14,6 +14,7 @@ using System.Collections;
 using System.Security.Cryptography;
 using System.Net;
 using Beyondbit.Framework.DataAccess.ObjectDAO;
+using Beyondbit.Cryptography;
 
 namespace SmartBox.Console.Bo
 {
@@ -460,6 +461,18 @@ namespace SmartBox.Console.Bo
             }
         }
 
+        private ManagerDao _managerDao;
+        protected ManagerDao managerDao
+        {
+            get
+            {
+                if (_managerDao == null)
+                {
+                    _managerDao = new ManagerDao(AppConfig.mainDbKey);
+                }
+                return _managerDao;
+            }
+        }
         #endregion
 
         #region 2.0.1.0
@@ -1106,7 +1119,7 @@ namespace SmartBox.Console.Bo
             }
         }
 
-        
+
 
         [Frame(false, false)]
         public virtual PluginInfoTemp GetPluginTempInfo(string id)
@@ -1933,6 +1946,10 @@ namespace SmartBox.Console.Bo
         {
             try
             {
+                if (System.Configuration.ConfigurationManager.AppSettings["PwdEncrypted"].Equals("true", StringComparison.CurrentCultureIgnoreCase)) ;
+                {
+                    pwd = BeyondbitCrypto.Encryptor(pwd);
+                }
                 return userInfoDao.CheckUserName(uid, pwd);
             }
             catch (DalException ex)
@@ -2019,14 +2036,15 @@ namespace SmartBox.Console.Bo
                 throw new Exception("该应用下还有关联的Web应用,不能删除");
             }
 
-            if (app.PrivilegeID != null && app.PrivilegeID.HasValue) {
-                List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string,object>>();
-                pars.Add(new KeyValuePair<string,object>("id", app.PrivilegeID.Value));
+            if (app.PrivilegeID != null && app.PrivilegeID.HasValue)
+            {
+                List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
+                pars.Add(new KeyValuePair<string, object>("id", app.PrivilegeID.Value));
                 AppPrivilege appPrivilege = appPrivilegeDao.Get(pars);
-                
-                
-                List<Tuple<string, string, object>> pars2 = new List<Tuple<string, string,object>>();
-                pars2.Add(new Tuple<string, string,object>("id", "=", appPrivilege.ID));
+
+
+                List<Tuple<string, string, object>> pars2 = new List<Tuple<string, string, object>>();
+                pars2.Add(new Tuple<string, string, object>("id", "=", appPrivilege.ID));
                 List<PrivilegeUser> pulist = privilegeUserDao.QueryList((pars2));
                 if (pulist != null && pulist.Count > 0)
                 {
@@ -2233,15 +2251,10 @@ namespace SmartBox.Console.Bo
         [Frame(false, true)]
         public virtual void InsertPackage4AI(Package4AI package4AI, string tempFilePath, string saveFilePath)
         {
-            string debug_mode = System.Configuration.ConfigurationSettings.AppSettings["debug_mode"];
-            if (!String.IsNullOrEmpty(debug_mode) && debug_mode.ToLower() == "true")
-            {
-            }
-            else
-            {
-                if (package4AIDao.Exists(package4AI))
-                    throw new Exception("不能上传重复的安装包!");
-            }
+            string debug_mode = System.Configuration.ConfigurationSettings.AppSettings["debug_mode"] ?? "false";
+            if (debug_mode.Equals("false", StringComparison.CurrentCultureIgnoreCase) && package4AIDao.Exists(package4AI))
+                throw new Exception("不能上传重复的安装包!");
+
             //插入安装包数据
             package4AIDao.Insert(package4AI);
             //给安装包的Application对象赋值
@@ -2261,18 +2274,18 @@ namespace SmartBox.Console.Bo
                 //插入Action
                 //action4AndroidDao.InsertList(app4ai.ActionList);
                 if (app4ai.ActionList != null && app4ai.ActionList.Count > 0)
-                foreach (Action4Android a4a in app4ai.ActionList)
-                {
-                    Action4Android _a4a = action4AndroidDao.Get(a4a.Name);
-                    if (_a4a != null)
+                    foreach (Action4Android a4a in app4ai.ActionList)
                     {
-                        action4AndroidDao.Update(a4a);
+                        Action4Android _a4a = action4AndroidDao.Get(a4a.Name);
+                        if (_a4a != null)
+                        {
+                            action4AndroidDao.Update(a4a);
+                        }
+                        else
+                        {
+                            action4AndroidDao.Insert(a4a);
+                        }
                     }
-                    else
-                    {
-                        action4AndroidDao.Insert(a4a);
-                    }
-                }
             });
 
             if (!System.IO.File.Exists(tempFilePath))
@@ -2410,7 +2423,7 @@ namespace SmartBox.Console.Bo
         {
             package4AIDao.Update(package4AI);
 
-            
+
             IList<App4AI> delApp4AIList = app4AIDao.QueryApp4AIListByPackageID(package4AI.ID.ToString());
 
             //=================================================================================
@@ -2447,42 +2460,43 @@ namespace SmartBox.Console.Bo
             }
 
             //给安装包的Application对象赋值
-             package4AI.App4AIList.ForEach(x =>
-            {
-                x.Package4AIID = package4AI.ID;
-                x.PackageName = package4AI.Name;
-            });
+            package4AI.App4AIList.ForEach(x =>
+           {
+               x.Package4AIID = package4AI.ID;
+               x.PackageName = package4AI.Name;
+           });
 
-             package4AI.App4AIList.ForEach(app4ai =>
-            {
-                //插入Application
-                IList<KeyValuePair<string, object>> par = new List<KeyValuePair<string, object>>();
-                par.Add(new KeyValuePair<string,object>("ClientType", app4ai.ClientType));
-                par.Add(new KeyValuePair<string,object>("AppID", app4ai.AppID));
-                par.Add(new KeyValuePair<string, object>("Package4AIID", app4ai.Package4AIID));
-                App4AI oldAPP4AI = app4AIDao.Get(par);
-                if (oldAPP4AI == null)
-                    app4AIDao.Insert(app4ai);
-                else {
-                    app4ai.ID = oldAPP4AI.ID;
-                    app4ai.Package4AIID = oldAPP4AI.Package4AIID;
-                    app4ai.PackageName = oldAPP4AI.PackageName;
-                    app4ai.UpdateTime = oldAPP4AI.UpdateTime;
-                    app4ai.UpdateUid = oldAPP4AI.UpdateUid;
-                    app4ai.Version = oldAPP4AI.Version;
-                    app4ai.AppCode = oldAPP4AI.AppCode;
-                    app4ai.AppDisplayName = oldAPP4AI.AppDisplayName;
-                    app4ai.AppID = oldAPP4AI.AppID;
-                    app4ai.AppName = oldAPP4AI.AppName;
-                    app4ai.ClientType = oldAPP4AI.ClientType;
-                    app4ai.CreateTime = oldAPP4AI.CreateTime;
-                    app4AIDao.Update(app4ai);
-                }
-                //给Application的Action赋值
-                app4ai.ActionList.ForEach(action => action.App4AIID = app4ai.ID);
-                //插入Action
-                action4AndroidDao.InsertList(app4ai.ActionList);
-            });
+            package4AI.App4AIList.ForEach(app4ai =>
+           {
+               //插入Application
+               IList<KeyValuePair<string, object>> par = new List<KeyValuePair<string, object>>();
+               par.Add(new KeyValuePair<string, object>("ClientType", app4ai.ClientType));
+               par.Add(new KeyValuePair<string, object>("AppID", app4ai.AppID));
+               par.Add(new KeyValuePair<string, object>("Package4AIID", app4ai.Package4AIID));
+               App4AI oldAPP4AI = app4AIDao.Get(par);
+               if (oldAPP4AI == null)
+                   app4AIDao.Insert(app4ai);
+               else
+               {
+                   app4ai.ID = oldAPP4AI.ID;
+                   app4ai.Package4AIID = oldAPP4AI.Package4AIID;
+                   app4ai.PackageName = oldAPP4AI.PackageName;
+                   app4ai.UpdateTime = oldAPP4AI.UpdateTime;
+                   app4ai.UpdateUid = oldAPP4AI.UpdateUid;
+                   app4ai.Version = oldAPP4AI.Version;
+                   app4ai.AppCode = oldAPP4AI.AppCode;
+                   app4ai.AppDisplayName = oldAPP4AI.AppDisplayName;
+                   app4ai.AppID = oldAPP4AI.AppID;
+                   app4ai.AppName = oldAPP4AI.AppName;
+                   app4ai.ClientType = oldAPP4AI.ClientType;
+                   app4ai.CreateTime = oldAPP4AI.CreateTime;
+                   app4AIDao.Update(app4ai);
+               }
+               //给Application的Action赋值
+               app4ai.ActionList.ForEach(action => action.App4AIID = app4ai.ID);
+               //插入Action
+               action4AndroidDao.InsertList(app4ai.ActionList);
+           });
 
             if (!System.IO.File.Exists(tempFilePath))
             {
@@ -2574,7 +2588,7 @@ namespace SmartBox.Console.Bo
             if (webApplication != null)
             {
                 webApplicationDao.Delete(webApplication);
-            }            
+            }
         }
 
         #endregion
@@ -3118,7 +3132,7 @@ namespace SmartBox.Console.Bo
             SMC_PackageExt packageExt = packageExtDao.Get(id);
             if (packageExt != null)
             {
-                packageExtDao.Delete(packageExt);                
+                packageExtDao.Delete(packageExt);
             }
         }
 
@@ -3177,8 +3191,8 @@ namespace SmartBox.Console.Bo
                 throw new BOException("查询包的同步信息出错", ex);
             }
         }
-        
-        
+
+
 
         [Frame(false, false)]
         public virtual JsonFlexiGridData QueryPackageExtList(PageView pageview, string clientType, string unitcode)
@@ -3207,10 +3221,11 @@ namespace SmartBox.Console.Bo
         }
 
         [Frame(false, false)]
-        public virtual JsonFlexiGridData QueryPackageGifList(PageView pageview,string id)
+        public virtual JsonFlexiGridData QueryPackageGifList(PageView pageview, string id)
         {
-            try {
-                return package4OutDao.QueryPackageGifList(pageview, id); 
+            try
+            {
+                return package4OutDao.QueryPackageGifList(pageview, id);
             }
             catch (DalException ex)
             {
@@ -3231,11 +3246,12 @@ namespace SmartBox.Console.Bo
                 throw new BOException("查询外部应用包截图出错", ex);
             }
         }
-                
+
         [Frame(false, false)]
         public virtual JsonFlexiGridData QueryPackageFAQList(PageView pageview, string id)
         {
-            try {
+            try
+            {
                 return packageFAQDao.QueryPackageFAQList(pageview, id);
             }
             catch (DalException ex)
@@ -3301,7 +3317,7 @@ namespace SmartBox.Console.Bo
         [Frame(false, true)]
         public virtual void InsertOrUpdatePackageSync(SMC_PackageSync packageSync)
         {
-            var sync=packageSyncDao.Get(packageSync.pe_id.ToString());
+            var sync = packageSyncDao.Get(packageSync.pe_id.ToString());
             if (sync == null)
             {
                 packageSyncDao.Insert(packageSync);
@@ -3310,7 +3326,7 @@ namespace SmartBox.Console.Bo
             {
                 packageSyncDao.Update(packageSync);
             }
-            
+
         }
 
 
@@ -3331,11 +3347,11 @@ namespace SmartBox.Console.Bo
                 {
                     pe.pe_UsefulStstus = "1";
                 }
-                else 
+                else
                 {
                     pe.pe_UsefulStstus = "0";
                 }
-                
+
 
                 packageExtDao.Update(pe);
             }
@@ -3417,7 +3433,7 @@ namespace SmartBox.Console.Bo
         }
 
         #endregion
-        
+
 
         #region 主程序管理
 
@@ -3867,7 +3883,7 @@ namespace SmartBox.Console.Bo
                 throw new BOException("获取配置表信息", ex);
             }
         }
-        
+
         [Frame(false, false)]
         public virtual IList<ConfigInfoPC> GetConfigPCList(SearchConfig search)
         {
@@ -3880,7 +3896,7 @@ namespace SmartBox.Console.Bo
                 throw new BOException("获取配置表信息", ex);
             }
         }
-        
+
         [Frame(false, false)]
         public virtual IList<ConfigInfo> GetMobileConfigList(SearchConfig search)
         {
@@ -3893,7 +3909,7 @@ namespace SmartBox.Console.Bo
                 throw new BOException("获取配置表信息", ex);
             }
         }
-        
+
         [Frame(false, false)]
         public virtual IList<ConfigInfo> GetPCConfigList(SearchConfig search)
         {
@@ -4359,6 +4375,17 @@ namespace SmartBox.Console.Bo
                     puDao.Delete(pu);
                 }
             }
+        }
+
+        [Frame(false, true)]
+        public virtual void ChangeUserPassword(string useruid, string password)
+        {
+            if (System.Configuration.ConfigurationManager.AppSettings["PwdEncrypted"].Equals("true", StringComparison.CurrentCultureIgnoreCase)) ;
+            {
+                password = BeyondbitCrypto.Encryptor(password);
+            }
+            managerDao.ChangeManagePassowrd(useruid, password);
+            //Beyondbit.BUA.Client.ServiceFactory.Instance().GetUserService().ResetUserPassword(useruid, password);
         }
     }
 }

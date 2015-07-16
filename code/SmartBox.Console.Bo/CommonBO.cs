@@ -450,7 +450,7 @@ namespace SmartBox.Console.Bo
             {
                 return string.Empty;
             }
-            if (innerAppIco.StartsWith("Server://"))
+            if (innerAppIco.StartsWith("Server://", StringComparison.CurrentCultureIgnoreCase) || innerAppIco.StartsWith("package://",StringComparison.CurrentCultureIgnoreCase))
             {
                 return innerAppIco;
             }

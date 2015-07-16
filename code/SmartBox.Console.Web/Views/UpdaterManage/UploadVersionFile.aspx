@@ -151,7 +151,9 @@
         </div>
         <div class="bbit-categorycontainer">
             <% using (Html.BeginForm("SaveFileInfo", "UpdaterManage", new { IsAdd = ViewData["IsAdd"], IsUpdate = ViewData["IsUpdate"] }, FormMethod.Post, new { id = "fmEdit", enctype = "multipart/form-data" }))
-               {%>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <table width="100%" class="bbit-form" cellspacing="0" cellpadding="2">
                 <tr id="trFile">
                     <td align="right" class="style1">

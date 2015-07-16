@@ -172,8 +172,10 @@
     <fieldset>
         <legend>截图上传</legend>
         <% using (Html.BeginForm("CreatePackagePicture", "ApplicationManage", FormMethod.Post, new { id = "frmPackagePic", enctype = "multipart/form-data" }))
-           { %>
-          
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);
+               %>
          <div class="toolBotton">
             <a id="Save" class="imgbtn"><span class="Save" title="保存">保存</span></a> <a id="CloseImgBtn1"
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>

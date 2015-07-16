@@ -109,7 +109,9 @@
         </div>
         <div id="divForm">
             <% using (Html.BeginForm("RegUser", "Reg", FormMethod.Post, new { id = "frmUser" }))
-               { %>            
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>            
             <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">
                 <tr>
                     <td class="bbit-form-cell-name tdtop tdleft tdright">

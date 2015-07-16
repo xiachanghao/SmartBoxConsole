@@ -14,7 +14,11 @@
     </p>
     <%= Html.ValidationSummary("Account creation was unsuccessful. Please correct the errors and try again.") %>
 
-    <% using (Html.BeginForm()) { %>
+    <% using (Html.BeginForm())
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);
+           %>
         <div>
             <fieldset>
                 <legend>Account Information</legend>

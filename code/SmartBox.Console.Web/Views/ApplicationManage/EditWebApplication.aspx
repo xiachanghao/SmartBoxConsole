@@ -203,7 +203,9 @@
         var SourceApplication = ViewData["Application"] as System.Data.DataTable;
     %>
     <% using (Html.BeginForm("EditWebApplication", "ApplicationManage", FormMethod.Post, new { id = "frmWebApplicationInfo" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);%>
     <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">
         <tr>
             <td class="bbit-form-cell-name tdtop tdleft tdright">

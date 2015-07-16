@@ -12,6 +12,7 @@ else
     using (Html.BeginForm("ExternalLogin", "Account", new { ReturnUrl = ViewBag.ReturnUrl }))
     {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     <fieldset id="socialLoginList">
         <legend>使用其他服务登录</legend>
         <p>

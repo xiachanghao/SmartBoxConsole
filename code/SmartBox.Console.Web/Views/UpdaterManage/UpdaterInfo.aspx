@@ -185,7 +185,9 @@
         </div>
         <div class="bbit-categorycontainer">
             <% using (Html.BeginForm("SaveVersions", "UpdaterManage", new { IsAdd = ViewData["IsAdd"], IsUpdate = ViewData["IsUpdate"], Vid = ViewData["Vid"] }, FormMethod.Post, new { id = "fmEdit" }))
-               {%>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <table width="100%" id="Table2" class="bbit-form" cellspacing="0" cellpadding="1">
                 <tr>
                     <td class="style1" style="border-bottom: #cccccc 1px solid; border-left: #cccccc 1px solid;

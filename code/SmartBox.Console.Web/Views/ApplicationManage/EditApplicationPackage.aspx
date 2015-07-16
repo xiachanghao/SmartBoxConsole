@@ -210,7 +210,9 @@
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>
     </div>
     <% using (Html.BeginForm("EditApplicationPackage", "ApplicationManage", FormMethod.Post, new { id = "frmApplicationPackage" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);%>
     <fieldset>
         <legend>安装包信息</legend>
         <table class="sp-form" width="100%" cellspacing="" cellpadding="1">

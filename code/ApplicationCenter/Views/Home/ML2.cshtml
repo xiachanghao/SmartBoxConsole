@@ -65,6 +65,8 @@
     </div>
     @using (Html.BeginForm("MLogin", "Home", FormMethod.Post, new { id = "frmLogin" }))
     {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
         <input type=hidden id="userTp" name="userTp" />
         <input type=hidden id="tbPassword" name="tbPassword" />
     <ul data-role="listview" data-style="inset">

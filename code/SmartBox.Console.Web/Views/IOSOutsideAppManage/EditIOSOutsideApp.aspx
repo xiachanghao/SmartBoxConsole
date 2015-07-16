@@ -19,7 +19,8 @@
     <script src="<%=Url.Content("~/Javascripts/Common.js")%>" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="<%=Url.Content("~/")%>jquery-easyui-1.3.6/themes/bootstrap/easyui.css">
-    <link rel="stylesheet" type="text/css" href="<%=Url.Content("~/")%>jquery-easyui-1.3.6/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="<%=Url.Content("~/")%>jquery-easyui-1.3.6/themes/icon.css">
+
     <script src="<%=Url.Content("~/jquery-easyui-1.3.6/jquery.easyui.min.js")%>" type="text/javascript"></script>
     <script type="text/javascript" src="<%=Url.Content("~/")%>jquery-easyui-1.3.6/locale/easyui-lang-zh_CN.js"></script>
 
@@ -234,7 +235,9 @@
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>
     </div>
     <% using (Html.BeginForm("EditIOSOutsideApp", "IOSOutsideAppManage", FormMethod.Post, new { id = "frmApplicationPackage" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);%>
     <fieldset>
         <legend>IOS外部应用信息</legend>
         <fieldset>

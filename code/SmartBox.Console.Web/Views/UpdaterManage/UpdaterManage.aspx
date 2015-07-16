@@ -319,7 +319,9 @@
 </head>
 <body>
  <% using (Html.BeginForm("GetDownLoadFile", "UpdaterManage", FormMethod.Post, new { id = "fmEdit" }))
-    {%>
+    {
+        Html.AntiForgeryToken();
+        Html.ValidationSummary(true);%>
     <div style="padding: 1px;">
         <div class="cHead">
             <div class="ftitle">

@@ -440,7 +440,9 @@
     <fieldset>
         <legend>文件上传</legend>
         <% using (Html.BeginForm("UploadUpdatePackage", "ApplicationManage", FormMethod.Post, new { id = "frmUploadPackage", enctype = "multipart/form-data" }))
-           { %>
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);%>
         <table class="sp-form" width="100%" cellspacing="1" cellpadding="0">
             <tr>
                 <td class="sp-form-cell-name">
@@ -467,7 +469,9 @@
         <%} %>
     </fieldset>
     <% using (Html.BeginForm("UpdatePackage", "ApplicationManage", FormMethod.Post, new { id = "frmApplicationPackage" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);%>
     <fieldset>
         <legend>安装包信息</legend>
         <table class="sp-form" width="100%" cellspacing="" cellpadding="1">

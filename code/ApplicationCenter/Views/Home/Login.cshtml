@@ -156,6 +156,8 @@
 @section _body {
 @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { id = "frmLogin" }))
 {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     <div id="wrapper">
             <div id="r2">
                 

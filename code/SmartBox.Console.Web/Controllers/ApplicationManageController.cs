@@ -334,7 +334,7 @@ namespace SmartBox.Console.Web.Controllers
             }
             return Json(result);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult UnAuthAppPrivilege(string id)
         {
@@ -384,7 +384,7 @@ namespace SmartBox.Console.Web.Controllers
                     XmlNodeList nodeList = null;
                     nodeList = xmlDoc.DocumentElement.SelectNodes("node");
 
-                    
+
                     //for (int i = 0; i < nodeList.Count; ++i)
                     //{
                     //    string privilegeid = xmlDoc.DocumentElement.ChildNodes[i].Attributes["id"].Value;
@@ -394,7 +394,7 @@ namespace SmartBox.Console.Web.Controllers
                     //    pri.Add("privilegename", text);
                     //    privileges.Add(pri);
                     //}
-                    
+
                     for (int i = 0; i < nodeList.Count; ++i)
                     {
                         string privilegeid = nodeList[i].Attributes["id"].Value;
@@ -420,7 +420,7 @@ namespace SmartBox.Console.Web.Controllers
                         pri.Add("privilegename", text);
                         privileges.Add(pri);
                     }
-                    
+
                     nodeList = xmlDoc.DocumentElement.SelectNodes("node/node/node");
                     for (int i = 0; i < nodeList.Count; ++i)
                     {
@@ -434,7 +434,7 @@ namespace SmartBox.Console.Web.Controllers
                         pri.Add("privilegename", text);
                         privileges.Add(pri);
                     }
-                    
+
                     nodeList = xmlDoc.DocumentElement.SelectNodes("node/node/node/node");
                     for (int i = 0; i < nodeList.Count; ++i)
                     {
@@ -1292,7 +1292,7 @@ namespace SmartBox.Console.Web.Controllers
             {
                 //unitList.Add(new SelectListItem { Text = "全局", Value = "" });
                 SelectListItem itm = new SelectListItem { Text = r.Unit_Name, Value = r.Unit_ID };
-                
+
                 if (pe.pe_UnitCode == r.Unit_ID)
                 {
                     itm.Selected = true;
@@ -1306,7 +1306,7 @@ namespace SmartBox.Console.Web.Controllers
             {
                 appTypes.Add(new SelectListItem { Text = ad.DisplayName, Value = ad.ID.ToString(), Selected = (ad.DisplayName == pe.pe_Category) });
             }
-            
+
             ViewData["AppID"] = appTypes;
             ViewData["pe_IsTJ"] = IsRecom;
             ViewData["pe_IsBB"] = IsMust;
@@ -1787,6 +1787,9 @@ namespace SmartBox.Console.Web.Controllers
                     System.IO.File.Copy(tempFilePath, saveFilePath, true);
                 }
 
+                bool remotePlush = false;
+                string savefilePath = string.Empty;
+                string saveFilePathOut = string.Empty;
                 if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
                 {
                     string padUrl = string.Empty;
@@ -1812,28 +1815,16 @@ namespace SmartBox.Console.Web.Controllers
                         {
                             package.DownloadUri = @"itms-services://?action=download-manifest&url=" + phoneUrl;
                         }
-                        string savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        saveFileName = savefilePath;
-                        string saveFilePathOut = "";
 
+                        savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
                         if (savefilePath.IndexOf("$") != -1)
                         {
+                            remotePlush = true;
                             string[] savefilePaths = savefilePath.Split("$".ToCharArray());
                             savefilePath = savefilePaths[0];
                             saveFilePathOut = savefilePaths[1];
                         }
-                        //内网本地存储固定名称的主程序
-                        System.IO.File.Copy(tempFilePath, savefilePath, true);
-                        Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
-                        //StreamReader sr = new StreamReader();
-                        FileStream fs = new FileStream(tempFilePath, FileMode.Open);
-                        byte[] content = new byte[fs.Length];
-                        fs.Read(content, 0, (int)fs.Length - 1);
-                        fs.Close();
-                        fs.Dispose();
 
-                        //发布到外网存储固定名称的主程序
-                        acws.RemotePublish(content, saveFilePathOut);
                     }
                     else
                     {
@@ -1867,52 +1858,51 @@ namespace SmartBox.Console.Web.Controllers
                             //package.DownloadUri = phoneUrl;
                         }
 
-                        string savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        string saveFilePathOut = "";
+                        savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
                         if (savefilePath.IndexOf("$") != -1)
                         {
                             string[] savefilePaths = savefilePath.Split("$".ToCharArray());
                             savefilePath = savefilePaths[0];
                             saveFilePathOut = savefilePaths[1];
                         }
-                        //内网本地存储固定名称的主程序
-                        try
-                        {
-                            System.IO.File.Copy(tempFilePath, savefilePath, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log4NetHelper.Info("tempFilePath:" + tempFilePath + " savefilePath:" + savefilePath + " Method:CreateApplicationPackage");
-                            Log4NetHelper.Error(ex);
-                        }
-                        Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
-                        //StreamReader sr = new StreamReader();
-                        FileStream fs = new FileStream(tempFilePath, FileMode.Open);
-                        byte[] content = new byte[fs.Length];
-                        fs.Read(content, 0, (int)fs.Length - 1);
-                        fs.Close();
-                        fs.Dispose();
 
-                        //发布到外网存储固定名称的主程序
-                        acws.RemotePublish(content, saveFilePathOut);
-                        //int index = savefilePath.IndexOf('$');
-                        //if (index == -1)
-                        //{
-                        //    saveFileName = savefilePath;
-                        //}
-                        //else
-                        //{
-                        //    saveFileName = "";//远程地址
-                        //}                        
                     }
-                    //else
-                    {
-                        package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                        saveFileName = saveFilePath;
-                    }
+
+                    package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
+                    saveFileName = saveFilePath;
+
                 }
 
-                
+                //内网本地存储固定名称的主程序
+                string localDirPath = Path.GetDirectoryName(savefilePath);
+                if (!System.IO.Directory.Exists(localDirPath))
+                {
+                    Directory.CreateDirectory(savefilePath);
+                }
+                try
+                {
+                    System.IO.File.Copy(tempFilePath, savefilePath, true);
+                }
+                catch (Exception ex)
+                {
+                    Log4NetHelper.Info("tempFilePath:" + tempFilePath + " savefilePath:" + savefilePath + " Method:CreateApplicationPackage");
+                    Log4NetHelper.Error(ex);
+                }
+
+                if (remotePlush)
+                {
+                    //发布到外网存储固定名称的主程序
+                    Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
+                    //StreamReader sr = new StreamReader();
+                    FileStream fs = new FileStream(tempFilePath, FileMode.Open);
+                    byte[] content = new byte[fs.Length];
+                    fs.Read(content, 0, (int)fs.Length - 1);
+                    fs.Close();
+                    fs.Dispose();
+
+                    acws.RemotePublish(content, saveFilePathOut);
+                }
+
 
                 GlobalParam parm = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("app_sj_need_auth");
                 packageExt.pe_id = BoFactory.GetVersionTrackBo.GetMaxPackageExtId() + 1;
@@ -2081,9 +2071,16 @@ namespace SmartBox.Console.Web.Controllers
 
                 if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    //更新server缓存
-                    SmartBox.Console.Service.ServiceReference1.ManagerServiceClient cli = new Service.ServiceReference1.ManagerServiceClient();
-                    cli.ResetClientVer();
+                    try
+                    {
+                        //更新server缓存
+                        SmartBox.Console.Service.ServiceReference1.ManagerServiceClient cli = new Service.ServiceReference1.ManagerServiceClient();
+                        cli.ResetClientVer();
+                    }
+                    catch
+                    {
+                        data.Msg = "操作成功,更新SmartBox服务缓存失败。";
+                    }
                 }
 
                 Hashtable ht = new Hashtable();
@@ -2240,6 +2237,10 @@ namespace SmartBox.Console.Web.Controllers
                 {
                     package = ReadIOSPackage(tempPackagePath);
                 }
+
+                //TODO:增加安装包主程序判断,阻止同平台主程序多次上传
+                if (BoFactory.GetPackage4AIBO.HasMainPackage(package.ClientType))
+                    throw new Exception("已存在主程序包,不能重复上传!");
 
                 data.Data = package;
 
@@ -2596,7 +2597,7 @@ namespace SmartBox.Console.Web.Controllers
                 app4AI.AppName = application.Attributes["code"] != null ? application.Attributes["code"].Value : string.Empty;
                 app4AI.AppCode = application.Attributes["name"] != null ? application.Attributes["name"].Value : string.Empty;
                 app4AI.ClientType = package.ClientType;
-                app4AI.IconUri = application.Attributes["ico"] != null ? application.Attributes["ico"].Value : string.Empty;
+                app4AI.IconUri = application.Attributes["ico"] != null ? BoFactory.GetCommonBO.GetAndroidApplicationIcoUri(tempPackagePath, application.Attributes["ico"].Value) : string.Empty;
                 app4AI.Seq = 1;
                 app4AI.CreateTime = DateTime.Now;
                 app4AI.UpdateTime = DateTime.Now;
@@ -2609,7 +2610,7 @@ namespace SmartBox.Console.Web.Controllers
                     action4Android.Seq = action.Attributes["sort"] != null ? Convert.ToInt32(action.Attributes["sort"].Value) : 1;
                     action4Android.DisplayName = action.Attributes["label"] != null ? action.Attributes["label"].Value : string.Empty;
                     action4Android.IsLaunch = action.Attributes["isLaunch"] != null ? Convert.ToBoolean(action.Attributes["isLaunch"].Value) : false;
-                    action4Android.IconUri = action.Attributes["ico"] != null ? string.Format("package://{0}/{1}", package.Name, action.Attributes["ico"].Value) : string.Empty;
+                    action4Android.IconUri = action.Attributes["ico"] != null ? BoFactory.GetCommonBO.GetAndroidApplicationIcoUri(tempPackagePath, action.Attributes["ico"].Value) : string.Empty;
                     action4Android.ShortName = action.Attributes["shortName"] != null ? action.Attributes["shortName"].Value : string.Empty;
                     action4Android.Name = action.Attributes["name"] != null ? action.Attributes["name"].Value : string.Empty;
 
@@ -3127,12 +3128,12 @@ namespace SmartBox.Console.Web.Controllers
                     //_app4ai = BoFactory.GetApp4AIBO.Get(pars);
                     //if (_app4ai == null)
                     //{
-                        package.App4AIList.Add(app4AI);
+                    package.App4AIList.Add(app4AI);
                     //}
                     //else
                     //{
-                        //_app4ai.AppID = app4AI.AppID;
-                        //BoFactory.GetApp4AIBO.Update(_app4ai);
+                    //_app4ai.AppID = app4AI.AppID;
+                    //BoFactory.GetApp4AIBO.Update(_app4ai);
                     //}
                 }
                 else
@@ -3271,7 +3272,7 @@ namespace SmartBox.Console.Web.Controllers
                 }
                 //=====================================================================================
 
-                
+
 
                 SMC_PackageExt _ext = BoFactory.GetAppCenterBO.GetPackage("Package4AI", package.ID.ToString());
                 _ext.pe_LastVersion = _ext.pe_Version;
@@ -3281,7 +3282,7 @@ namespace SmartBox.Console.Web.Controllers
                 if (parm.ConfigValue == "0")
                 {
                     //不需要审核
-                    
+
 
                     //BoFactory.GetCommonBO.SMC_PackageExtInternalRelease(_ext);
                 }
@@ -3337,7 +3338,7 @@ namespace SmartBox.Console.Web.Controllers
                     if (package.ClientType.ToLower().IndexOf("ios") != -1)
                         _ext.pe_DownloadUri = package.DownloadUri;
 
-                    
+
 
                     //内部发布到Package4AI
                     BoFactory.GetCommonBO.SMC_PackageExtInternalRelease(_ext);
@@ -3345,12 +3346,12 @@ namespace SmartBox.Console.Web.Controllers
                     Hashtable ht = new Hashtable();
                     //app更新到外网
                     BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(ht, _ext.pe_id);
-                    
+
                     //同步到应用中心
                     _SyncPackageExt(_ext);
                 }
 
-                
+
 
                 #region 上传文件自动发布
 
@@ -5251,7 +5252,8 @@ namespace SmartBox.Console.Web.Controllers
             Service.ApplicationCenterWS.SMC_PackageFAQ[] faqs = ws.GetNeedSyncToInsideFAQ();
             if (faqs != null && faqs.Length > 0)
             {
-                for (int i = 0; i < faqs.Length; ++i) {
+                for (int i = 0; i < faqs.Length; ++i)
+                {
                     SMC_PackageFAQ faq = new SMC_PackageFAQ();
                     faq.pe_id = faqs[i].pe_id;
                     faq.pf_answer = faqs[i].pf_answer;
@@ -5266,8 +5268,8 @@ namespace SmartBox.Console.Web.Controllers
                     faq.pf_uid = faqs[i].pf_uid;
                     faq.pf_uname = faqs[i].pf_uname;
 
-                    List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string,object>>();
-                    pars.Add(new KeyValuePair<string,object>("pf_id", faq.pf_id));
+                    List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
+                    pars.Add(new KeyValuePair<string, object>("pf_id", faq.pf_id));
                     SMC_PackageFAQ _faq = BoFactory.GetSMC_PackageFAQBO.Get(pars);
                     if (_faq == null)
                     {

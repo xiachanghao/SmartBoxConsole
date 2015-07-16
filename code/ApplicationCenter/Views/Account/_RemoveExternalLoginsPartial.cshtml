@@ -15,6 +15,7 @@
                         using (Html.BeginForm("Disassociate", "Account"))
                         {
                             @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
                             <fieldset>
                                 @Html.Hidden("provider", externalLogin.Provider)
                                 @Html.Hidden("providerUserId", externalLogin.ProviderUserId)

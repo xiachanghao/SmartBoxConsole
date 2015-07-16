@@ -169,7 +169,9 @@
         </div>--%>
         <div class="bbit-categorycontainer">
             <% using (Html.BeginForm("SaveVerInfo", "MainProgramManage",  FormMethod.Post, new { id = "fmEdit", enctype = "multipart/form-data" }))
-               {%>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <table width="100%" class="bbit-form" cellspacing="0" cellpadding="2">
                 <tr>
                     <td>

@@ -18,7 +18,9 @@
         </div>
         <div id="divForm">
             <% using (Html.BeginForm("AddModifyUserSave", "AuthManage", FormMethod.Post, new { id = "frmUser" }))
-               { %>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <%=Html.Hidden("user_id", ViewData["user_id"])%>
             <%=Html.Hidden("unit_id", ViewData["unit_id"])%>
             <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">

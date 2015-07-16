@@ -20,7 +20,9 @@
 
             <div id="divForm">
             <% using (Html.BeginForm("AddModifyRoleSave", "AuthManage", FormMethod.Post, new { id = "frmRole" }))
-       { %>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
 
        <%=Html.Hidden("Role_ID", ViewData["role_id"])%>
        <%=Html.Hidden("Unit_ID", (Model == null ? (!String.IsNullOrEmpty(Request.QueryString["Unit_ID"]) ? Request.QueryString["Unit_ID"] : "") : Model.Unit_ID))%>

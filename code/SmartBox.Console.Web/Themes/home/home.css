@@ -267,12 +267,12 @@ body{font-size:14px;font-family:'微软雅黑';color:#666666; line-height:28px; 
 .top .xx .xx_menu ul li a:hover{ background:#1c66b4; }
 .main{ margin:0 auto;}
 .main_l{ float:left; width:169px; border:1px solid #e5e5e5; background-color:#fafafa; overflow:hidden}
-.main_l dl dt{ line-height:40px;} 
-.main_l dl dd.select{border-left:5px solid #1B65B0;} 
-.main_l dl dt.select{border-left:5px solid #1B65B0;} 
-.main_l .root a{display:block;border-bottom:1px solid #e5e5e5;background:url(./images/arrow_icon.png) no-repeat 147px center;}
+.main_l dl { display:block;}
+.main_l dl dt{ line-height:40px; display:block;} 
+.main_l dl .select{border-left:5px solid #1B65B0;} 
+.main_l .root a{display:block;border-bottom:1px solid #e5e5e5;background:url(./images/arrow_icon.png) no-repeat 147px center; width:163px; line-height:40px;}
 /*.main_l .root a:hover{border-left:5px solid #2779cb; background:#e7e7e7 url(./images/arrow_icon.png) no-repeat 147px center;}*/
-.main_l .root a div{ background-repeat:no-repeat; background-position-x:10px; background-position-y:center; padding-left:30px; color:#333333}
+.main_l .root a div{ background-repeat:no-repeat; background-position-x:10px; background-position-y:center; padding-left:30px; color:#333333; line-height:40px;}
 
 /*.main_l .mainManage a div{ background-image:url(./images/icon02.png);}
 .main_l .appManage a div{ background-image:url(./images/icon02.png); }

@@ -21,30 +21,28 @@
     <script src="<%=Url.Content("~/Javascripts/JqueryUI/jquery-ui-1.8.13.custom.min.js")%>" type="text/javascript"></script>
 
     <link rel="stylesheet" type="text/css" href="<%=Url.Content("~/")%>jquery-easyui-1.3.6/themes/bootstrap/easyui.css">
-    <link rel="stylesheet" type="text/css" href="<%=Url.Content("~/")%>jquery-easyui-1.3.6/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="<%=Url.Content("~/")%>jquery-easyui-1.3.6/themes/icon.css">
+
     <script src="<%=Url.Content("~/jquery-easyui-1.3.6/jquery.easyui.min.js")%>" type="text/javascript"></script>
-    <script type="text/javascript" src="<%=Url.Content("~/")%>jquery-easyui-1.3.6/locale/easyui-lang-zh_CN.js"></script>
-    <%--<script src="<%=Url.Content("~/Javascripts/SwfUpload/swfupload.js") %>" type="text/javascript"></script>
-    <script src="<%=Url.Content("~/Javascripts/SwfUpload/plugins/swfupload.queue.js") %>" type="text/javascript"></script>
-    <script src="<%=Url.Content("~/Javascripts/SwfUpload/plugins/swfupload.speed.js") %>" type="text/javascript"></script>--%>
+    <script type="text/javascript" src="<%=Url.Content("~/")%>jquery-easyui-1.3.6/locale/easyui-lang-zh_CN.js"></script>
+
     <% if (false)
        { %>
     <script src="../../Javascripts/intellisense/jquery-1.2.6-vsdoc.js" type="text/javascript"></script>
     <%} %>
     <style type="text/css">
-        .title
-        {
+        .title {
             background-color: #60a6cf;
             height: 24px;
             line-height: 24px;
             font-size: 12px;
         }
-        .title strong
-        {
-            font-size: 16px;
-        }
-        table, tr
-        {
+
+            .title strong {
+                font-size: 16px;
+            }
+
+        table, tr {
             border-top: 1px;
             border-bottom: 1px;
             border-left: 0px;
@@ -52,60 +50,59 @@
             border-style: solid;
             border-collapse: collapse;
         }
-        .form
-        {
+
+        .form {
             width: 100%;
             background-color: #fff;
             margin: 0px;
             padding: 0px;
         }
-        .notNull
-        {
+
+        .notNull {
             color: #F00;
         }
-        fieldset
-        {
+
+        fieldset {
             border: 1px solid #343434;
             margin: 5px;
             padding: 2px 0px 5px 0px;
         }
-        fieldset legend
-        {
-            margin-left: 10px;
-            font-weight: bold;
-        }
-        .sp-form .sp-form-cell-name
-        {
+
+            fieldset legend {
+                margin-left: 10px;
+                font-weight: bold;
+            }
+
+        .sp-form .sp-form-cell-name {
             padding: 5px 6px;
             background-color: #bebebe;
             text-align: right;
             width: 19%;
         }
-        .sp-form-action-cell-name
-        {
+
+        .sp-form-action-cell-name {
             padding: 5px 6px;
             background-color: #ffffff;
             text-align: right;
             width: 19%;
         }
-        .sp-form .sp-form .sp-form-cell-name p
-        {
+
+        .sp-form .sp-form .sp-form-cell-name p {
             margin: 5px;
             text-align: left;
         }
-        .sp-form .sp-form-cell-value
-        {
+
+        .sp-form .sp-form-cell-value {
             padding: 5px 3px;
             background-color: #ffffff;
         }
-        div.checkboxlist div.list
-        {
+
+        div.checkboxlist div.list {
             float: left;
             margin: 2px 2px 0px 3px;
         }
     </style>
     <script language="javascript" type="text/javascript">
-        var swfu;
         $("document").ready(function () {
             //$("#frmApplicationPackage").hide();
             $("#Save").hide();
@@ -134,6 +131,10 @@
                         data: { filePath: path, useLocalPath: true },
                         success: function (data) {
                             submitResult(data);
+                            $("#loadingpannel").hide();
+                        },
+                        error: function (opt, type, massage) {
+                            alert(massage);
                             $("#loadingpannel").hide();
                         }
                     });
@@ -171,6 +172,7 @@
                 errorElement: "div",
                 errorClass: "cusErrorPanel",
                 errorPlacement: function showerror(error, target) {
+                    $("#loadingpannel").hide();
                     var pos = target.position();
                     var height = target.height();
                     var newpos = { left: pos.left, top: pos.top + height + 2 }
@@ -201,12 +203,11 @@
                         },
                         dataType: "json",
                         success: function (data) {
+                            $("#loadingpannel").hide();
                             if (data.IsSuccess) {
-                                //$("#loadingpannel").hide();
                                 hiAlert(data.Msg, '提示', function () {
                                     //parent.$.closeIfrm(null, true);
                                     parent.CloseWind(true);
-                                    $("#loadingpannel").hide();
                                 });
                             }
                             else {
@@ -336,6 +337,8 @@
                             activityTable.find("#ActivityShortName_").attr("id", "ActivityShortName_" + i + "_" + j).attr("name", "ActivityShortName_" + i + "_" + j).val(action.ShortName);
                             activityTable.find("#ActivityName_").attr("id", "ActivityName_" + i + "_" + j).attr("name", "ActivityName_" + i + "_" + j).val(action.Name);
                             activityTable.find("#ActivityIco_").attr("id", "ActivityIco_" + i + "_" + j).attr("name", "ActivityIco_" + i + "_" + j).val(action.IconUri);
+                            //TODO:增加图片预览控件
+
                             activityTable.find("#ActivityDisplayName_").attr("id", "ActivityDisplayName_" + i + "_" + j).attr("name", "ActivityDisplayName_" + i + "_" + j).val(action.DisplayName);
                             var enableLaunch = activityTable.find("#EnableLaunch_").attr("id", "EnableLaunch_" + i + "_" + j).attr("name", "ActivityLaunch_" + i + "_" + j);
                             var desableLaunch = activityTable.find("#DesableLaunch_").attr("id", "DesableLaunch_" + i + "_" + j).attr("name", "ActivityLaunch_" + i + "_" + j);
@@ -386,7 +389,7 @@
             $('.window-mask').height(height);
             $('#w').window('vcenter');
             return;
-            
+
             var imgID = showModalDialog(url, "", 'dialogHeight=500;dialogWidth=700;center=yes;help=no; scroll=yes;resizable=no;status=no');
             if (imgID) {
                 $("#" + txtIco).val('Server://beyondbit.smartbox.server.image/' + imgID);
@@ -398,9 +401,11 @@
 <body>
     <div class="ajaxmsgpanel">
         <div id="loadingpannel" class="ptogtitle loadicon" style="display: none;">
-            正在保存数据...</div>
+            正在保存数据...
+        </div>
         <div id="errorpannel" class="ptogtitle loaderror" style="display: none;">
-            非常抱歉，无法执行您的操作，请稍后再试</div>
+            非常抱歉，无法执行您的操作，请稍后再试
+        </div>
         <div title="文件上传进度" id="fileProgress" style="display: none">
             <div id="progressbar">
             </div>
@@ -416,20 +421,21 @@
     <fieldset>
         <legend>文件上传</legend>
         <% using (Html.BeginForm("UploadPackage", "ApplicationManage", FormMethod.Post, new { id = "frmUploadPackage", enctype = "multipart/form-data" }))
-           { %>
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);
+               %>
         <table class="sp-form" width="100%" cellspacing="1" cellpadding="0">
             <tr>
-                <td class="sp-form-cell-name">
-                    上传文件：
+                <td class="sp-form-cell-name">上传文件：
                 </td>
                 <td class="sp-form-cell-value">
-                    <input type="file" id="packageUpload" name="packageUpload"  /><!--<span id="spanButtonPlaceHolder">浏览</span>--><input
+                    <input type="file" id="packageUpload" name="packageUpload" /><!--<span id="spanButtonPlaceHolder">浏览</span>--><input
                         type="button" value="上传" id="btnUpload" />
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    服务器文件：
+                <td class="sp-form-cell-name">服务器文件：
                 </td>
                 <td class="sp-form-cell-value">
                     <input type="text" id="packagePath" name="packagePath" /><input type="button" value="提交"
@@ -445,56 +451,49 @@
         <legend>安装包信息</legend>
         <table class="sp-form" width="100%" cellspacing="" cellpadding="1">
             <tr>
-                <td class="sp-form-cell-name">
-                    安装包显示名称：
+                <td class="sp-form-cell-name">安装包显示名称：
                 </td>
                 <td class="sp-form-cell-value" colspan="3">
                     <%= Html.TextBox("packageDisplayName", null, new { @Style = "width:98%;", @Class = "PackageDisplayName" })%>
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    安装包名称：
+                <td class="sp-form-cell-name">安装包名称：
                 </td>
                 <td class="sp-form-cell-value">
                     <%= Html.TextBox("packageName", null, new { @Readonly = "readonly", @Style = "border:0px;width:98%;", @Class = "PackageName" })%>
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    安装包类型：
+                <td class="sp-form-cell-name">安装包类型：
                 </td>
                 <td class="sp-form-cell-value">
                     <%= Html.TextBox("packageType", null, new { @Readonly = "readonly", @Style = "border:0px;width:80px;", @Class = "PackageType" })%>
                 </td>
             </tr>
-             <tr id="IconUrl">
-                    <td class="sp-form-cell-name">
-                        图标地址：
-                    </td>
-                    <td class="sp-form-cell-value">
-                        <input type="file" id="AppIcon" name="AppIcon"  />                     
-                    </td>
-                    </tr>         
-                    <tr>
-                    <td class="sp-form-cell-name">
-                        分类：
-                    </td>
-                    <td class="sp-form-cell-value">
-                        <%= Html.DropDownList("AppID")%>
-                    </td>
-               </tr>
-                 <tr>
-                     <td class="sp-form-cell-name">
-                        所属单位：
-                    </td>
-                    <td class="sp-form-cell-value">
-                        <%= Html.DropDownList("Unit", ViewData["Unit"] as SelectList, new { @Style = "width:95%;", @Class = "EnableType" })%>
-                    </td>
-              </tr>
+            <tr id="IconUrl">
+                <td class="sp-form-cell-name">图标地址：
+                </td>
+                <td class="sp-form-cell-value">
+                    <input type="file" id="AppIcon" name="AppIcon" />
+                </td>
+            </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    客户端类型：
+                <td class="sp-form-cell-name">分类：
+                </td>
+                <td class="sp-form-cell-value">
+                    <%= Html.DropDownList("AppID")%>
+                </td>
+            </tr>
+            <tr>
+                <td class="sp-form-cell-name">所属单位：
+                </td>
+                <td class="sp-form-cell-value">
+                    <%= Html.DropDownList("Unit", ViewData["Unit"] as SelectList, new { @Style = "width:95%;", @Class = "EnableType" })%>
+                </td>
+            </tr>
+            <tr>
+                <td class="sp-form-cell-name">客户端类型：
                 </td>
                 <td class="sp-form-cell-value" colspan="3">
                     <%=Html.CheckBoxList("packageViewClientType", ViewData["ClientType"] as IList<SelectListItem>, new { @disabled = "disabled" })%>
@@ -502,53 +501,47 @@
                 </td>
             </tr>
             <tr>
-                    <td class="sp-form-cell-name">
-                        支持固件：
-                    </td>
-                    <td class="sp-form-cell-value">
-                        <%= Html.TextBox("Firmware", "", new { @Style = "width:75%;", @Class = "DisplayName" })%>
-                    </td>
-              </tr>
+                <td class="sp-form-cell-name">支持固件：
+                </td>
+                <td class="sp-form-cell-value">
+                    <%= Html.TextBox("Firmware", "", new { @Style = "width:75%;", @Class = "DisplayName" })%>
+                </td>
+            </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    发布版本号：
+                <td class="sp-form-cell-name">发布版本号：
                 </td>
                 <td class="sp-form-cell-value">
                     <%= Html.TextBox("packageVersion", null, new { @Readonly = "readonly", @Style = "border:0px;width:98%;", @Class = "PackageVersion" })%>
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    内部版本号：
+                <td class="sp-form-cell-name">内部版本号：
                 </td>
                 <td class="sp-form-cell-value">
                     <%= Html.TextBox("packageBuildVer", null, new { @Readonly = "readonly", @Style = "border:0px;width:98%;", @Class = "PackageBuildVer" })%>
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-cell-name">
-                    安装包描述：
+                <td class="sp-form-cell-name">安装包描述：
                 </td>
                 <td class="sp-form-cell-value" colspan="3">
                     <%= Html.TextArea("packageDescription", null, new { @Style = "width:98%;" })%>
                 </td>
             </tr>
-             <tr>
-                    <td class="sp-form-cell-name">
-                        是否推荐：
-                    </td>
-                    <td class="sp-form-cell-value">
-                        <%= Html.DropDownList("IsRecom") %>
-                    </td>
-             </tr>
-             <tr>
-                    <td class="sp-form-cell-name">
-                        是否必备：
-                    </td>
-                    <td class="sp-form-cell-value">
-                        <%= Html.DropDownList("IsMust") %>
-                    </td>
-              </tr>
+            <tr>
+                <td class="sp-form-cell-name">是否推荐：
+                </td>
+                <td class="sp-form-cell-value">
+                    <%= Html.DropDownList("IsRecom") %>
+                </td>
+            </tr>
+            <tr>
+                <td class="sp-form-cell-name">是否必备：
+                </td>
+                <td class="sp-form-cell-value">
+                    <%= Html.DropDownList("IsMust") %>
+                </td>
+            </tr>
         </table>
     </fieldset>
     <fieldset>
@@ -569,8 +562,7 @@
             <table width="100%" cellpadding="0" cellspacing="1" style="margin-bottom: 10px;"
                 class="sp-form">
                 <tr>
-                    <td class="sp-form-cell-name">
-                        关联应用：
+                    <td class="sp-form-cell-name">关联应用：
                     </td>
                     <td class="sp-form-cell-value">
                         <%= Html.DropDownList("AppCode_") %>
@@ -579,8 +571,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="sp-form-cell-name">
-                        图标地址：
+                    <td class="sp-form-cell-name">图标地址：
                     </td>
                     <td class="sp-form-cell-value">
                         <%=Html.TextBox("AppIco_", null, new { @Style = "width:85%;", @Class = "AppIco", @Readonly="readonly" })%>
@@ -588,8 +579,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="sp-form-cell-name">
-                        客户端类型：
+                    <td class="sp-form-cell-name">客户端类型：
                     </td>
                     <td class="sp-form-cell-value">
                         <%=Html.CheckBoxList("AppClientType_", ViewData["ClientType"] as IList<SelectListItem>, new { @disabled = "disabled" })%>
@@ -597,11 +587,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td class="sp-form-cell-name">
-                        Action：
+                    <td class="sp-form-cell-name">Action：
                     </td>
-                    <td class="sp-form-cell-value" id="ActivityTD_">
-                    </td>
+                    <td class="sp-form-cell-value" id="ActivityTD_"></td>
                 </tr>
             </table>
         </fieldset>
@@ -609,38 +597,33 @@
     <div id="ActivityTemplate" style="display: none">
         <table width="100%" cellpadding="0" cellspacing="1" class="sp-form">
             <tr style="display: none">
-                <td class="sp-form-cell-name">
-                    Action简称:
+                <td class="sp-form-cell-name">Action简称:
                 </td>
                 <td class="sp-form-cell-value">
                     <%=Html.TextBox("ActivityShortName_", null, new { @Readonly = "readonly", @Style = "border:0px;width:90%;", @Class = "ActivityShortName" })%>
                 </td>
             </tr>
             <tr style="display: none">
-                <td class="sp-form-cell-name">
-                    Action名称:
+                <td class="sp-form-cell-name">Action名称:
                 </td>
                 <td class="sp-form-cell-value">
                     <%=Html.TextBox("ActivityName_", null, new { @Readonly = "readonly", @Style = "border:0px;width:90%;", @Class = "ActivityName" })%>
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-action-cell-name">
-                    显示名称:
+                <td class="sp-form-action-cell-name">显示名称:
                 </td>
                 <td class="sp-form-cell-value">
                     <%=Html.TextBox("ActivityDisplayName_", null, new { @Style = "width:90%;", @Class = "ActivityDisplayName" })%>
                 </td>
-                <td class="sp-form-action-cell-name">
-                    排序号:
+                <td class="sp-form-action-cell-name">排序号:
                 </td>
                 <td class="sp-form-cell-value">
                     <%=Html.TextBox("ActivitySeq_", null, new { @Style = "width:50px;", @Class = "ActivitySeq" })%>
                 </td>
             </tr>
             <tr>
-                <td class="sp-form-action-cell-name">
-                    Action图标:
+                <td class="sp-form-action-cell-name">Action图标:
                 </td>
                 <td class="sp-form-cell-value" colspan="3">
                     <%=Html.TextBox("ActivityIco_", null, new { @Style = "width:85%;", @Class = "ActivityIco" })%>
@@ -648,8 +631,7 @@
                 </td>
             </tr>
             <tr style="display: none">
-                <td class="sp-form-cell-name">
-                    启用Action:
+                <td class="sp-form-cell-name">启用Action:
                 </td>
                 <td class="sp-form-cell-value">
                     <%=Html.RadioButton("ActivityLaunch_", true, new { id="EnableLaunch_" })%><label
@@ -660,8 +642,8 @@
             </tr>
         </table>
     </div>
-    <div id="w" class="easyui-window" title="&nbsp;" closed="true" modal="true" data-options="minimizable:false,collapsible:false,maximizable:false,onClose:function(){$('#wif').attr('src', ''); return false}" style="width:650px;height:320px;padding:3px;">
-		<iframe scrolling="auto" id='wif' frameborder="0"  src="" style="width:100%;height:100%;"></iframe>
-	</div>
+    <div id="w" class="easyui-window" title="&nbsp;" closed="true" modal="true" data-options="minimizable:false,collapsible:false,maximizable:false,onClose:function(){$('#wif').attr('src', ''); return false}" style="width: 650px; height: 320px; padding: 3px;">
+        <iframe scrolling="auto" id='wif' frameborder="0" src="" style="width: 100%; height: 100%;"></iframe>
+    </div>
 </body>
 </html>

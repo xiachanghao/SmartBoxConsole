@@ -222,7 +222,9 @@
     <div id="tabs" class="tabs">
         <div id="tabbody" class="tabsitemcontainer">
             <% using (Html.BeginForm("SavePublishInfo", "PluginInfoManage", new { Vid = ViewData["vids"] }, FormMethod.Post, new { id = "fmEdit" }))
-               {%>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <fieldset>
                 <legend class="title">基本信息</legend>
                 <table width="100%" id="Table2" class="bbit-form" cellspacing="0" cellpadding="1">

@@ -141,7 +141,9 @@
         </div>
         <div class="bbit-categorycontainer">
             <% using (Html.BeginForm("SavePluginInfo", "WebPluginManage", new { isAdd = ViewData["isAdd"] }, FormMethod.Post, new { id = "fmEdit" }))
-               {%>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <table width="100%" id="Table2" cellspacing="0" cellpadding="1">
                 <tr>
                     <td align="right">

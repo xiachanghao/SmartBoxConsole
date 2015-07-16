@@ -314,7 +314,9 @@
     <div id="tabs" class="tabs">
         <div id="tabbody" class="tabsitemcontainer">
             <% using (Html.BeginForm("GetDownLoadFile", "PluginInfoManage", FormMethod.Post, new { id = "fmEdit" }))
-               {%>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <div id="PluginInfoDiv">
                 <table width="100%" id="Table2" class="bbit-form" cellspacing="0" cellpadding="1">
                     <tr>

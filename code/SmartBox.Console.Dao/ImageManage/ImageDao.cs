@@ -14,7 +14,7 @@ namespace SmartBox.Console.Dao
 
         public IList<Image> QueryImageList()
         {
-            string sql = "select id from Image";
+            string sql = "select id from Image order by id ";
             return base.Query(sql);
         }
 

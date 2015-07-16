@@ -199,8 +199,10 @@
         var SourceApplication = ViewData["Application"] as System.Data.DataTable;
     %>
         <% using (Html.BeginForm("UploadOutPackage", "ApplicationManage", FormMethod.Post, new { id = "frmUploadPackage", enctype = "multipart/form-data" }))
-           { %>
-          
+           {
+               Html.AntiForgeryToken();
+               Html.ValidationSummary(true);
+               %>
          <div class="toolBotton">
             <a id="Save" class="imgbtn"><span class="Save" title="保存">保存</span></a> <a id="CloseImgBtn1"
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>

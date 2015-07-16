@@ -94,7 +94,9 @@
             class="imgbtn"><span class="Close" title="关闭">关闭</span></a>
     </div>
     <% using (Html.BeginForm("EditConfigSave", "MonitorManage", FormMethod.Post, new { id = "frmApplicationInfo" }))
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);%>
        <%=Html.Hidden("cfg_id", Model == null ? 0 : Model.cfg_id) %>
     <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">
         <tr>

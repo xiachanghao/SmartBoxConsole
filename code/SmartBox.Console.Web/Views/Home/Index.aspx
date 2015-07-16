@@ -6,9 +6,17 @@
 <head>
     <title></title>
     <meta http-equiv="X-UA-Compatible" content="IE=9">
-    <script src="<%=Url.Content("~/Javascripts/jquery.min.js")%>" type="text/javascript"></script>
     <link href="<%=Url.Content("~/Themes/home/home.css") %>" rel="stylesheet" type="text/css" />
     <link href="<%=Url.Content("~/Javascripts/jquery.tooltip.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=Url.Content("~/Themes/Default/dailog.css") %>" rel="stylesheet" type="text/css" />
+    <link href="<%=Url.Content("~/Themes/Default/alert.css") %>" rel="stylesheet" type="text/css" />
+
+    <script src="<%=Url.Content("~/Javascripts/jquery.min.js")%>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Javascripts/Common.js")%>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Javascripts/home.js") %>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Javascripts/Plugins/jquery.ifrmdailog.js")%>" type="text/javascript"></script>
+    <script src="<%=Url.Content("~/Javascripts/Plugins/jquery.alert.js")%>" type="text/javascript"></script>    
+    <script src="<%=Url.Content("~/Javascripts/jquery.tooltip.js") %>" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(window).resize(function () {
@@ -61,6 +69,7 @@
             //                $('iframe').css('height', het);
             //            }
         }
+
     </script>
     <style>
         .menu3 
@@ -123,6 +132,7 @@
             </div>
             <div class="xx_menu" style="display:none;">
                 <ul>
+                    <li><a href="#" id="changePassword">修改密码</a></li>
                     <li><a href='<%=Url.Action("Logout","Account") %>' >登出</a></li>
                 </ul>
             </div>
@@ -167,7 +177,7 @@
                 <dt class='root <%=item.Code %>' >
                 
                 
-                <a title="<%= item.Text%>" href="<%= item.Type=="Dir" ? "javascript:void(0)":(item.Children.Count==0 ? item.Url:item.Children[0].Url) %>"  style="background-image:url(../../Images/FuncImages/<%=item.ID %>_SIcon.png); background-position:12% 50%; background-size:16px 16px"
+                <a title="<%= item.Text%>" href="<%= item.Type=="Dir" ? "javascript:void(0)":(item.Children.Count==0 ? item.Url:item.Children[0].Url) %>"  style="background-image:url(../../Images/FuncImages/<%=item.ID %>_SIcon.png); background-position:12% 50%; background-size:16px 16px;"
                     cod='<%=item.Code %>' target="ifm" onclick="showFrame('2')">
                     <div style=" text-align:left; margin-left:20px; font-size:13px; font-weight:bold;" >
                     <%= item.Text%></div>
@@ -238,10 +248,6 @@
             </div>
         </div>
     </div>
-    <script src="<%=Url.Content("~/Javascripts/jquery.min.js") %>" type="text/javascript"></script>
-    <script src="<%=Url.Content("~/Javascripts/common.js") %>" type="text/javascript"></script>
-    <script src="<%=Url.Content("~/Javascripts/home.js") %>" type="text/javascript"></script>
-    <script src="<%=Url.Content("~/Javascripts/jquery.tooltip.js") %>" type="text/javascript"></script>
 
 
     <script type="text/javascript">
@@ -265,6 +271,15 @@
                     }
                 }
             });
+
+            $("#changePassword").click(function () {
+                url = '<%=Url.Action("ChangePassword") %>';
+                OpenModelWindow(url, {
+                    width: 400, height: 300, caption: "修改密码", onclose: function () {
+                    }
+                });
+            });
+
             var coke = document.cookie;   //取得cookie 
 
             var date = new Date();

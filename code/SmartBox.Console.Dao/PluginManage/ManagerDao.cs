@@ -17,6 +17,9 @@ namespace SmartBox.Console.Dao
 
         }
 
-
+        public void ChangeManagePassowrd(string userUid, string password)
+        {
+            base.ExecuteNonQuery(string.Format("update [Manager] set [UserPwd]='{1}' where [UserUid]='{0}'",userUid,password));
+        }
     }
 }

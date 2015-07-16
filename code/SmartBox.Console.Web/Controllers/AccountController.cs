@@ -61,14 +61,14 @@ namespace SmartBox.Console.Web.Controllers
                     }
                 }
             }
-            ViewData["msg"] = ""; 
+            ViewData["msg"] = "";
             return View();
         }
 
         public ActionResult Logout()
         {
             string SSO_SignOnUrl = ConfigurationManager.AppSettings["SSO_SignOnUrl"];
-            
+
 
             FormsAuthentication.SignOut();
             this.Session.Clear();
@@ -82,7 +82,7 @@ namespace SmartBox.Console.Web.Controllers
                     return Redirect(SSO_SignOutUrl);
             }
 
-            return Redirect(FormsAuthentication.LoginUrl);            
+            return Redirect(FormsAuthentication.LoginUrl);
         }
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult LogOn(string userName, string password)
@@ -172,5 +172,7 @@ namespace SmartBox.Console.Web.Controllers
             else
                 return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

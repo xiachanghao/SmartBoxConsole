@@ -265,6 +265,8 @@
         <div id="tabbody" class="tabsitemcontainer">
             <% using (Html.BeginForm("SavePublishInfo", "MainInfoManage", new { Vid = Model.VersionId }, FormMethod.Post, new { id = "fmEdit" }))
                {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);
                    var codes = "";
                    IEnumerable<IGrouping<string, ConfigInfo>> listccc2 = (IEnumerable<IGrouping<string, ConfigInfo>>)ViewData["lists"];
                    foreach (var ax in listccc2)

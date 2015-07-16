@@ -95,7 +95,9 @@ background-color: #f0f0f0;
             </td>
             <td>
                 <%  using (Html.BeginForm("UpdateImage", "ImageManage", FormMethod.Post, new { id = "frmImage", enctype = "multipart/form-data" }))
-                    {%>
+                    {
+                        Html.AntiForgeryToken();
+                        Html.ValidationSummary(true);%>
                 <input type="file" id="fileImage" name="fileImage" />&nbsp;<input type="button" id="btnSubmit"
                     value="上传" />
                 <%} %>

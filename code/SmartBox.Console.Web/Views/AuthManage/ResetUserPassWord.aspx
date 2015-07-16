@@ -18,7 +18,9 @@
         </div>
         <div id="divForm">
             <% using (Html.BeginForm("ResetUserPassWordSave", "AuthManage", FormMethod.Post, new { id = "frmUser" }))
-               { %>
+               {
+                   Html.AntiForgeryToken();
+                   Html.ValidationSummary(true);%>
             <%=Html.Hidden("user_id", ViewData["user_id"])%>            
             <table class="bbit-form" width="100%" cellspacing="1" cellpadding="0">
              <% if (ViewData["IsManager"] != "manager")

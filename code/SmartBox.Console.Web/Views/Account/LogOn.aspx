@@ -19,7 +19,10 @@
 </head>
 <body>
     <% using (Html.BeginForm())
-       { %>
+       {
+           Html.AntiForgeryToken();
+           Html.ValidationSummary(true);
+           %>
     <div class="mainpanel">
         <div class="loginpanel">
             <div class="loginpanel-appname">
