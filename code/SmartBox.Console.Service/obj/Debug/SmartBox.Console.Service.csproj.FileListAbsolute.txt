@@ -3,3 +3,9 @@ D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Cons
 D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Service\obj\Debug\SmartBox.Console.Service.dll
 D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Service\obj\Debug\SmartBox.Console.Service.pdb
 D:\互联网软件\研发中心代码库\01在建项目\SmartBoxV2\SmartBox.Console\SmartBox.Console\SmartBox.Console.Service\obj\Debug\SmartBox.Console.Service.csprojResolveAssemblyReference.cache
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Service\bin\Debug\SmartBox.Console.Service.dll.config
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Service\bin\Debug\SmartBox.Console.Service.pdb
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Service\obj\Debug\SmartBox.Console.Service.csprojResolveAssemblyReference.cache
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Service\obj\Debug\SmartBox.Console.Service.dll
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Service\obj\Debug\SmartBox.Console.Service.pdb
+D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Service\bin\Debug\SmartBox.Console.Service.XmlSerializers.dll

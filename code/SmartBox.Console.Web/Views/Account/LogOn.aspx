@@ -58,7 +58,7 @@
                             <tr>                                
                                 <td style="padding-left: 48px" colspan="2">
                                     <input class="loginformsubmitbtn" id="Button1" type="submit" name="Button1" value="" />
-                                   <input class="regsubmitbtn" id="Button2" type="button" name="Button1" value=""  onclick="RegistUser()"/>
+                                   <%--<input class="regsubmitbtn" id="Button2" type="button" name="Button1" value=""  onclick="RegistUser()"/>--%>
                                 </td>
                             </tr>
                         </tbody>

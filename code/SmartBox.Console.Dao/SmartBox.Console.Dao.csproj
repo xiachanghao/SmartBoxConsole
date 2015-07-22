@@ -136,6 +136,7 @@
     <Compile Include="ApplicationManage\DeviceUserApplyDao.cs" />
     <Compile Include="ApplicationManage\DeviceConfigDao.cs" />
     <Compile Include="ApplicationManage\SystemConfigDao.cs" />
+    <Compile Include="AuthManage\ManagerDao.cs" />
     <Compile Include="AuthManage\SMC_AutoTableIDDao.cs" />
     <Compile Include="AuthManage\SMC_FunctionRoleDao.cs" />
     <Compile Include="AuthManage\SMC_FunctionsDao.cs" />
@@ -167,7 +168,6 @@
     <Compile Include="PluginManage\ConfigTempDao.cs" />
     <Compile Include="PluginManage\IMGroupDao.cs" />
     <Compile Include="PluginManage\LogDao.cs" />
-    <Compile Include="PluginManage\ManagerDao.cs" />
     <Compile Include="PluginManage\PluginDao.cs" />
     <Compile Include="PluginManage\PluginInfoTempDao.cs" />
     <Compile Include="PluginManage\UserInfoDao.cs" />

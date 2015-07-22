@@ -1642,6 +1642,7 @@
     <Content Include="telerik\styles\Uniform\slider-v.gif" />
     <Content Include="telerik\styles\Uniform\sprite.png" />
     <Content Include="telerik\styles\Uniform\sprite_2x.png" />
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="telerik\vsdoc\kendo.all-vsdoc.js" />
     <None Include="telerik\vsdoc\kendo.all.min.intellisense.js" />
     <None Include="telerik\vsdoc\kendo.dataviz-vsdoc.js" />

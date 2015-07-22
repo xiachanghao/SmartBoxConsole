@@ -42,6 +42,7 @@ namespace SmartBox.Console.Bo
         {
         }
 
+        private static VersionTrackBo varsionTrackBo = new VersionTrackBo();
         private SMC_FunctionsDao _SMC_FunctionsDao;
         protected SMC_FunctionsDao SMC_FunctionsDao
         {
@@ -55,6 +56,7 @@ namespace SmartBox.Console.Bo
             }
         }
 
+        
 
         [Frame(false, false)]
         public virtual SMC_Functions Get(int FN_ID)
@@ -117,8 +119,7 @@ namespace SmartBox.Console.Bo
                 //SMC_FunctionsDao frDao = new SMC_FunctionsDao(AppConfig.statisticDBKey);
                 IList<SMC_Functions> funcs = null;
 
-                UserInfoDao udao = new UserInfoDao(AppConfig.statisticDBKey);
-                bool isSystemManager = udao.IsSystemManager(UL_UID);
+                bool isSystemManager = varsionTrackBo.IsSystemManager(UL_UID);
                 if (isSystemManager)
                     funcs = SMC_FunctionsDao.QueryFunctionsListSys();
                 else

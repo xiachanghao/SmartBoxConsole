@@ -89,28 +89,7 @@ namespace SmartBox.Console.Dao
         #endregion
 
 
-        #region 验证
-
-        public bool CheckUserName(string uid, string pwd)
-        {
-            IDictionary dic = new Hashtable();
-            dic.Add("uname", uid);
-            dic.Add("pwd", pwd);
-            string maindbName = DbSqlHelper.GetMainDBName();
-            string sql = "select count(*) from "+maindbName+".dbo.Manager where UserUid = @uname and UserPwd = @pwd";
-            return Convert.ToBoolean(ExecuteScalar(sql,dic));
-        }
-
-        #endregion
-
-        public bool IsSystemManager(string uid)
-        {
-            IDictionary dic = new Hashtable();
-            dic.Add("uname", uid);
-            string maindbName = DbSqlHelper.GetMainDBName();
-            string sql = "select count(*) from "+maindbName+".dbo.Manager where UserUid = @uname";
-            return Convert.ToBoolean(ExecuteScalar(sql, dic));
-        }
+        
 
     }
 }

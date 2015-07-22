@@ -8,6 +8,7 @@ using SmartBox.Console.Common;
 using Beyondbit.BUA.Client;
 using System.Configuration;
 using SmartBox.Console.Bo;
+using Beyondbit.Framework.Biz;
 
 namespace SmartBox.Console.Web.Controllers
 {
@@ -145,14 +146,14 @@ namespace SmartBox.Console.Web.Controllers
                 var oldPwd = form["oldPassword"];
                 var newPwd = form["newPassword"];
                 var rePwd = form["renewPassword"];
-                var useruid = Session["CurrentUser"].ToString();
+                var useruid = ((Common.User)Session["CurrentUser"]).UserUId;
                 if (string.IsNullOrEmpty(oldPwd) || string.IsNullOrEmpty(newPwd) || string.IsNullOrEmpty(rePwd))
                 {
                     result.IsSuccess = false;
                     result.Msg = "未填写所有表单";
                     return Json(result);
                 }
-                if (!BoFactory.GetVersionTrackBo.CheckUserName(useruid, oldPwd))
+                if (!BoFactory.GetVersionTrackBo.CheckUserName(useruid, oldPwd, Request.UserHostAddress))
                 {
                     result.IsSuccess = false;
                     result.Msg = "旧密码验证失败";
@@ -165,6 +166,11 @@ namespace SmartBox.Console.Web.Controllers
                     return Json(result);
                 }
                 BoFactory.GetVersionTrackBo.ChangeUserPassword(useruid, newPwd);
+            }
+            catch (BOException ex)
+            {
+                result.IsSuccess = false;
+                result.Msg = ex.Message;
             }
             catch (Exception ex)
             {

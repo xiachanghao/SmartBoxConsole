@@ -42,7 +42,7 @@ namespace SmartBox.Console.Bo
         public SMC_UserListBo()
         {
         }
-
+        private static VersionTrackBo varsionTrackBo = new VersionTrackBo();
         private SMC_UserListDao _SMC_UserListDao;
         protected SMC_UserListDao SMC_UserListDao
         {
@@ -145,9 +145,7 @@ namespace SmartBox.Console.Bo
         {
             try
             {
-                UserInfoDao managerDao = new UserInfoDao(AppConfig.mainDbKey);
-                bool IsSystemManager = managerDao.IsSystemManager(UID);
-                if (IsSystemManager)
+                if (varsionTrackBo.IsSystemManager(UID))
                     return true;
 
                 return SMC_UserListDao.HasFunction(UID, FN_ID);
@@ -162,9 +160,7 @@ namespace SmartBox.Console.Bo
         {
             try
             {
-                UserInfoDao managerDao = new UserInfoDao(AppConfig.mainDbKey);
-                bool IsSystemManager = managerDao.IsSystemManager(UID);
-                if (IsSystemManager)
+                if (varsionTrackBo.IsSystemManager(UID))
                     return true;
                 if (functionCode == "addManager")
                 {
@@ -210,9 +206,7 @@ namespace SmartBox.Console.Bo
             {
                 //系统管理员有最高权限
 
-                UserInfoDao managerDao = new UserInfoDao(AppConfig.mainDbKey);
-                bool IsSystemManager = managerDao.IsSystemManager(UL_UID);
-                if (IsSystemManager)
+                if (varsionTrackBo.IsSystemManager(UL_UID))
                     return true;
 
                 return SMC_UserListDao.IsUserListInRole(UL_UID, RoleId);

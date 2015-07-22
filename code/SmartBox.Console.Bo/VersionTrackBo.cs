@@ -1942,15 +1942,38 @@ namespace SmartBox.Console.Bo
         #region 本地用户登陆
 
         [Frame(false, false)]
-        public virtual bool CheckUserName(string uid, string pwd)
+        public virtual bool CheckUserName(string uid, string pwd, string ip)
         {
             try
             {
-                if (System.Configuration.ConfigurationManager.AppSettings["PwdEncrypted"].Equals("true", StringComparison.CurrentCultureIgnoreCase)) ;
+                var user = managerDao.Get(uid);
+                if (user == null) return false;
+                if (user.Lock && user.LastLockTime.AddMinutes(5) > DateTime.Now) throw new BOException("该用户已被锁定，5分钟后可重新尝试。");
+
+                if (System.Configuration.ConfigurationManager.AppSettings["PwdEncrypted"].Equals("true", StringComparison.CurrentCultureIgnoreCase))
                 {
                     pwd = BeyondbitCrypto.Encryptor(pwd);
                 }
-                return userInfoDao.CheckUserName(uid, pwd);
+                var result = managerDao.CheckUserName(uid, pwd);
+                if (!result)
+                {
+                    if (user.ErrorCount + 1 >= 5)
+                    {
+                        user.Lock = true;
+                        user.LastLockTime = DateTime.Now;
+                    }
+                    user.ErrorCount++;
+                }
+                else
+                {
+                    user.Lock = false;
+                    user.ErrorCount = 0;
+                }
+                user.LastLoginIP = ip;
+                user.LastLoginTime = DateTime.Now;
+                managerDao.Update(user);
+
+                return result;
             }
             catch (DalException ex)
             {
@@ -1963,7 +1986,7 @@ namespace SmartBox.Console.Bo
         {
             try
             {
-                return userInfoDao.IsSystemManager(uid);
+                return managerDao.IsSystemManager(uid);
             }
             catch (DalException ex)
             {
@@ -4380,7 +4403,7 @@ namespace SmartBox.Console.Bo
         [Frame(false, true)]
         public virtual void ChangeUserPassword(string useruid, string password)
         {
-            if (System.Configuration.ConfigurationManager.AppSettings["PwdEncrypted"].Equals("true", StringComparison.CurrentCultureIgnoreCase)) ;
+            if (System.Configuration.ConfigurationManager.AppSettings["PwdEncrypted"].Equals("true", StringComparison.CurrentCultureIgnoreCase))
             {
                 password = BeyondbitCrypto.Encryptor(password);
             }

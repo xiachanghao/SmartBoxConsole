@@ -28,10 +28,21 @@ namespace SmartBox.Console.Common.Entities
         /// 是否主管理员
         /// </summary>
         [Column("IsMain", ColumnType.Normal)]
-        public bool IsMain
-        {
-            get;
-            set;
-        }
+        public bool IsMain { get; set; }
+
+        [Column("Lock")]
+        public bool Lock { get; set; }
+
+        [Column("LastLoginIP")]
+        public string LastLoginIP { get; set; }
+
+        [Column("LastLoginTime")]
+        public DateTime LastLoginTime { get; set; }
+
+        [Column("ErrorCount")]
+        public int ErrorCount { get; set; }
+
+        [Column("LastLockTime")]
+        public DateTime LastLockTime { get; set; }
     }
 }
