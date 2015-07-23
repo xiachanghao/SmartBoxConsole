@@ -165,6 +165,19 @@ namespace SmartBox.Console.Web.Controllers
                     result.Msg = "新密码与确认新密码不一致";
                     return Json(result);
                 }
+                if (newPwd.Length > 20)
+                {
+                    result.IsSuccess = false;
+                    result.Msg = "新密码过长，请输入6到20位的新密码";
+                    return Json(result);
+                }
+                var regxPassword = new System.Text.RegularExpressions.Regex("(((?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]))|((?=.*[0-9])(?=.*[a-z])(?=.*[~!@#$%^&*()_\\-+=,.;'\"{}\\[\\]\\\\|`]))|((?=.*[a-z])(?=.*[A-Z])(?=.*[~!@#$%^&*()_\\-+=,.;'\"{}\\[\\]\\\\|`]))|((?=.*[0-9])(?=.*[A-Z])(?=.*[~!@#$%^&*()_\\-+=,.;'\"{}\\[\\]\\\\|`]))).{6,20}");
+                if (!regxPassword.IsMatch(newPwd))
+                {
+                    result.IsSuccess = false;
+                    result.Msg = "新密码过于简单，请确保至少包含大写字母、小写字母和数字。";
+                    return Json(result);
+                }
                 BoFactory.GetVersionTrackBo.ChangeUserPassword(useruid, newPwd);
             }
             catch (BOException ex)

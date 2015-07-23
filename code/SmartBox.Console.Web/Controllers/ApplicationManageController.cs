@@ -3062,18 +3062,12 @@ namespace SmartBox.Console.Web.Controllers
             package.Description = form["packageDescription"];
             package.ID = Convert.ToInt32(form["packageID"]);
 
-            //========================================================================
-            //musictom 2014-05-17
-
             SMC_PackageExt ext = BoFactory.GetAppCenterBO.GetPackageExt(package.ID);
-            //ext.pe_Name = form["packageName"];
-            //BoFactory.GetSMC_PackageExtBO.Update(ext);
             string tableName = ext.TableName.ToLower();
             if (tableName != "webapplication" && tableName != "smc_package4out")
             {
                 package.ID = ext.TableID;
             }
-            //========================================================================
 
             for (int appIndex = 0; appIndex < Convert.ToInt32(form["applicationCount"]); appIndex++)
             {
@@ -3104,11 +3098,8 @@ namespace SmartBox.Console.Web.Controllers
                     action4Android.UpdateTime = DateTime.Now;
                     action4Android.CreateUid = package.CreateUid;
                     action4Android.UpdateUid = CurrentUser.UserUId;
-                    //========================================================================
-                    //musictom 2014-05-17
                     app4AI.Package4AIID = package.ID;
                     action4Android.App4AIID = package.ID;
-                    //========================================================================
                     Action4Android a4a = BoFactory.GetAction4AndroidBO.Get(action4Android.Name);
                     if (a4a == null)
                         app4AI.ActionList.Add(action4Android);
@@ -3121,20 +3112,7 @@ namespace SmartBox.Console.Web.Controllers
                 App4AI _app4ai = BoFactory.GetApp4AIBO.Get(pars);
                 if (_app4ai == null)
                 {
-                    //pars = new List<KeyValuePair<string, object>>();
-                    //pars.Add(new KeyValuePair<string, object>("Package4AIID", app4AI.Package4AIID));
-                    //pars.Add(new KeyValuePair<string, object>("APPID", null));
-                    //pars.Add(new KeyValuePair<string, object>("AppCode", app4AI.AppCode));
-                    //_app4ai = BoFactory.GetApp4AIBO.Get(pars);
-                    //if (_app4ai == null)
-                    //{
                     package.App4AIList.Add(app4AI);
-                    //}
-                    //else
-                    //{
-                    //_app4ai.AppID = app4AI.AppID;
-                    //BoFactory.GetApp4AIBO.Update(_app4ai);
-                    //}
                 }
                 else
                 {
@@ -3149,18 +3127,7 @@ namespace SmartBox.Console.Web.Controllers
                 string saveFileName = string.Format("{0}_v{1}_{2}{3}", package.Name, package.BuildVer, DateTime.Now.ToString("yyyyMMddHHmmss"), Path.GetExtension(package.DownloadUri));
                 string tempFilePath = Path.Combine(TEMPPATH, package.DownloadUri);
                 string saveFilePath = Path.Combine(SAVEPATH, saveFileName);
-                //if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
-                //{
-                //    package.DownloadUri = AppConfig.iOSDownloadUrl;
-                //}
-                //else
-                //{
-                //    package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                //}
 
-                //=====================================================================================
-                //将更新Package时取DownloadUri的方法改成新增时一样的
-                //by musictom 2014-3-10 14:37
                 if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
                 {
                     string padUrl = string.Empty;
@@ -3186,34 +3153,6 @@ namespace SmartBox.Console.Web.Controllers
                         {
                             package.DownloadUri = @"itms-services://?action=download-manifest&url=" + phoneUrl;
                         }
-                        //string savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        ////saveFileName = savefilePath;
-
-                        //string saveFilePathOut = "";
-
-                        //if (savefilePath.IndexOf("$") != -1)
-                        //{
-                        //    string[] savefilePaths = savefilePath.Split("$".ToCharArray());
-                        //    savefilePath = savefilePaths[0];
-                        //    saveFilePathOut = savefilePaths[1];
-                        //}
-                        ////内网本地存储固定名称的主程序
-                        //System.IO.File.Copy(tempFilePath, savefilePath, true);
-                        //Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
-                        ////StreamReader sr = new StreamReader();
-                        //FileStream fs = new FileStream(tempFilePath, FileMode.Open);
-                        //byte[] content = new byte[fs.Length];
-                        //fs.Read(content, 0, (int)fs.Length - 1);
-                        //fs.Close();
-                        //fs.Dispose();
-
-                        ////发布到外网存储固定名称的主程序
-                        //acws.RemotePublish(content, saveFilePathOut);
-                    }
-                    else
-                    {
-                        //package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                        //saveFileName = saveFilePath;
                     }
                 }
                 else
@@ -3233,60 +3172,18 @@ namespace SmartBox.Console.Web.Controllers
                     }
                     if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            //package.DownloadUri = padUrl;
-                        }
-                        else if (package.ClientType.StartsWith("Phone", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            //package.DownloadUri = phoneUrl;
-                        }
-
-                        //string savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        ////saveFileName = savefilePath;
-                        //string saveFilePathOut = "";
-                        //if (savefilePath.IndexOf("$") != -1)
-                        //{
-                        //    string[] savefilePaths = savefilePath.Split("$".ToCharArray());
-                        //    savefilePath = savefilePaths[0];
-                        //    saveFilePathOut = savefilePaths[1];
-                        //}
-                        ////内网本地存储固定名称的主程序
-                        //System.IO.File.Copy(tempFilePath, savefilePath, true);
-                        //Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
-                        ////StreamReader sr = new StreamReader();
-                        //FileStream fs = new FileStream(tempFilePath, FileMode.Open);
-                        //byte[] content = new byte[fs.Length];
-                        //fs.Read(content, 0, (int)fs.Length - 1);
-                        //fs.Close();
-                        //fs.Dispose();
-
-                        ////发布到外网存储固定名称的主程序
-                        //acws.RemotePublish(content, saveFilePathOut);
-                    }
-                    //else
-                    {
                         package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                        //saveFileName = saveFilePath;
                     }
                 }
-                //=====================================================================================
-
-
 
                 SMC_PackageExt _ext = BoFactory.GetAppCenterBO.GetPackage("Package4AI", package.ID.ToString());
                 _ext.pe_LastVersion = _ext.pe_Version;
                 _ext.pe_Version = package.Version;
                 _ext.pe_FileUrl = "~/PackageExt/" + _ext.pe_id + "/" + Path.GetFileName(tempFilePath);
                 GlobalParam parm = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("app_sj_need_auth");
-                if (parm.ConfigValue == "0")
-                {
-                    //不需要审核
-
-
-                    //BoFactory.GetCommonBO.SMC_PackageExtInternalRelease(_ext);
-                }
-                else
+                
+                
+                if (parm.ConfigValue != "0")
                 {
                     string serializationPath = Server.MapPath("~/PackageSerialization/") + _ext.pe_id + "/";
                     if (!Directory.Exists(serializationPath))
@@ -3361,12 +3258,11 @@ namespace SmartBox.Console.Web.Controllers
                         && AppConfig.PublishConfig.ContainsKey(package.ClientType.ToLower()))
                     {
                         string configPath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        int dollar = configPath.IndexOf('$') + 1;
-                        string path = "";
-                        path = configPath.Remove(0, dollar);
+                        var config = configPath.Split(new string[] { "$" }, StringSplitOptions.RemoveEmptyEntries);
+                        string path = config.Length>1?config[0]:string.Empty;
                         string fileSaveName = Path.GetFileName(path);
 
-                        string deployUrl = configPath.Remove(dollar - 1);
+                        string deployUrl = config.Length>2?config[1]:string.Empty;
                         string deployPath = Path.GetDirectoryName(path) + '\\';
 
                         string filePath = saveFilePath;
@@ -3415,7 +3311,6 @@ namespace SmartBox.Console.Web.Controllers
                         fdata = Encoding.UTF8.GetBytes(s);
                         stream.Write(fdata, 0, fdata.Length);
                         stream.Write(buffur, 0, buffur.Length);
-                        //stream.Write(line, 0, line.Length);
                         request.ContentLength = stream.Length;
 
                         Stream requestStream = request.GetRequestStream();

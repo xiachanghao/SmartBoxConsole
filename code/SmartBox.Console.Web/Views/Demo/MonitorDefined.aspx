@@ -26,7 +26,7 @@
                         发送开始时间：
                     </td>
                     <td>
-                        <input id="tbTimeStart" name="tbTimeStart" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>
+                        <input id="tbTimeStart" name="tbTimeStart" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly"  type="text"  class="Wdate" onClick="    WdatePicker()"/>
                     </td>
                     <td>
                         对象：
@@ -111,26 +111,13 @@
 						<th data-options="field:'dfid',formatter: function(value,row,index){
 				return '<a href=\'#\' onclick=\'javascript:return MonitorDefinedAdd('+row.df_id+');\'>修改</a>' + 
                 '&nbsp;<a href=\'#\' onclick=\'javascript:return MonitorDefinedDelete('+row.df_id+')\'>删除</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;RemoveJobPluginGroup&quot;)\'>载出</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;RestartJobPluginGroup&quot;)\'>重载</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;PauseTargetJob&quot;)\'>暂停</a>' + 
                 '';
 			}" width="80">操作</th>
-						<%--<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
-						<th data-options="field:'attr1'" width="150">Attribute</th>
-						<th data-options="field:'status',align:'center'" width="60">Status</th>--%>
 					</tr>
 				</thead>
 			</table>
     </div>
 </div>
-
-
-
-    
-    
-
             <script type="text/javascript">
                 var sortStr = 'df_id';
 
@@ -143,7 +130,7 @@
                     var df_code = $('#tb_df_code').val();
                     var issend = $('#sel_issend').combobox('getValue');
                     var level = $('#sel_level').combobox('getValue');
-                    
+
 
                     var startTime = $('#tbTimeStart').val();
                     startTime = $.trim(startTime);
