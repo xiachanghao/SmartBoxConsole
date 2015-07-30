@@ -38,20 +38,29 @@ namespace SmartBox.Console.Bo
 {
     public class CommonBO : BaseBO
     {
+        private DeviceDao deviceDao = new DeviceDao(AppConfig.mainDbKey);
+        SMC_PackageExtDao daoSMC_PackageExt = new SMC_PackageExtDao(AppConfig.statisticDBKey);
+        SMC_Package4OutDao daoSMC_Package4Out = new SMC_Package4OutDao(AppConfig.statisticDBKey);
+        App4AIDao daoApp4AI = new App4AIDao(AppConfig.mainDbKey);
+        Package4AIDao daoPackage4AI = new Package4AIDao(AppConfig.mainDbKey);
+        ApplicationDao daoApplication = new ApplicationDao(AppConfig.mainDbKey);
+        WebApplicationDao daoWebApplication = new WebApplicationDao(AppConfig.mainDbKey);
+        Action4AndroidDao daoAction4AndroidDao = new Action4AndroidDao(AppConfig.mainDbKey);
+
         [Frame(false, false)]
-        public virtual bool SMC_PackageExtInternalRelease(SMC_PackageExt ext)
+        public virtual void SMC_PackageExtInternalRelease(SMC_PackageExt ext)
         {
-            return _SMC_PackageExtInternalRelease(ext);
+            _SMC_PackageExtInternalRelease(ext);
         }
 
         [Frame(false, false)]
-        public virtual bool SMC_PackageExtInternalRelease(int pe_id)
+        public virtual void SMC_PackageExtInternalRelease(int pe_id)
         {
             SMC_PackageExtDao daoSMC_PackageExt = new SMC_PackageExtDao(AppConfig.statisticDBKey);
             List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
             pars.Add(new KeyValuePair<string, object>("pe_id", pe_id));
             SMC_PackageExt ext = daoSMC_PackageExt.Get(pars);
-            return _SMC_PackageExtInternalRelease(ext);
+            _SMC_PackageExtInternalRelease(ext);
         }
 
         protected SMC_Package4Out CopyPackageExt2SMC_Package4Out(SMC_PackageExt ext, SMC_Package4Out packageOut)
@@ -112,19 +121,11 @@ namespace SmartBox.Console.Bo
             return package4AI;
         }
 
-        private bool _SMC_PackageExtInternalRelease(SMC_PackageExt ext)
+        private void _SMC_PackageExtInternalRelease(SMC_PackageExt ext)
         {
             if (ext == null)
-                return false;
+                return;
 
-            bool r = false;
-            SMC_PackageExtDao daoSMC_PackageExt = new SMC_PackageExtDao(AppConfig.statisticDBKey);
-            SMC_Package4OutDao daoSMC_Package4Out = new SMC_Package4OutDao(AppConfig.statisticDBKey);
-            App4AIDao daoApp4AI = new App4AIDao(AppConfig.mainDbKey);
-            Package4AIDao daoPackage4AI = new Package4AIDao(AppConfig.mainDbKey);
-            ApplicationDao daoApplication = new ApplicationDao(AppConfig.mainDbKey);
-            WebApplicationDao daoWebApplication = new WebApplicationDao(AppConfig.mainDbKey);
-            Action4AndroidDao daoAction4AndroidDao = new Action4AndroidDao(AppConfig.mainDbKey);
 
             string tableName = ext.TableName.ToLower();
             int tableId = ext.TableID;
@@ -161,20 +162,6 @@ namespace SmartBox.Console.Bo
                     {
                         CopyPackageExt2Package4AI(ext, package4AI);
                         daoPackage4AI.Update(package4AI);
-                    }
-
-                    try
-                    {
-                        //daoAction4AndroidDao.DeleteAction4AndroidByPackage4AIID(package4AI.ID);
-
-                        //List<Tuple<string, string, object>> _pars = new List<Tuple<string, string, object>>();
-                        //_pars.Add(new Tuple<string, string, object>("package4aiid", "=", package4AI.ID));
-                        //List<App4AI> app4AIList = daoApp4AI.QueryList(_pars);
-                        //daoApp4AI.DeleteList(app4AIList);
-                    }
-                    catch (Exception ex)
-                    {
-                        Log4NetHelper.Error(ex);
                     }
 
                     try
@@ -217,7 +204,6 @@ namespace SmartBox.Console.Bo
             daoSMC_PackageExt.Update(ext);
             _CopyExtFileToUpdateFilesFolder(ext);
 
-            return r;
         }
 
         /// <summary>
@@ -258,7 +244,7 @@ namespace SmartBox.Console.Bo
                     }
                 }
 
-                string savefilePath = AppConfig.PublishConfig[ext.pe_ClientType.ToLower()];
+                string savefilePath = AppConfig.PublishConfig.GetValue(ext.pe_ClientType).Path;
                 //saveFileName = savefilePath;
                 string saveFilePathOut = "";
                 if (savefilePath.IndexOf("$") != -1)
@@ -450,7 +436,7 @@ namespace SmartBox.Console.Bo
             {
                 return string.Empty;
             }
-            if (innerAppIco.StartsWith("Server://", StringComparison.CurrentCultureIgnoreCase) || innerAppIco.StartsWith("package://",StringComparison.CurrentCultureIgnoreCase))
+            if (innerAppIco.StartsWith("Server://", StringComparison.CurrentCultureIgnoreCase) || innerAppIco.StartsWith("package://", StringComparison.CurrentCultureIgnoreCase))
             {
                 return innerAppIco;
             }
@@ -486,60 +472,53 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceAuthorization(string uid, string deviceid, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
-            ApplyDeviceBindDao dao = new ApplyDeviceBindDao(AppConfig.mainDbKey);
-            return dao.GetDeviceAuthorization(uid, deviceid, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
+            ApplyDeviceBindDao applyDeviceBindDao = new ApplyDeviceBindDao(AppConfig.mainDbKey);
+            return applyDeviceBindDao.GetDeviceAuthorization(uid, deviceid, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceAuthorizationNew(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceAuthorization(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
+            return deviceDao.GetDeviceAuthorization(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceUser(string uid, string model, string deviceid, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceUser(uid, model, deviceid, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
+            return deviceDao.GetDeviceUser(uid, model, deviceid, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceEnableAuthorizationSys(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceEnableAuthorizationSys(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
+            return deviceDao.GetDeviceEnableAuthorizationSys(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
-        
-        
+
+
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetAppPackageAuthorization(string appName, string application, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, string categoryID, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetAppPackageAuthorization(appName, application, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, categoryID, orderby, pageSize, pageIndex);
+            return deviceDao.GetAppPackageAuthorization(appName, application, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, categoryID, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetAppPackageSyncList(string appName, string application, string unitcode, string auth_time_start, string auth_time_end, string syncstatus, string orderby, int pageIndex, int pageSize)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetAppPackageSyncList(appName, application, unitcode, auth_time_start, auth_time_end, syncstatus, orderby, pageIndex, pageSize);
+            return deviceDao.GetAppPackageSyncList(appName, application, unitcode, auth_time_start, auth_time_end, syncstatus, orderby, pageIndex, pageSize);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetApplicationExtList(string appName, string application, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, string categoryID, string orderby, int pageSize, int pageIndex)
         {
-            SMC_PackageExtDao dao = new SMC_PackageExtDao(AppConfig.statisticDBKey);
-            return dao.GetApplicationExtList(appName, application, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, categoryID, orderby, pageSize, pageIndex);
+            return daoSMC_PackageExt.GetApplicationExtList(appName, application, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, categoryID, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual List<IDictionary<string, object>> GetApplicationCategory()
         {
-            SMC_PackageExtDao dao = new SMC_PackageExtDao(AppConfig.mainDbKey);
-            DataSet ds = dao.GetApplicationCategoryList(-1);
-            List<IDictionary<string, object>> result = dao.TranslateTable(ds.Tables[0]);
+            DataSet ds = daoSMC_PackageExt.GetApplicationCategoryList(-1);
+            List<IDictionary<string, object>> result = daoSMC_PackageExt.TranslateTable(ds.Tables[0]);
             IDictionary<string, object> itemAll = new Dictionary<string, object>();
             itemAll["id"] = "";
             itemAll["displayname"] = "请选择类别";
@@ -550,57 +529,57 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual List<IDictionary<string, object>> GetTaskCenter(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetTaskCenter(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetTaskCenter(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceDisableAuthorizationSys(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceDisableAuthorizationSys(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetDeviceDisableAuthorizationSys(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceLost(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceLost(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetDeviceLost(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceSync(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceSync(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetDeviceSync(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceManage(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, int deviceUserStatus, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceManage(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, deviceUserStatus, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetDeviceManage(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, deviceUserStatus, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetTimeIndex(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetTimeIndex(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetTimeIndex(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetStatisticsByUnit(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetStatisticsByUnit(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetStatisticsByUnit(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetUserDevice(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetUserDevice(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetUserDevice(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
         }
 
         [Frame(false, false)]
@@ -614,8 +593,8 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceUnLock(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetDeviceUnLock(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
+             
+            return deviceDao.GetDeviceUnLock(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
         }
 
         /// <summary>
@@ -626,14 +605,14 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual bool LostDevice(string id, string checkUser)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
+             
             DeviceUserDao dudao = new DeviceUserDao(AppConfig.mainDbKey);
-            Device device = dao.Get(id);
+            Device device = deviceDao.Get(id);
             if (device != null)
             {
                 device.LostTime = DateTime.Now;
                 device.Status = 2;
-                dao.Update(device);
+                deviceDao.Update(device);
 
                 List<Tuple<string, string, object>> pars = new List<Tuple<string, string, object>>();
                 pars.Add(new Tuple<string, string, object>("deviceid", "=", id));
@@ -650,26 +629,6 @@ namespace SmartBox.Console.Bo
                 }
 
                 string[] uids = null;
-                //if (deviceUsers != null && deviceUsers.Count > 0)
-                //{
-                //    uids = new string[deviceUsers.Count];
-                //    for (int i = 0; i < deviceUsers.Count; ++i)
-                //    {
-                //        DeviceUser du = deviceUsers[i];
-                //        uids[i] = du.UID;
-                //    }
-                //}
-                //if (uids != null && uids.Length > 0)
-                //{
-                //    try
-                //    {
-                //        msc.ForceQuitUsers(uids);
-                //    }
-                //    catch (Exception ex)
-                //    {
-                //        Log4NetHelper.Error(ex);
-                //    }
-                //}
 
                 string uid_online = dudao.GetDeviceOnlineUser(id);//根据设备id取最后登陆成功的用户
 
@@ -709,15 +668,15 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual bool UnLostDevice(string id, string checkUser)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
+             
 
-            Device device = dao.Get(id);
+            Device device = deviceDao.Get(id);
             if (device != null)
             {
                 //device.LostTime = DateTime.Now;
                 device.UnLostTime = DateTime.Now;
                 device.Status = 0;
-                dao.Update(device);
+                deviceDao.Update(device);
 
 
                 DeviceUserDao dudao = new DeviceUserDao(AppConfig.mainDbKey);
@@ -762,13 +721,13 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual bool UnLockDevice(string id, string checkUser)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            Device device = dao.Get(id);
+             
+            Device device = deviceDao.Get(id);
             if (device != null)
             {
                 device.LostTime = DateTime.Now;
                 device.Status = 0;
-                dao.Update(device);
+                deviceDao.Update(device);
                 return true;
             }
             else
@@ -789,7 +748,7 @@ namespace SmartBox.Console.Bo
                 deviceUser.LastUpdateUID = checkUser;
                 dao.Update(deviceUser);
 
-                DeviceDao deviceDao = new DeviceDao(AppConfig.mainDbKey);
+                 
                 List<Tuple<string, string, object>> pars = new List<Tuple<string, string, object>>();
                 pars.Add(new Tuple<string, string, object>("id", "=", deviceUser.DeviceID));
                 List<Device> devices = deviceDao.QueryList(pars);
@@ -891,57 +850,20 @@ namespace SmartBox.Console.Bo
                 Log4NetHelper.Error(ex);
                 return false;
             }
-            //ApplyDeviceBindDao dao = new ApplyDeviceBindDao(AppConfig.mainDbKey);
-            //ApplyDeviceBind u = dao.Get(id);
-            //if (u != null)
-            //{
-            //    u.Status = ApplyDeviceBindStatus.Approval;
-            //    u.CheckTime = DateTime.Now;
-            //    u.CheckUser = checkUser;
-            //    dao.Update(u);
-
-            //    DeviceBindDao deviceBindDao = new DeviceBindDao(AppConfig.mainDbKey);
-            //    DeviceBind deviceBind = deviceBindDao.Get(u.UserUid, u.DeviceId);
-            //    if (deviceBind == null)
-            //    {
-            //        deviceBind = new DeviceBind();
-            //        deviceBind.Id = Guid.NewGuid();
-            //        deviceBind.UserUid = u.UserUid;
-            //        deviceBind.Device = "*";
-            //        deviceBind.DeviceId = u.DeviceId;
-            //        deviceBind.Status = "ENABLE";
-            //        deviceBind.Description = u.Description;
-            //        deviceBindDao.Insert(deviceBind);
-            //    }
-            //    else
-            //    {
-            //        deviceBind.Id = Guid.NewGuid();
-            //        deviceBind.UserUid = u.UserUid;
-            //        deviceBind.Device = "*";
-            //        deviceBind.DeviceId = u.DeviceId;
-            //        deviceBind.Status = "ENABLE";
-            //        deviceBind.Description = u.Description;
-            //        deviceBindDao.Update(deviceBind);
-            //    }
-
-            //    return true;
-            //}
-            //else
-            //    return false;
         }
 
 
 
         public virtual List<IDictionary<string, object>> GetUserDevices(string uid)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.GetUserDevices(uid);
+             
+            return deviceDao.GetUserDevices(uid);
         }
 
         public virtual bool LostUserDevicePost(string deviceid)
         {
-            DeviceDao dao = new DeviceDao(AppConfig.mainDbKey);
-            return dao.LostUserDevicePost(deviceid);
+            
+            return deviceDao.LostUserDevicePost(deviceid);
         }
 
         [Frame(false, false)]
@@ -1024,88 +946,71 @@ namespace SmartBox.Console.Bo
 
         }
 
+        [Frame(true, true)]
         public virtual void CopyAppFilesToAppCenterServer(Hashtable r, int pe_id)
         {
-            try
+            string packUploadFolder = ConfigurationManager.AppSettings["packUploadFolder"];
+            string filePath = string.Empty;
+            if (pe_id > 0)
             {
-                string packUploadFolder = ConfigurationManager.AppSettings["packUploadFolder"];
-                string packUploadFolderApplicationCenter = ConfigurationManager.AppSettings["packUploadFolderApplicationCenter"];
-                string s = "";
-                if (pe_id > 0)
+                SMC_PackageExtDao peDao = new SMC_PackageExtDao(AppConfig.statisticDBKey);
+                SMC_PackageExt pe = peDao.Get(pe_id);
+                filePath = Path.Combine(packUploadFolder, Path.GetFileName(pe.pe_DownloadUri));
+            }
+
+            if (Directory.Exists(packUploadFolder))
+            {
+                string[] sourceFiles = null;
+                if (pe_id <= 0)
                 {
-                    SMC_PackageExtDao peDao = new SMC_PackageExtDao(AppConfig.statisticDBKey);
-                    SMC_PackageExt pe = peDao.Get(pe_id);
-
-                    if (packUploadFolder.EndsWith("\\"))
-                    {
-                        s = packUploadFolder + Path.GetFileName(pe.pe_DownloadUri);
-                    }
-                    else
-                    {
-                        s = packUploadFolder + "\\" + Path.GetFileName(pe.pe_DownloadUri);
-                    }
-                }
-
-                if (Directory.Exists(packUploadFolder))
-                {
-                    string[] sourceFiles = null;
-                    if (pe_id <= 0)
-                    {
-                        sourceFiles = Directory.GetFiles(packUploadFolder);
-                    }
-                    else
-                    {
-                        sourceFiles = new string[] { s };
-                    }
-
-                    foreach (string file in sourceFiles)
-                    {
-                        string fileName = Path.GetFileName(file);
-
-                        Service.ApplicationCenterWS.WebService ws = new Service.ApplicationCenterWS.WebService();
-
-                        FileStream fs = null;
-                        byte[] content = null;
-                        try
-                        {
-                            fs = new FileStream(file, FileMode.Open, FileAccess.Read);
-                            content = new byte[fs.Length];
-                            fs.Read(content, 0, (int)fs.Length - 1);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log4NetHelper.Error(ex);
-                            continue;
-                        }
-                        finally
-                        {
-                            fs.Close();
-                            fs.Dispose();
-                        }
-
-                        try
-                        {
-                            ws.AppFileSync(content, fileName);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log4NetHelper.Error(ex);
-                            continue;
-                        }
-                    }
-
-                    //更新server缓存
-                    SmartBox.Console.Service.ServiceReference1.ManagerServiceClient cli = new Service.ServiceReference1.ManagerServiceClient();
-                    cli.ResetClientVer();
+                    sourceFiles = Directory.GetFiles(packUploadFolder);
                 }
                 else
                 {
-                    Log4NetHelper.Info("packUploadFolder不存在:" + packUploadFolder);
+                    sourceFiles = new string[] { filePath };
+                }
+
+                foreach (string file in sourceFiles)
+                {
+                    string fileName = Path.GetFileName(file);
+
+                    Service.ApplicationCenterWS.WebService ws = new Service.ApplicationCenterWS.WebService();
+
+                    FileStream fs = null;
+                    byte[] content = null;
+                    try
+                    {
+                        fs = new FileStream(file, FileMode.Open, FileAccess.Read);
+                        content = new byte[fs.Length];
+                        fs.Read(content, 0, (int)fs.Length - 1);
+                        ws.AppFileSync(content, fileName);
+                    }
+                    catch (Exception ex)
+                    {
+                        Log4NetHelper.Error(ex);
+                        continue;
+                    }
+                    finally
+                    {
+                        fs.Close();
+                        fs.Dispose();
+                    }
+                }
+
+                //更新server缓存
+                try
+                {
+                    SmartBox.Console.Service.ServiceReference1.ManagerServiceClient cli = new Service.ServiceReference1.ManagerServiceClient();
+                    cli.ResetClientVer();
+                }
+                catch (Exception ex)
+                {
+                    throw new Exception("文件同步成功，Server缓存数据清除失败。如遇到未提示版本更新问题请联系管理员重启服务", ex);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Log4NetHelper.Error(ex);
+                Log4NetHelper.Info("packUploadFolder不存在:" + packUploadFolder);
             }
         }
         [Frame(false, false)]

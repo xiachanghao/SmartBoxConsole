@@ -20,7 +20,7 @@ namespace SmartBox.Console.Common.Configuration
 
         public IOSPublishElement GetElementByKey(string key)
         {
-            return (IOSPublishElement)base.BaseGet(key);
+            return (IOSPublishElement)base.BaseGet(key.ToLower());
         }
     }
 }

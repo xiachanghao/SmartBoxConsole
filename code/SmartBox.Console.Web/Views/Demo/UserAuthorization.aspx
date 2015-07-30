@@ -6,9 +6,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<div id="_layout" class="easyui-layout" data-options="fit:true" style="">    <div data-options="region:'north',split:false" style="height:195px;overflow:hidden;border:0px solid #DDDDDD;">        <div class="easyui-panel cHead" data-options="" style="display:;font-size:12px;color:#528FB6;text-align: left; border:1px solid #DDDDDD;padding-left:5px;">
+<div id="_layout" class="easyui-layout" data-options="fit:true" style="">
+    <div data-options="region:'north',split:false" style="height:195px;overflow:hidden;border:0px solid #DDDDDD;">
+        <div class="easyui-panel cHead" data-options="" style="display:;font-size:12px;color:#528FB6;text-align: left; border:1px solid #DDDDDD;padding-left:5px;">
             <img src="../../themes/default/images/flexigrid/grid.png" /><span>用户管理>>用户审核</span>
-        </div>        <div style="height:3px;display:;"></div>
+        </div>
+        <div style="height:3px;display:;"></div>
 
     <div class="table_box" style="display:;">
     <h4>查询条件</h4>
@@ -67,15 +70,19 @@
                     <tr>
                         <td colspan="4">
                             <input id="btnSearch" type="submit" class="btnskin_b" value="查询" />
-                            <input type="reset" class="btnskin_b" onclick="resetSearch();" value="重置" />
+                            <input type="button" class="btnskin_b" onclick="resetSearch();" value="重置" />
                         </td>
                     </tr>
                 </tfoot>
             </tbody>
         </table>
-    </div>    </div>
-    <div style="height:3px;display:;"></div>    </div>    <div data-options="region:'center'" style="width:100%;">
-                <div id="tb" style="text-align:right;">
+    </div>
+    </div>
+    <div style="height:3px;display:;"></div>
+    </div>
+    <div data-options="region:'center'" style="width:100%;">
+            
+    <div id="tb" style="text-align:right;">
 <a id="btn_upload" onclick="javascript:return PassSelected();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">通过</a>
 <a onclick="javascript:return NotPassSelected();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">不通过</a>
 <%--<a onclick="javascript:return DeleteDll();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">强制退出</a>
@@ -129,7 +136,9 @@
 						<th data-options="field:'status',align:'center'" width="60">Status</th>--%>
 					</tr>
 				</thead>
-			</table>    </div></div>
+			</table>
+    </div>
+</div>
 
 
 
@@ -138,8 +147,8 @@
 
             <script type="text/javascript">
                 function resetSearch() {
-                    $('.table_box_data input').not('.btnskin_b').val('');
-                    $('.table_box_data select').combobox('setValue', '')
+                    $('.table_box_data input[type="text"]').not(".combo-text").val('');
+                    $('#selUnit').combobox('setValue', '')
                 }
 
                 function NotPassSelected() {

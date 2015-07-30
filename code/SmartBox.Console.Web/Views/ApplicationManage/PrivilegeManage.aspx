@@ -139,13 +139,14 @@
                         <th data-options="field:'SyncIntervalTime',sortable:false" width="40">同步间隔(小时)</th>
                         <th data-options="field:'LastSyncTime',sortable:true" width="50">最后同步时间</th>--%>
 						<th data-options="field:'id3',formatter: function(value,row,index){
-                       return '<a href=\'#\' onclick=\'javascript:return NewAppPrivilege(&quot;'+row.id+'&quot;,&quot;'+row.Name+'&quot;,&quot;'+row.DisplayName+'&quot;,&quot;'+row.BuaAppCode+'&quot;,&quot;'+row.apid+'&quot;,&quot;'+row.BuaPrivilegeCode+'&quot;,&quot;'+row.SyncIntervalTime+'&quot;);\'>绑定</a>' + 
-                '&nbsp;<a href=\'#\' onclick=\'javascript:return UnAuthAppPrivilege(&quot;'+row.apid+'&quot;)\'>解除授权</a>' + 
-                '&nbsp;<a href=\'#\' onclick=\'javascript:return SyncPrivilegeUser(&quot;'+row.apid+'&quot;,&quot;'+row.BuaPrivilegeCode+'&quot;)\'>同步</a>' + 
-                '&nbsp;<a href=\'#\' onclick=\'javascript:return ViewUser('+row.apid+')\'>查看用户</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;PauseTargetJob&quot;)\'>暂停</a>' + 
-              '';
+                            var btn = '';
+                        btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return NewAppPrivilege(&quot;'+row.id+'&quot;,&quot;'+row.Name+'&quot;,&quot;'+encodeURIComponent(row.DisplayName)+'&quot;,&quot;'+row.BuaAppCode+'&quot;,&quot;'+row.apid+'&quot;,&quot;'+row.BuaPrivilegeCode+'&quot;,&quot;'+row.SyncIntervalTime+'&quot;);\'>绑定</a>'
+                        if(row.PrivilegeName != null) btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return UnAuthAppPrivilege(&quot;'+row.apid+'&quot;)\'>解除授权</a>'
+                        btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return SyncPrivilegeUser(&quot;'+row.apid+'&quot;,&quot;'+row.BuaPrivilegeCode+'&quot;)\'>同步</a>'
+                        btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return ViewUser('+row.apid+')\'>查看用户</a>'
+                      //btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>'
+                      //btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;PauseTargetJob&quot;)\'>暂停</a>'
+                            return btn;
 			}" width="80">操作</th>
 						<%--<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
 						<th data-options="field:'attr1'" width="150">Attribute</th>

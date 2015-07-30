@@ -155,25 +155,58 @@ namespace SmartBox.Console.Common
             }
         }
 
-        public static Dictionary<string, string> PublishConfig
+        private static PublishConfigCollection _publishConfig = null;
+        public static PublishConfigCollection PublishConfig
+        {
+            get
+            {
+                if (_publishConfig == null)
+                {
+                    IOSConfiguration config = (IOSConfiguration)ConfigurationManager.GetSection("PublishConfig");
+                    if (config == null || config.IOSPublishs == null)
+                    {
+                        throw new ArgumentException("控制台配置有问题，请联系管理人员", "PublishConfig");
+                    }
+                    _publishConfig = new PublishConfigCollection();
+                    foreach (IOSPublishElement item in config.IOSPublishs)
+                    {
+                        _publishConfig.Add(item.ClientType.ToLower(), item);
+                    }
+                }
+                return _publishConfig;
+            }
+        }
+        public class PublishConfigCollection
+        {
+            private Dictionary<string, IOSPublishElement> _config = new Dictionary<string, IOSPublishElement>();
+            public void Add(string key, IOSPublishElement value)
+            {
+                _config.Add(key.ToLower(), value);
+            }
+
+            public IOSPublishElement GetValue(string key)
+            {
+                return _config[key.ToLower()];
+            }
+
+            public bool ContainsKey(string key)
+            {
+                return _config.ContainsKey(key.ToLower());
+            }
+        }
+
+        public static string _debug_mode = System.Configuration.ConfigurationSettings.AppSettings["debug_mode"] ?? "false";
+        public static bool DebugMode
         {
             get 
             {
-                Dictionary<string, string> config = new Dictionary<string, string>();
-                IOSConfiguration iosConfig = (IOSConfiguration)ConfigurationManager.GetSection("PublishConfig");
-                if (iosConfig!=null && iosConfig.IOSPublishs!=null)
-                {
-                    foreach (IOSPublishElement item in iosConfig.IOSPublishs)
-                    {
-                        config.Add(item.ClientType.ToLower(), item.Path);
-                    }
-                }
-                return config;
+                return _debug_mode.Equals("true", StringComparison.CurrentCultureIgnoreCase);
             }
         }
+
         public static string iOSDownloadUrl
         {
-            get 
+            get
             {
                 return ConfigurationManager.AppSettings.Get("iOSDownloadUrl");
             }

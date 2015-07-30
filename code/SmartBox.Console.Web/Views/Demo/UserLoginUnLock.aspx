@@ -6,9 +6,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<div id="_layout" class="easyui-layout" data-options="fit:true" style="">    <div data-options="region:'north',split:false" style="height:195px;overflow:hidden;border:0px solid #DDDDDD;">        <div class="easyui-panel cHead" data-options="" style="display:;font-size:12px;color:#528FB6;text-align: left; border:1px solid #DDDDDD;padding-left:5px;">
+<div id="_layout" class="easyui-layout" data-options="fit:true" style="">
+    <div data-options="region:'north',split:false" style="height:195px;overflow:hidden;border:0px solid #DDDDDD;">
+        <div class="easyui-panel cHead" data-options="" style="display:;font-size:12px;color:#528FB6;text-align: left; border:1px solid #DDDDDD;padding-left:5px;">
             <img src="../../themes/default/images/flexigrid/grid.png" /><span>用户管理>>用户解锁</span>
-        </div>        <div style="height:3px;display:;"></div>
+        </div>
+        <div style="height:3px;display:;"></div>
 
     <div class="table_box" style="display:;">
     <h4>查询条件</h4>
@@ -59,19 +62,17 @@
                         锁定时间：
                     </td>
                     <td>
-                        <input id="tbTimeStartLock" name="tbTimeStartLock" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEndLock" name="tbTimeEndLock" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>
+                        <input id="tbTimeStartLock" name="tbTimeStartLock" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEndLock" name="tbTimeEndLock" readonly="readonly"  type="text"  class="Wdate" onClick="    WdatePicker()"/>
                     </td>
                     <td>
                         锁定状态：
                     </td>
                     <td>
-                        <select id="selLockStatus" class="easyui-combobox" data-options="panelHeight:'auto'" name="state" style="width:184px;">
-                        <option value="-1">请选择</option>
+                        <select id="selLockStatus" class="easyui-combobox" data-options="panelHeight:'auto'" name="state" style="width:184px;" disabled="disabled">
 		                <option value="1">已锁定</option>
-		                <option value="0">未锁定</option>
                         </select>
                         <span style="display:none;">
-                        <input id="tbTimeStartLockExpire" name="tbTimeStartLockExpire" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEndLockExpire" name="tbTimeEndLockExpire" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>
+                        <input id="tbTimeStartLockExpire" name="tbTimeStartLockExpire" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEndLockExpire" name="tbTimeEndLockExpire" readonly="readonly"  type="text"  class="Wdate" onClick="    WdatePicker()"/>
                         </span>
                     </td>
                 </tr>
@@ -85,9 +86,13 @@
                 </tfoot>
             </tbody>
         </table>
-    </div>    </div>
-    <div style="height:3px;display:;"></div>    </div>    <div data-options="region:'center'" style="width:100%;">
-                <div id="tb" style="text-align:right;">
+    </div>
+    </div>
+    <div style="height:3px;display:;"></div>
+    </div>
+    <div data-options="region:'center'" style="width:100%;">
+            
+    <div id="tb" style="text-align:right;">
 <a id="btn_upload" onclick="javascript:return UnLockSelected();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">解除锁定</a>
 </div>
      <table id="grid" class="easyui-datagrid" style="width:100%;border-top:1px solid #DDDDDD"
@@ -144,19 +149,16 @@
 						<th data-options="field:'status',align:'center'" width="60">Status</th>--%>
 					</tr>
 				</thead>
-			</table>    </div></div>
-
-
-
-    
-    
-
+			</table>
+    </div>
+</div>
             <script type="text/javascript">
                 var sortStr = 'u_auth_submit_time desc';
 
                 function resetSearch() {
-                    $('.table_box_data input').not('.btnskin_b').val('');
-                    $('.table_box_data select').combobox('setValue', '')
+                    $('.table_box_data input[type="text"]').not(".combo-text").val('');
+                    $("#selState").combobox("setValue", "-1");
+                    $('#selUnit').combobox('setValue', '')
                 }
 
 
@@ -375,12 +377,12 @@
                 }
 
                 function ModifyEntity(pd_id) {
-//                    var url = '<%=Url.Content("~/") %>PushManage/PushDllAdd?pd_id=' + pd_id;
-//                    $('#wif')[0].src = url;
-//                    $('#w').window('open');
+                    //                    var url = '<%=Url.Content("~/") %>PushManage/PushDllAdd?pd_id=' + pd_id;
+                    //                    $('#wif')[0].src = url;
+                    //                    $('#w').window('open');
                     return false;
                 }
-                
+
                 function SyncUser() {
                     var url = '<%=Url.Content("~/") %>authmanage/syncbuausertoinside';
                     $('#wif')[0].src = url;
@@ -389,10 +391,10 @@
                 }
 
                 function OperateDll(pd_id, op) {
-//                    var url = '<%=Url.Content("~/") %>PushManage/JobCommandCtrl?pd_id=' + pd_id + '&operate=' + op;
-//                    $('#wif')[0].src = url;
-//                    $('#w').window('open');
-                    
+                    //                    var url = '<%=Url.Content("~/") %>PushManage/JobCommandCtrl?pd_id=' + pd_id + '&operate=' + op;
+                    //                    $('#wif')[0].src = url;
+                    //                    $('#w').window('open');
+
                     return false;
                 }
                 function parseDate(d) {
@@ -514,49 +516,49 @@
                 }
 
                 function DeleteDll() {
-//                    var rows = $('#grid').datagrid('getChecked');
-//                    if (rows.length < 1)
-//                        return;
-//                    $.messager.confirm('确认', '确定要删除所勾选的插件吗?', function (r) {
-//                        if (r) {
-//                            var ids = '';
-//                            var not_del_msg = '插件';
-//                            var not_del_cnt = 0;
-//                            for (var i = 0; i < rows.length; ++i) {
-//                                
-//                                if (rows[i].pd_dll_status != '已载出') {
-//                                    not_del_msg += rows[i].pd_name + '、';
-//                                    ++not_del_cnt;
-//                                } else {
-//                                    ids += rows[i].pd_id;
-//                                    if (i < rows.length - 1)
-//                                        ids += ',';
-//                                }
-//                            }
-//                            not_del_msg += '未从推送服务里载出，不能删除！';
-//                            
-//                            $.ajax({
-//                                type: "POST",
-//                                url: '<%=Url.Action("PushDLLDelete") %>',
-//                                data: { ids: ids },
-//                                dataType: "json",
-//                                success: function (data) {
-//                                    var _msg = data.Msg;
-//                                    if (not_del_cnt > 0)
-//                                        _msg = _msg + not_del_msg;
-//                                    $.messager.show({
-//                                        title: '提示',
-//                                        msg: _msg,
-//                                        timeout: 2000,
-//                                        showType: 'slide'
-//                                    });
+                    //                    var rows = $('#grid').datagrid('getChecked');
+                    //                    if (rows.length < 1)
+                    //                        return;
+                    //                    $.messager.confirm('确认', '确定要删除所勾选的插件吗?', function (r) {
+                    //                        if (r) {
+                    //                            var ids = '';
+                    //                            var not_del_msg = '插件';
+                    //                            var not_del_cnt = 0;
+                    //                            for (var i = 0; i < rows.length; ++i) {
+                    //                                
+                    //                                if (rows[i].pd_dll_status != '已载出') {
+                    //                                    not_del_msg += rows[i].pd_name + '、';
+                    //                                    ++not_del_cnt;
+                    //                                } else {
+                    //                                    ids += rows[i].pd_id;
+                    //                                    if (i < rows.length - 1)
+                    //                                        ids += ',';
+                    //                                }
+                    //                            }
+                    //                            not_del_msg += '未从推送服务里载出，不能删除！';
+                    //                            
+                    //                            $.ajax({
+                    //                                type: "POST",
+                    //                                url: '<%=Url.Action("PushDLLDelete") %>',
+                    //                                data: { ids: ids },
+                    //                                dataType: "json",
+                    //                                success: function (data) {
+                    //                                    var _msg = data.Msg;
+                    //                                    if (not_del_cnt > 0)
+                    //                                        _msg = _msg + not_del_msg;
+                    //                                    $.messager.show({
+                    //                                        title: '提示',
+                    //                                        msg: _msg,
+                    //                                        timeout: 2000,
+                    //                                        showType: 'slide'
+                    //                                    });
 
-//                                    var dg = $('#grid');
-//                                    $('#grid').datagrid('reload');
-//                                }
-//                            });
-//                        }
-//                    });                    
+                    //                                    var dg = $('#grid');
+                    //                                    $('#grid').datagrid('reload');
+                    //                                }
+                    //                            });
+                    //                        }
+                    //                    });                    
                 }
     </script>
     <div id="w2" class="easyui-window" title="&nbsp;" closed="true" modal="true" data-options="minimizable:false,collapsible:false,maximizable:false,onClose:function(){ return false}" style="width:150px;height:70px;padding:3px;">

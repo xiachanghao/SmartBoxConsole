@@ -2019,12 +2019,14 @@ namespace SmartBox.Console.Bo
         [Frame(false, true)]
         public virtual void InsertApplication(Application app)
         {
+            applicationDao.ExistApplication(app.Name, app.DisplayName);
             applicationDao.Insert(app);
         }
 
         [Frame(false, true)]
         public virtual void UpdateApplication(Application app)
         {
+            applicationDao.ExistApplication(app.Name, app.DisplayName);
             applicationDao.Update(app);
         }
 
@@ -2274,8 +2276,8 @@ namespace SmartBox.Console.Bo
         [Frame(false, true)]
         public virtual void InsertPackage4AI(Package4AI package4AI, string tempFilePath, string saveFilePath)
         {
-            string debug_mode = System.Configuration.ConfigurationSettings.AppSettings["debug_mode"] ?? "false";
-            if (debug_mode.Equals("false", StringComparison.CurrentCultureIgnoreCase) && package4AIDao.Exists(package4AI))
+
+            if (!AppConfig.DebugMode && package4AIDao.Exists(package4AI))
                 throw new Exception("不能上传重复的安装包!");
 
             //插入安装包数据
@@ -2315,119 +2317,41 @@ namespace SmartBox.Console.Bo
             {
                 throw new Exception("未找到上传的安装包,请重新上传者联系管理员");
             }
-            int dollar = saveFilePath.IndexOf('$');
-            if (dollar == -1)//本地地址
-            {
-                if (!string.IsNullOrEmpty(saveFilePath))
-                {
-                    string dirPath = Path.GetDirectoryName(saveFilePath);
-                    if (!System.IO.Directory.Exists(dirPath))
-                    {
-                        System.IO.Directory.CreateDirectory(dirPath);
-                    }
-                    System.IO.File.Copy(tempFilePath, saveFilePath, true);
-                }
+            //储存安装包文件
+            if (saveFilePath.IndexOf("$") != -1)
+            {//远程部署时所需要的地址与存储位置
+                string[] savefilePaths = saveFilePath.Split("$".ToCharArray());
+                var remoteServerUrl = savefilePaths[0];
+                var remoteSaveFilePath = savefilePaths[1];
 
-                //if (System.IO.File.Exists(saveFilePath))
-                //{
-                //    System.IO.File.Delete(saveFilePath);
-                //}
-                //System.IO.File.Copy(tempFilePath, saveFilePath);
+                //远程存储安装包文件
+                Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
+                acws.Url = remoteServerUrl;
+                //StreamReader sr = new StreamReader();
+                FileStream fs = new FileStream(tempFilePath, FileMode.Open);
+                byte[] content = new byte[fs.Length];
+                fs.Read(content, 0, (int)fs.Length - 1);
+                fs.Close();
+                fs.Dispose();
+
+                acws.RemotePublish(content, remoteSaveFilePath);
             }
             else
             {//远程地址
                 try
                 {
-                    string configPath = saveFilePath;
-                    dollar = dollar + 1;
-
-                    string path = "";
-                    path = configPath.Remove(0, dollar);
-                    string fileSaveName = Path.GetFileName(path);
-
-                    string deployUrl = configPath.Remove(dollar - 1);
-                    string deployPath = Path.GetDirectoryName(path) + '\\';
-
-                    string filePath = tempFilePath;
-                    string boundary = "--------------------------" + DateTime.Now.Ticks.ToString("x");
-                    WebRequest request = WebRequest.Create(deployUrl);
-                    request.Credentials = CredentialCache.DefaultCredentials;
-                    request.Method = "POST";
-                    request.ContentType = "multipart/form-data; boundary=" + boundary;
-
-                    FileStream fs = new FileStream(filePath, FileMode.Open);
-                    byte[] buffur = new byte[fs.Length];
-                    try
+                    //本地存储安装包文件
+                    string localDirPath = Path.GetDirectoryName(saveFilePath);
+                    if (!System.IO.Directory.Exists(localDirPath))
                     {
-                        fs.Read(buffur, 0, (int)fs.Length);
+                        Directory.CreateDirectory(localDirPath);
                     }
-                    catch (Exception ex)
-                    {
-                        ;
-                    }
-                    finally
-                    {
-                        if (fs != null)
-                        {
-                            fs.Close();
-                        }
-                    }
-
-                    MemoryStream stream = new MemoryStream();
-                    byte[] line = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
-
-                    string format = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
-                    //把文件名写入流
-                    string s = string.Format(format, "SaveName", fileSaveName);
-                    byte[] fdata = Encoding.UTF8.GetBytes(s);
-                    stream.Write(fdata, 0, fdata.Length);
-                    //把保存地址写入流
-                    s = string.Format(format, "SavePath", deployPath);
-                    fdata = Encoding.UTF8.GetBytes(s);
-                    stream.Write(fdata, 0, fdata.Length);
-
-                    stream.Write(line, 0, line.Length);
-
-                    string fformat = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n Content-Type: application/octet-stream\r\n\r\n";
-                    s = string.Format(fformat, filePath, Path.GetFileName(filePath));
-                    fdata = Encoding.UTF8.GetBytes(s);
-                    stream.Write(fdata, 0, fdata.Length);
-                    stream.Write(buffur, 0, buffur.Length);
-                    //stream.Write(line, 0, line.Length);
-                    request.ContentLength = stream.Length;
-
-                    Stream requestStream = request.GetRequestStream();
-                    stream.Position = 0L;
-                    stream.WriteTo(requestStream);
-
-                    stream.Close();
-                    requestStream.Close();
-
-                    // Get the response.
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                    // Display the status.
-                    //Console.WriteLine(response.StatusDescription);
-                    // Get the stream containing content returned by the server.
-                    Stream dataStream = response.GetResponseStream();
-
-
-                    // Open the stream using a StreamReader for easy access.
-                    StreamReader reader = new StreamReader(dataStream);
-                    // Read the content.
-                    string responseFromServer = reader.ReadToEnd();
-                    // Display the content.
-                    //Console.WriteLine(responseFromServer);
-                    // Cleanup the streams and the response.
-                    reader.Close();
-                    dataStream.Close();
-                    response.Close();
-
-
+                    System.IO.File.Copy(tempFilePath, saveFilePath, true);
 
                 }
-                catch (Exception ECopy)
+                catch (Exception ex)
                 {
-                    ECopy.ToString();
+                    Log4NetHelper.Error(string.Format("tempFilePath:{0} savefilePath:{1} Method:CreateApplicationPackage", tempFilePath, saveFilePath), ex);
                 }
             }
             System.IO.File.Delete(tempFilePath);
@@ -2445,49 +2369,15 @@ namespace SmartBox.Console.Bo
         public virtual void UpdatePackage(Package4AI package4AI, string tempFilePath, string saveFilePath)
         {
             package4AIDao.Update(package4AI);
+            IList<App4AI> app4AIList = app4AIDao.QueryApp4AIListByPackageID(package4AI.ID.ToString());
 
-
-            IList<App4AI> delApp4AIList = app4AIDao.QueryApp4AIListByPackageID(package4AI.ID.ToString());
-
-            //=================================================================================
-            //musictom 2014-05-17
-            if (delApp4AIList.Count > 0)
+            if (app4AIList != null && app4AIList.Count > 0)
             {
-                //将同一应用的相同客户端类型的安装包都干掉
-                string appId = "";
-                if (delApp4AIList[0].AppID.HasValue)
-                    appId = delApp4AIList[0].AppID.Value.ToString();
-
-                if (delApp4AIList[0].AppID == null && delApp4AIList[0].Package4AIID > 0)
-                {
-                    IList<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
-                    pars.Add(new KeyValuePair<string, object>("Package4AIID", delApp4AIList[0].Package4AIID));
-                    App4AI app4ai = app4AIDao.Get(pars);
-                    if (app4ai != null && app4ai.AppID.HasValue)
-                        appId = app4ai.AppID.Value.ToString();
-                }
-                delApp4AIList = app4AIDao.QueryApp4AIList(package4AI.ClientType, appId);
-            }
-            //=================================================================================
-
-            if (delApp4AIList != null && delApp4AIList.Count > 0)
-            {
-                delApp4AIList.ForEach(app4AI =>
+                app4AIList.ForEach(app4AI =>
                 {
                     app4AI.ActionList = action4AndroidDao.QueryAction4AndroidListByApp4AIID(app4AI.ID.ToString()).ToList();
                 });
-                //删除Action
-                //delApp4AIList.ForEach(x => action4AndroidDao.DeleteList(x.ActionList));
-                //删除App关联
-                //app4AIDao.DeleteList(delApp4AIList);
             }
-
-            //给安装包的Application对象赋值
-            package4AI.App4AIList.ForEach(x =>
-           {
-               x.Package4AIID = package4AI.ID;
-               x.PackageName = package4AI.Name;
-           });
 
             package4AI.App4AIList.ForEach(app4ai =>
            {
@@ -2502,16 +2392,11 @@ namespace SmartBox.Console.Bo
                else
                {
                    app4ai.ID = oldAPP4AI.ID;
-                   app4ai.Package4AIID = oldAPP4AI.Package4AIID;
-                   app4ai.PackageName = oldAPP4AI.PackageName;
                    app4ai.UpdateTime = oldAPP4AI.UpdateTime;
                    app4ai.UpdateUid = oldAPP4AI.UpdateUid;
                    app4ai.Version = oldAPP4AI.Version;
                    app4ai.AppCode = oldAPP4AI.AppCode;
-                   app4ai.AppDisplayName = oldAPP4AI.AppDisplayName;
                    app4ai.AppID = oldAPP4AI.AppID;
-                   app4ai.AppName = oldAPP4AI.AppName;
-                   app4ai.ClientType = oldAPP4AI.ClientType;
                    app4ai.CreateTime = oldAPP4AI.CreateTime;
                    app4AIDao.Update(app4ai);
                }
@@ -2526,28 +2411,50 @@ namespace SmartBox.Console.Bo
                 throw new Exception("未找到上传的安装包,请重新上传者联系管理员");
             }
             if (package4AI.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase)
-                && AppConfig.PublishConfig.ContainsKey(package4AI.ClientType.ToLower()))
+                && AppConfig.PublishConfig.ContainsKey(package4AI.ClientType))
             {
-                string path = AppConfig.PublishConfig[package4AI.ClientType.ToLower()];
-                if (!string.IsNullOrEmpty(path))
-                {
-                    string configPath = path;
-                    int dollar = configPath.IndexOf('$') + 1;
+                saveFilePath = AppConfig.PublishConfig.GetValue(package4AI.ClientType).Path;
+            }
+            if (string.IsNullOrEmpty(saveFilePath))
+            {
+                throw new ArgumentNullException("saveFilePath", "安装包存储位置配置有误，请联系管理员调整。");
+            }
+            if (saveFilePath.IndexOf("$") != -1)
+            {//远程部署时所需要的地址与存储位置
+                string[] savefilePaths = saveFilePath.Split("$".ToCharArray());
+                var remoteServerUrl = savefilePaths[0];
+                var remoteSaveFilePath = savefilePaths[1];
 
-                    path = configPath.Remove(0, dollar);
-                    string dirPath = Path.GetDirectoryName(path);
-                    if (!System.IO.Directory.Exists(dirPath))
+                //远程存储安装包文件
+                Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
+                acws.Url = remoteServerUrl;
+                FileStream fs = new FileStream(tempFilePath, FileMode.Open);
+                byte[] content = new byte[fs.Length];
+                fs.Read(content, 0, (int)fs.Length - 1);
+                fs.Close();
+                fs.Dispose();
+
+                acws.RemotePublish(content, remoteSaveFilePath);
+            }
+            else
+            {//远程地址
+                try
+                {
+                    //本地存储安装包文件
+                    string localDirPath = Path.GetDirectoryName(saveFilePath);
+                    if (!System.IO.Directory.Exists(localDirPath))
                     {
-                        System.IO.Directory.CreateDirectory(dirPath);
+                        Directory.CreateDirectory(localDirPath);
                     }
-                    System.IO.File.Copy(tempFilePath, path, true);
+                    System.IO.File.Copy(tempFilePath, saveFilePath, true);
+
+                }
+                catch (Exception ex)
+                {
+                    Log4NetHelper.Error(string.Format("tempFilePath:{0} savefilePath:{1} Method:CreateApplicationPackage", tempFilePath, saveFilePath), ex);
                 }
             }
-            if (System.IO.File.Exists(saveFilePath))
-            {
-                System.IO.File.Delete(saveFilePath);
-            }
-            System.IO.File.Move(tempFilePath, saveFilePath);
+            System.IO.File.Delete(tempFilePath);
         }
 
         [Frame(false, true)]

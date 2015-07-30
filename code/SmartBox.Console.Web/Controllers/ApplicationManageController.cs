@@ -654,13 +654,8 @@ namespace SmartBox.Console.Web.Controllers
 
         #endregion
 
-
-
         public ApplicationManageController()
         {
-            //string rootPath = Server.MapPath("~/");
-            //TEMPPATH = Path.Combine(rootPath, "Temp");
-            //SAVEPATH = rootPath;
         }
 
         public ActionResult ApplicationPackageManage()
@@ -669,11 +664,6 @@ namespace SmartBox.Console.Web.Controllers
         }
 
         public ActionResult ImportPackage()
-        {
-            return View();
-        }
-
-        public ActionResult ImportPackage_()
         {
             return View();
         }
@@ -1374,274 +1364,6 @@ namespace SmartBox.Console.Web.Controllers
             return View();
         }
 
-        /// <summary>
-        /// V2版的实现
-        /// </summary>
-        /// <param name="form"></param>
-        /// <returns></returns>
-        [AcceptVerbs(HttpVerbs.Post)]
-        public JsonResult CreateApplicationPackage_Old(FormCollection form)
-        {
-            JsonReturnMessages data = new JsonReturnMessages();
-            Package4AI package = new Package4AI();
-            try
-            {
-                package.CreateUid = CurrentUser.UserUId;
-                package.UpdateUid = CurrentUser.UserUId;
-                package.CreateTime = DateTime.Now;
-                package.UpdateTime = DateTime.Now;
-                package.DownloadUri = form["packageFileName"];
-                package.Name = form["packageName"];
-                package.DisplayName = form["packageDisplayName"];
-                package.ClientType = form["packageClientType"];
-                package.Type = form["packageType"];
-                package.Version = form["packageVersion"];
-                package.BuildVer = Convert.ToInt32(form["packageBuildVer"]);
-                package.Description = form["packageDescription"];
-
-                for (int appIndex = 0; appIndex < Convert.ToInt32(form["applicationCount"]); appIndex++)
-                {
-                    App4AI app4AI = new App4AI();
-                    if (!"".Equals(form["AppCode_" + appIndex.ToString()]))
-                    {
-                        app4AI.AppID = Convert.ToInt32(form["AppCode_" + appIndex.ToString()]);
-                    }
-                    app4AI.AppCode = form["AppName_" + appIndex.ToString()];
-                    app4AI.ClientType = form["AppCheckClentType_" + appIndex.ToString()];
-                    app4AI.IconUri = GetAndroidApplicationIcoUri(Path.Combine(TEMPPATH, package.DownloadUri), form["AppIco_" + appIndex.ToString()]);
-                    app4AI.Seq = 1;
-                    app4AI.CreateTime = DateTime.Now;
-                    app4AI.UpdateTime = DateTime.Now;
-                    app4AI.CreateUid = CurrentUser.UserUId;
-                    app4AI.UpdateUid = CurrentUser.UserUId;
-
-                    for (int activtyIndex = 0; activtyIndex < Convert.ToInt32(form["activityCount_" + appIndex.ToString()]); activtyIndex++)
-                    {
-                        Action4Android action4Android = new Action4Android();
-                        action4Android.Seq = Convert.ToInt32(form["ActivitySeq_" + appIndex.ToString() + "_" + activtyIndex.ToString()]);
-                        action4Android.DisplayName = form["ActivityDisplayName_" + appIndex.ToString() + "_" + activtyIndex.ToString()];
-                        action4Android.IsLaunch = Convert.ToBoolean(form["ActivityLaunch_" + appIndex.ToString() + "_" + activtyIndex.ToString()]);
-                        action4Android.IconUri = GetAndroidApplicationIcoUri(Path.Combine(TEMPPATH, package.DownloadUri), form["ActivityIco_" + appIndex.ToString() + "_" + activtyIndex.ToString()]);
-                        action4Android.ShortName = form["ActivityShortName_" + appIndex.ToString() + "_" + activtyIndex.ToString()];
-                        action4Android.Name = form["ActivityName_" + appIndex.ToString() + "_" + activtyIndex.ToString()];
-                        action4Android.CreateTime = DateTime.Now;
-                        action4Android.UpdateTime = DateTime.Now;
-                        action4Android.CreateUid = CurrentUser.UserUId;
-                        action4Android.UpdateUid = CurrentUser.UserUId;
-                        app4AI.ActionList.Add(action4Android);
-                    }
-                    package.App4AIList.Add(app4AI);
-                }
-                string saveFileName = string.Format("{0}_v{1}_{2}{3}", package.Name, package.BuildVer, DateTime.Now.ToString("yyyyMMddHHmmss"), Path.GetExtension(package.DownloadUri));
-                string tempFilePath = Path.Combine(TEMPPATH, package.DownloadUri);
-                string saveFilePath = Path.Combine(SAVEPATH, saveFileName);
-
-                if (!string.IsNullOrEmpty(saveFilePath))
-                {
-                    string dirPath = Path.GetDirectoryName(saveFilePath);
-                    if (!System.IO.Directory.Exists(dirPath))
-                    {
-                        System.IO.Directory.CreateDirectory(dirPath);
-                    }
-                    System.IO.File.Copy(tempFilePath, saveFilePath, true);
-                }
-
-                if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    string padUrl = string.Empty;
-                    string phoneUrl = string.Empty;
-                    Common.Configuration.IOSConfiguration iosConfig = (Common.Configuration.IOSConfiguration)System.Configuration.ConfigurationManager.GetSection("PublishConfig");
-                    if (iosConfig != null && iosConfig.IOSPublishs != null)
-                    {
-                        foreach (Common.Configuration.IOSPublishElement item in iosConfig.IOSPublishs)
-                        {
-                            if (item.ClientType.StartsWith("Pad/iOS", StringComparison.CurrentCultureIgnoreCase))
-                                padUrl = item.Url;
-                            if (item.ClientType.StartsWith("Phone/iOS", StringComparison.CurrentCultureIgnoreCase))
-                                phoneUrl = item.Url;
-                        }
-                    }
-                    if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            package.DownloadUri = @"itms-services://?action=download-manifest&url=" + padUrl;
-                        }
-                        else if (package.ClientType.StartsWith("Phone", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            package.DownloadUri = @"itms-services://?action=download-manifest&url=" + phoneUrl;
-                        }
-                        string savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        saveFileName = savefilePath;
-                    }
-                    else
-                    {
-                        package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                        saveFileName = saveFilePath;
-                    }
-                }
-                else
-                {
-                    string padUrl = string.Empty;
-                    string phoneUrl = string.Empty;
-                    Common.Configuration.IOSConfiguration iosConfig = (Common.Configuration.IOSConfiguration)System.Configuration.ConfigurationManager.GetSection("PublishConfig");
-                    if (iosConfig != null && iosConfig.IOSPublishs != null)
-                    {
-                        foreach (Common.Configuration.IOSPublishElement item in iosConfig.IOSPublishs)
-                        {
-                            if (item.ClientType.StartsWith("Pad/Android", StringComparison.CurrentCultureIgnoreCase))
-                                padUrl = item.Url;
-                            if (item.ClientType.StartsWith("Phone/Android", StringComparison.CurrentCultureIgnoreCase))
-                                phoneUrl = item.Url;
-                        }
-                    }
-                    if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            package.DownloadUri = padUrl;
-                        }
-                        else if (package.ClientType.StartsWith("Phone", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            package.DownloadUri = phoneUrl;
-                        }
-
-                        string savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        saveFileName = savefilePath;
-                        //int index = savefilePath.IndexOf('$');
-                        //if (index == -1)
-                        //{
-                        //    saveFileName = savefilePath;
-                        //}
-                        //else
-                        //{
-                        //    saveFileName = "";//远程地址
-                        //}                        
-                    }
-                    else
-                    {
-                        package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                        saveFileName = saveFilePath;
-                    }
-                }
-
-
-                BoFactory.GetVersionTrackBo.InsertPackage4AI(package, tempFilePath, saveFileName);
-
-                //插入扩展表
-
-                SMC_PackageExt packageExt = new SMC_PackageExt();
-                packageExt.pe_id = BoFactory.GetVersionTrackBo.GetMaxPackageExtId() + 1;
-                packageExt.pe_ClientType = package.ClientType;
-                var s1 = form["IsRecom"];
-                var s2 = form["IsMust"];
-                packageExt.pe_IsTJ = form["IsRecom"];
-                packageExt.pe_IsBB = form["IsMust"];
-                FileInfo fi = new FileInfo(saveFilePath);
-                packageExt.pe_Size = (int)fi.Length;
-                packageExt.TableName = "Package4AI";
-                packageExt.TableID = package.ID;
-                packageExt.pe_UnitCode = form["Unit"];
-                packageExt.pe_CategoryID = form["AppID"];
-                packageExt.pe_Category = BoFactory.GetVersionTrackBo.GetApplicationCategory(form["AppID"]).DisplayName;
-                packageExt.pe_UnitName = BoFactory.GetSMC_UnitBo.Get(packageExt.pe_UnitCode).Unit_Name;
-                packageExt.pe_CreateUid = CurrentUser.UserUId;
-                packageExt.pe_CreatedTime = DateTime.Now;
-                packageExt.pe_UpdateUid = CurrentUser.UserUId;
-                packageExt.pe_UpdateTime = DateTime.Now;
-                packageExt.pe_Version = form["packageVersion"];
-                packageExt.pe_BuildVer = form["packageBuildVer"];
-                packageExt.pe_Name = form["packageDisplayName"];
-                packageExt.pe_DisplayName = form["packageDisplayName"];
-                packageExt.pe_Description = form["packageDescription"];
-                packageExt.pe_Firmware = form["Firmware"];
-                GlobalParam parm = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("app_sj_need_auth");
-                if (parm.ConfigValue == "1")
-                {
-                    //需要审核
-                    packageExt.pe_AuthStatus = 0;//待审核
-                    packageExt.pe_AuthSubmitTime = DateTime.Now;
-                }
-                else
-                {
-                    packageExt.pe_AuthStatus = 1;//审核通过
-                    packageExt.pe_AuthSubmitTime = DateTime.Now;
-                }
-
-                string conSolePath = HttpRuntime.AppDomainAppPath;//服务器路径
-                string pDir = SAVEOUTPATH + @"\" + packageExt.pe_id.ToString();//相对路径 用安装包ID做文件夹名
-                string saveDir = conSolePath + pDir;
-
-                if (!System.IO.Directory.Exists(saveDir))
-                {
-                    System.IO.Directory.CreateDirectory(saveDir);
-                }
-                //生成下载url,并生成二维码
-                string url = package.DownloadUri;
-                System.Drawing.Bitmap bmp = GetDimensionalCode(url);
-                string imgPath = System.IO.Path.Combine(saveDir, "二维码图片.jpeg");
-                if (System.IO.File.Exists(imgPath))
-                {
-                    System.IO.File.Delete(imgPath);
-                }
-
-                bmp.Save(imgPath, System.Drawing.Imaging.ImageFormat.Jpeg);
-
-                //保存安装包
-                string packageName = "Package4AI-" + Path.GetFileName(tempFilePath);
-                string packageFilePath = System.IO.Path.Combine(saveDir, packageName);
-                System.IO.File.Copy(saveFilePath, packageFilePath, true);
-
-                packageExt.pe_2dPictureUrl = @"~/" + pDir + "/二维码图片.jpeg";
-                packageExt.pe_2dPictureUrl = packageExt.pe_2dPictureUrl.Replace(@"\\", "/");
-                packageExt.pe_DownloadUri = url.Replace(@"\", "/");
-
-                int i = Request.Files.Count;
-                string iconSavePath = "";
-                if (i > 0)
-                {
-                    //保存安装包图标
-                    HttpPostedFileBase icon = Request.Files[0];
-                    string iconFileName = "AppIcon.png";
-                    iconSavePath = System.IO.Path.Combine(saveDir, iconFileName);
-                    if (System.IO.File.Exists(iconSavePath))
-                    {
-                        System.IO.File.Delete(iconSavePath);
-                    }
-                    icon.SaveAs(iconSavePath);
-
-                    packageExt.pe_PictureUrl = @"~/" + pDir + "/AppIcon.png";
-                    packageExt.pe_PictureUrl = packageExt.pe_PictureUrl.Replace(@"\\", "/");
-                }
-
-                BoFactory.GetVersionTrackBo.InsertPackageExt(packageExt);
-
-
-
-                #region pad布局检查
-                if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    PageView view = new PageView();
-                    view.PageSize = 15;
-                    view.PageIndex = 0;
-                    int HomePlans = BoFactory.GetVersionTrackBo.QueryHomePlanList(view).rows.Count;
-                    if (HomePlans < 1)
-                    {
-                        data.Msg += " \n没有页面布局,请在Home布局管理中增加.";
-                    }
-                }
-                #endregion
-            }
-            catch (Exception ex)
-            {
-                Log4NetHelper.Error(ex);
-                data.IsSuccess = false;
-                data.Msg = ex.Message;
-            }
-
-            return Json(data, "text/html");
-        }
-
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult ClearPrivilegeUser(string privilegecode)
         {
@@ -1687,16 +1409,14 @@ namespace SmartBox.Console.Web.Controllers
                 package.Description = form["packageDescription"];
 
                 List<KeyValuePair<string, object>> _pars = new List<KeyValuePair<string, object>>();
-                KeyValuePair<string, object> _par = new KeyValuePair<string, object>("Name", package.Name);
-                _pars.Add(_par);
-                _par = new KeyValuePair<string, object>("ClientType", package.ClientType);
-                _pars.Add(_par);
+
+                _pars.Add(new KeyValuePair<string, object>("Name", package.Name));
+                _pars.Add(new KeyValuePair<string, object>("ClientType", package.ClientType));
+
                 Package4AI pai = BoFactory.GetPackage4AIBO.Get(_pars);
                 if (pai != null)
                 {
-                    data.IsSuccess = false;
-                    data.Msg = "不能发布重复的包";
-                    return Json(data);
+                    throw new ArgumentException("不能发布重复的包");
                 }
 
                 SMC_PackageExt packageExt = new SMC_PackageExt();
@@ -1773,136 +1493,25 @@ namespace SmartBox.Console.Web.Controllers
                     }
                     package.App4AIList.Add(app4AI);
                 }
+
                 string saveFileName = string.Format("{0}_v{1}_{2}{3}", package.Name, package.BuildVer, DateTime.Now.ToString("yyyyMMddHHmmss"), Path.GetExtension(package.DownloadUri));
                 string tempFilePath = Path.Combine(TEMPPATH, package.DownloadUri);
                 string saveFilePath = Path.Combine(SAVEPATH, saveFileName);
 
-                if (!string.IsNullOrEmpty(saveFilePath))
+                if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
                 {
-                    string dirPath = Path.GetDirectoryName(saveFilePath);
-                    if (!System.IO.Directory.Exists(dirPath))
+                    var mainConfig = AppConfig.PublishConfig.GetValue(package.ClientType);
+                    if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        System.IO.Directory.CreateDirectory(dirPath);
+                        package.DownloadUri = IOS_URL_PREFIX + mainConfig.Url;
                     }
-                    System.IO.File.Copy(tempFilePath, saveFilePath, true);
-                }
 
-                bool remotePlush = false;
-                string savefilePath = string.Empty;
-                string saveFilePathOut = string.Empty;
-                if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
-                {
-                    string padUrl = string.Empty;
-                    string phoneUrl = string.Empty;
-                    Common.Configuration.IOSConfiguration iosConfig = (Common.Configuration.IOSConfiguration)System.Configuration.ConfigurationManager.GetSection("PublishConfig");
-                    if (iosConfig != null && iosConfig.IOSPublishs != null)
-                    {
-                        foreach (Common.Configuration.IOSPublishElement item in iosConfig.IOSPublishs)
-                        {
-                            if (item.ClientType.StartsWith("Pad/iOS", StringComparison.CurrentCultureIgnoreCase))
-                                padUrl = item.Url;
-                            if (item.ClientType.StartsWith("Phone/iOS", StringComparison.CurrentCultureIgnoreCase))
-                                phoneUrl = item.Url;
-                        }
-                    }
-                    if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            package.DownloadUri = @"itms-services://?action=download-manifest&url=" + padUrl;
-                        }
-                        else if (package.ClientType.StartsWith("Phone", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            package.DownloadUri = @"itms-services://?action=download-manifest&url=" + phoneUrl;
-                        }
-
-                        savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        if (savefilePath.IndexOf("$") != -1)
-                        {
-                            remotePlush = true;
-                            string[] savefilePaths = savefilePath.Split("$".ToCharArray());
-                            savefilePath = savefilePaths[0];
-                            saveFilePathOut = savefilePaths[1];
-                        }
-
-                    }
-                    else
-                    {
-                        package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                        saveFileName = saveFilePath;
-                    }
+                    saveFilePath = mainConfig.Path;
                 }
                 else
                 {
-                    string padUrl = string.Empty;
-                    string phoneUrl = string.Empty;
-                    Common.Configuration.IOSConfiguration iosConfig = (Common.Configuration.IOSConfiguration)System.Configuration.ConfigurationManager.GetSection("PublishConfig");
-                    if (iosConfig != null && iosConfig.IOSPublishs != null)
-                    {
-                        foreach (Common.Configuration.IOSPublishElement item in iosConfig.IOSPublishs)
-                        {
-                            if (item.ClientType.StartsWith("Pad/Android", StringComparison.CurrentCultureIgnoreCase))
-                                padUrl = item.Url;
-                            if (item.ClientType.StartsWith("Phone/Android", StringComparison.CurrentCultureIgnoreCase))
-                                phoneUrl = item.Url;
-                        }
-                    }
-                    if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
-                    {
-                        if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            //package.DownloadUri = padUrl;
-                        }
-                        else if (package.ClientType.StartsWith("Phone", StringComparison.CurrentCultureIgnoreCase))
-                        {
-                            //package.DownloadUri = phoneUrl;
-                        }
-
-                        savefilePath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        if (savefilePath.IndexOf("$") != -1)
-                        {
-                            string[] savefilePaths = savefilePath.Split("$".ToCharArray());
-                            savefilePath = savefilePaths[0];
-                            saveFilePathOut = savefilePaths[1];
-                        }
-
-                    }
-
                     package.DownloadUri = Path.Combine(AppConfig.PackUrl, saveFileName);
-                    saveFileName = saveFilePath;
-
                 }
-
-                //内网本地存储固定名称的主程序
-                string localDirPath = Path.GetDirectoryName(savefilePath);
-                if (!System.IO.Directory.Exists(localDirPath))
-                {
-                    Directory.CreateDirectory(savefilePath);
-                }
-                try
-                {
-                    System.IO.File.Copy(tempFilePath, savefilePath, true);
-                }
-                catch (Exception ex)
-                {
-                    Log4NetHelper.Info("tempFilePath:" + tempFilePath + " savefilePath:" + savefilePath + " Method:CreateApplicationPackage");
-                    Log4NetHelper.Error(ex);
-                }
-
-                if (remotePlush)
-                {
-                    //发布到外网存储固定名称的主程序
-                    Service.ApplicationCenterWS.WebService acws = new Service.ApplicationCenterWS.WebService();
-                    //StreamReader sr = new StreamReader();
-                    FileStream fs = new FileStream(tempFilePath, FileMode.Open);
-                    byte[] content = new byte[fs.Length];
-                    fs.Read(content, 0, (int)fs.Length - 1);
-                    fs.Close();
-                    fs.Dispose();
-
-                    acws.RemotePublish(content, saveFilePathOut);
-                }
-
 
                 GlobalParam parm = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("app_sj_need_auth");
                 packageExt.pe_id = BoFactory.GetVersionTrackBo.GetMaxPackageExtId() + 1;
@@ -1954,13 +1563,12 @@ namespace SmartBox.Console.Web.Controllers
                     packageExt.pe_UsefulTime = DateTime.Now;
                     packageExt.pe_UsefulOperatorUID = CurrentUser.UserUId;
                     packageExt.pe_UsefulOperatorName = CurrentUser.FullName;
+
+                    System.IO.File.Copy(tempFilePath, saveFilePath, true);
                 }
 
 
                 //插入扩展表
-
-
-
                 packageExt.pe_ClientType = package.ClientType;
                 var s1 = form["IsRecom"];
                 var s2 = form["IsMust"];
@@ -2239,7 +1847,7 @@ namespace SmartBox.Console.Web.Controllers
                 }
 
                 //TODO:增加安装包主程序判断,阻止同平台主程序多次上传
-                if (BoFactory.GetPackage4AIBO.HasMainPackage(package.ClientType))
+                if ("Main".Equals(package.Type, StringComparison.CurrentCultureIgnoreCase) && BoFactory.GetPackage4AIBO.HasMainPackage(package.ClientType))
                     throw new Exception("已存在主程序包,不能重复上传!");
 
                 data.Data = package;
@@ -3045,6 +2653,7 @@ namespace SmartBox.Console.Web.Controllers
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult UpdatePackage(FormCollection form)
         {
+            JsonReturnMessages data = new JsonReturnMessages() { IsSuccess = true, Msg = "操作成功" };
             Package4AI package = new Package4AI();
             SMC_PackageExtHistory history = new SMC_PackageExtHistory();
 
@@ -3120,7 +2729,6 @@ namespace SmartBox.Console.Web.Controllers
                     BoFactory.GetApp4AIBO.Update(_app4ai);
                 }
             }
-            JsonReturnMessages data = new JsonReturnMessages() { IsSuccess = true, Msg = "操作成功" };
 
             try
             {
@@ -3181,8 +2789,8 @@ namespace SmartBox.Console.Web.Controllers
                 _ext.pe_Version = package.Version;
                 _ext.pe_FileUrl = "~/PackageExt/" + _ext.pe_id + "/" + Path.GetFileName(tempFilePath);
                 GlobalParam parm = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("app_sj_need_auth");
-                
-                
+
+
                 if (parm.ConfigValue != "0")
                 {
                     string serializationPath = Server.MapPath("~/PackageSerialization/") + _ext.pe_id + "/";
@@ -3251,108 +2859,18 @@ namespace SmartBox.Console.Web.Controllers
 
 
                 #region 上传文件自动发布
-
-                try
-                {
-                    if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase)
-                        && AppConfig.PublishConfig.ContainsKey(package.ClientType.ToLower()))
-                    {
-                        string configPath = AppConfig.PublishConfig[package.ClientType.ToLower()];
-                        var config = configPath.Split(new string[] { "$" }, StringSplitOptions.RemoveEmptyEntries);
-                        string path = config.Length>1?config[0]:string.Empty;
-                        string fileSaveName = Path.GetFileName(path);
-
-                        string deployUrl = config.Length>2?config[1]:string.Empty;
-                        string deployPath = Path.GetDirectoryName(path) + '\\';
-
-                        string filePath = saveFilePath;
-                        string boundary = "--------------------------" + DateTime.Now.Ticks.ToString("x");
-                        WebRequest request = WebRequest.Create(deployUrl);
-                        request.Credentials = CredentialCache.DefaultCredentials;
-                        request.Method = "POST";
-                        request.ContentType = "multipart/form-data; boundary=" + boundary;
-                        request.Credentials = CredentialCache.DefaultCredentials;
-
-                        FileStream fs = new FileStream(filePath, FileMode.Open);
-                        byte[] buffur = new byte[fs.Length];
-                        try
-                        {
-                            fs.Read(buffur, 0, (int)fs.Length);
-                        }
-                        catch (Exception ex)
-                        {
-                            Log4NetHelper.Error(ex);
-                        }
-                        finally
-                        {
-                            if (fs != null)
-                            {
-                                fs.Close();
-                            }
-                        }
-
-                        MemoryStream stream = new MemoryStream();
-                        byte[] line = Encoding.ASCII.GetBytes("\r\n--" + boundary + "\r\n");
-
-                        string format = "\r\n--" + boundary + "\r\nContent-Disposition: form-data; name=\"{0}\";\r\n\r\n{1}";
-                        //把文件名写入流
-                        string s = string.Format(format, "SaveName", fileSaveName);
-                        byte[] fdata = Encoding.UTF8.GetBytes(s);
-                        stream.Write(fdata, 0, fdata.Length);
-                        //把保存地址写入流
-                        s = string.Format(format, "SavePath", deployPath);
-                        fdata = Encoding.UTF8.GetBytes(s);
-                        stream.Write(fdata, 0, fdata.Length);
-
-                        stream.Write(line, 0, line.Length);
-
-                        string fformat = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\n Content-Type: application/octet-stream\r\n\r\n";
-                        s = string.Format(fformat, filePath, Path.GetFileName(filePath));
-                        fdata = Encoding.UTF8.GetBytes(s);
-                        stream.Write(fdata, 0, fdata.Length);
-                        stream.Write(buffur, 0, buffur.Length);
-                        request.ContentLength = stream.Length;
-
-                        Stream requestStream = request.GetRequestStream();
-                        stream.Position = 0L;
-                        stream.WriteTo(requestStream);
-
-                        stream.Close();
-                        requestStream.Close();
-
-                        // Get the response.
-                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                        // Display the status.
-                        //Console.WriteLine(response.StatusDescription);
-                        // Get the stream containing content returned by the server.
-                        Stream dataStream = response.GetResponseStream();
-
-
-                        // Open the stream using a StreamReader for easy access.
-                        StreamReader reader = new StreamReader(dataStream);
-                        // Read the content.
-                        string responseFromServer = reader.ReadToEnd();
-                        // Display the content.
-                        //Console.WriteLine(responseFromServer);
-                        // Cleanup the streams and the response.
-                        reader.Close();
-                        dataStream.Close();
-                        response.Close();
-
-                    }
-
-                }
-                catch (Exception ECopy)
-                {
-                    Log4NetHelper.Error(ECopy);
-                    ECopy.ToString();
-                }
-
                 if (package.Type.Equals("Main", StringComparison.CurrentCultureIgnoreCase))
                 {
                     //更新server缓存
-                    SmartBox.Console.Service.ServiceReference1.ManagerServiceClient cli = new Service.ServiceReference1.ManagerServiceClient();
-                    cli.ResetClientVer();
+                    try
+                    {
+                        SmartBox.Console.Service.ServiceReference1.ManagerServiceClient cli = new Service.ServiceReference1.ManagerServiceClient();
+                        cli.ResetClientVer();
+                    }
+                    catch
+                    {
+                        data.Msg = "操作成功，更新Server缓存失败。如遇到未提示版本更新问题请联系管理员重启服务。";
+                    }
                 }
 
                 #endregion

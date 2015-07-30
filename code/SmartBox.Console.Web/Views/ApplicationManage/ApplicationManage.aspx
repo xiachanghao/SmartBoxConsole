@@ -32,7 +32,6 @@
                         单位：
                     </td>
                     <td>
-                        <%--<input id="tbUName" name="tbUName" type="text" />--%>
                         <select id="selUnit" class="easyui-combobox" data-options="panelHeight:'200',url:'<%=Url.Content("~/Demo/GetUnitData") %>',
     valueField:'Unit_ID',
     textField:'Unit_Name',onSelect: function(org){
@@ -43,39 +42,11 @@
                         </select>
                     </td>
                 </tr>
-                <tr style="display:none;">
-                    <td>
-                        状态：
-                    </td>
-                    <td>
-                        <select id="selState" class="easyui-combobox" data-options="panelHeight:'auto'" name="state" style="width:184px;">
-                        <option value="-1">请选择</option>
-		                <option value="1">在线</option>
-		                <option value="0">离线</option>
-                        </select>
-                    </td>
-                    <td>单位：</td>
-                    <td></td>
-                </tr>
-                <tr style="display:none;">
-                    <td>
-                        启用时间：
-                    </td>
-                    <td>
-                        <input id="tbTimeStart" name="tbTimeStart" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>
-                    </td>
-                    <td>
-                        禁用时间：
-                    </td>
-                    <td>
-                        <input id="tbTimeStartDisable" name="tbTimeStartDisable" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEndDisable" name="tbTimeEndDisable" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>
-                    </td>
-                </tr>
                 <tfoot>
                     <tr>
                         <td colspan="4">
-                            <input id="btnSearch" type="submit" class="btnskin_b" value="查询" />
-                            <input type="reset" class="btnskin_b" onclick="resetSearch();" value="重置" />
+                            <input id="btnSearch" type="button" class="btnskin_b" value="查询" />
+                            <input type="button" class="btnskin_b" onclick="resetSearch();" value="重置" />
                         </td>
                     </tr>
                 </tfoot>
@@ -165,27 +136,6 @@
                     var dg = $('#grid');
                     var opts = dg.datagrid('options');
                     var unitCode = $('#selUnit').combobox('getValue');
-                    /*var enableStatusCode = $('#selState').combobox('getValue');
-                    var enableStatusText = $('#selState').combobox('getText');
-                    if (enableStatusCode == '')
-                    enableStatusCode = -1;
-                    else
-                    enableStatusCode = parseInt(enableStatusCode);
-
-                    
-                    var unitText = $('#selUnit').combobox('getText');
-
-                    var endTime = $('#tbTimeEnd').val();
-                    endTime = $.trim(endTime);
-                    if (endTime != '') {
-                    endTime = endTime + ' 23:59:59';
-                    }
-
-                    var endTimeDisable = $('#tbTimeEndDisable').val();
-                    endTimeDisable = $.trim(endTimeDisable);
-                    if (endTimeDisable != '') {
-                    endTimeDisable = endTimeDisable + ' 23:59:59';
-                    }*/
 
                     $('#grid').datagrid('load', {
                         app: $('#tbApp').val(),
@@ -206,7 +156,8 @@
                         width: width,
                         height: height
                     }).window('open').window('center');
-                }
+                }
+
                 function NewApp() {
                     var url = '<%=Url.Content("~/ApplicationManage/EditApplication/")%>';
                     $('#wif')[0].src = url;
@@ -379,7 +330,8 @@
                             });
                         }
                     });
-                }
+                }
+
 
                 function DeleteApp(id) {
                     $.messager.confirm('确认', '确定要删除该应用吗?', function (r) {

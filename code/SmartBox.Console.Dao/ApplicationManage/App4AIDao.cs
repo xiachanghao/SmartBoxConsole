@@ -68,17 +68,6 @@ namespace SmartBox.Console.Dao
             return base.Query(sql, pars);
         }
 
-        //public App4AI Get(string id)
-        //{
-        //    string sql = string.Format(@"{0} where ai.id='{1}'", APP4AITABLE,id);
-        //    IList<App4AI> result = base.Query(sql);
-        //    if (result.Count<=0)
-        //    {
-        //        throw new ArgumentOutOfRangeException("未找到指定的Application扩展");
-        //    }
-        //    return result[0];
-        //}
-
         public bool HasApp4AI(string appID)
         {
             string sql = string.Format("select * from App4AI where AppID='{0}'", appID);

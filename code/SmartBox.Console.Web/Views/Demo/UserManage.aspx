@@ -6,9 +6,12 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-<div id="_layout" class="easyui-layout" data-options="fit:true" style="">    <div data-options="region:'north',split:false" style="height:195px;overflow:hidden;border:0px solid #DDDDDD;">        <div class="easyui-panel cHead" data-options="" style="display:;font-size:12px;color:#528FB6;text-align: left; border:1px solid #DDDDDD;padding-left:5px;">
+<div id="_layout" class="easyui-layout" data-options="fit:true" style="">
+    <div data-options="region:'north',split:false" style="height:195px;overflow:hidden;border:0px solid #DDDDDD;">
+        <div class="easyui-panel cHead" data-options="" style="display:;font-size:12px;color:#528FB6;text-align: left; border:1px solid #DDDDDD;padding-left:5px;">
             <img src="../../themes/default/images/flexigrid/grid.png" /><span>用户管理>>用户管理</span>
-        </div>        <div style="height:3px;display:;"></div>
+        </div>
+        <div style="height:3px;display:;"></div>
 
     <div class="table_box" style="display:;">
     <h4>查询条件</h4>
@@ -82,9 +85,13 @@
                 </tfoot>
             </tbody>
         </table>
-    </div>    </div>
-    <div style="height:3px;display:;"></div>    </div>    <div data-options="region:'center'" style="width:100%;">
-                <div id="tb" style="text-align:right;">
+    </div>
+    </div>
+    <div style="height:3px;display:;"></div>
+    </div>
+    <div data-options="region:'center'" style="width:100%;">
+            
+    <div id="tb" style="text-align:right;">
 <a id="btn_upload" onclick="javascript:return PassSelected();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:true">启用</a>
 <a onclick="javascript:return NotPassSelected();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">禁用</a>
 <a href="#" onclick="javascript:return LockSelectedUser();" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">锁定</a>
@@ -130,20 +137,23 @@
                         <th data-options="field:'u_enable_status2'" width="30">启用状态</th>
                         <th data-options="field:'u_lock_status2'" width="30">锁定状态</th>
 						<th data-options="field:'U_UID2',formatter: function(value,row,index){
-				return '<a href=\'#\' onclick=\'javascript:return Pass(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;);\'>启用</a>' + 
-                '&nbsp;<a href=\'#\' onclick=\'javascript:return NotPass(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;)\'>禁用</a>' + 
-                '&nbsp;<a href=\'#\' onclick=\'javascript:return Kickout(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;)\'>强制退出</a>' + 
-                '&nbsp;<a href=\'#\' onclick=\'javascript:return LockUser(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;)\'>锁定</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;PauseTargetJob&quot;)\'>暂停</a>' + 
-                '';
+				var btn = '';
+                if(row.u_enable_status2 == '已禁用') btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return Pass(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;);\'>启用</a>'
+                else btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return NotPass(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;)\'>禁用</a>'
+                btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return Kickout(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;)\'>强制退出</a>'
+                if(row.u_lock_status2 == '未锁定') btn += '&nbsp;<a href=\'#\' onclick=\'javascript:return LockUser(&quot;'+row.U_UID+'&quot;,&quot;'+row.U_NAME+'&quot;)\'>锁定</a>'
+                //+'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>'  
+                //+'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;PauseTargetJob&quot;)\'>暂停</a>'  
+                return btn;
 			}" width="80">操作</th>
 						<%--<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>
 						<th data-options="field:'attr1'" width="150">Attribute</th>
 						<th data-options="field:'status',align:'center'" width="60">Status</th>--%>
 					</tr>
 				</thead>
-			</table>    </div></div>
+			</table>
+    </div>
+</div>
 
 
 
@@ -154,8 +164,9 @@
                 var sortStr = 'u_auth_submit_time desc';
 
                 function resetSearch() {
-                    $('.table_box_data input').not('.btnskin_b').val('');
-                    $('.table_box_data select').combobox('setValue', '')
+                    $('.table_box_data input[type="text"]').not(".combo-text").val('');
+                    $(".easyui-combobox").combobox("setValue", "-1");
+                    $('#selUnit').combobox('setValue', '')
                 }
 
                 function Search() {

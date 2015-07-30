@@ -80,7 +80,7 @@ namespace SmartBox.Console.Dao
 
                 if (!String.IsNullOrEmpty(app))
                 {
-                    where += " and Name like '%" + app + "%'";
+                    where += " and DisplayName like '%" + app + "%'";
                 }
 
                 if (!String.IsNullOrEmpty(unitcode))
@@ -101,5 +101,18 @@ namespace SmartBox.Console.Dao
 
                 return ex;
             }
+
+        /// <summary>
+        /// 检查是否有相同的应用标识或显示名称
+        /// </summary>
+        /// <param name="appName">应用标识</param>
+        /// <param name="appDisplayName">显示名称</param>
+        public void ExistApplication(string appName, string appDisplayName)
+        {
+            if (null != base.Get(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Name", appName) }))
+                throw new ArgumentException("应用标识已存在");
+            if (null != base.Get(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("DisplayName", appDisplayName) }))
+                throw new ArgumentException("显示名称已存在");
+        }
     }
 }

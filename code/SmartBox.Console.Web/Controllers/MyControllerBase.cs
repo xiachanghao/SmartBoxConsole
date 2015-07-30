@@ -18,8 +18,18 @@ namespace SmartBox.Console.Web.Controllers
     {
 
         //====================================================================
+        /// <summary>
+        /// 安装包保存地址
+        /// </summary>
         protected string TEMPPATH = Path.Combine(AppConfig.PackUploadFolder, "Temp");
+        /// <summary>
+        /// 安装包保存地址
+        /// </summary>
         protected string SAVEPATH = AppConfig.PackUploadFolder;
+        /// <summary>
+        /// IOS下载地址前缀
+        /// </summary>
+        protected const string IOS_URL_PREFIX = @"itms-services://?action=download-manifest&url=";
         //musictom 2014-05-17
         //====================================================================
 
