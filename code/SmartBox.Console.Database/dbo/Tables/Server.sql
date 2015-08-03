@@ -1,0 +1,6 @@
+﻿CREATE TABLE [dbo].[Server] (
+    [Domain] NVARCHAR (256) NOT NULL,
+    [Type]   NVARCHAR (64)  NOT NULL,
+    CONSTRAINT [PK_SERVER] PRIMARY KEY CLUSTERED ([Domain] ASC, [Type] ASC)
+);
+
