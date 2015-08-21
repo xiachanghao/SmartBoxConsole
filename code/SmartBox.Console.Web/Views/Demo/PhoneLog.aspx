@@ -70,7 +70,7 @@
                         <th data-options="field:'log_datetime'" width="60">记录时间</th>
                         <th data-options="field:'log_kind'" width="30">类别</th>
 						<th data-options="field:'logid',formatter: function(value,row,index){
-				return '<a href=\'#\' onclick=\'javascript:return void('+value+',&quot;AddJobPluginGroup&quot;)\'>删除</a>' + 
+				return //'<a href=\'#\' onclick=\'javascript:return void('+value+',&quot;AddJobPluginGroup&quot;)\'>删除</a>' + 
                 //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;RemoveJobPluginGroup&quot;)\'>载出</a>' + 
                 //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;RestartJobPluginGroup&quot;)\'>重载</a>' + 
                 //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>' + 

@@ -9,3 +9,9 @@ D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\
 D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.csprojResolveAssemblyReference.cache
 D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.dll
 D:\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.pdb
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.dll.config
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.dll
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\bin\SmartBox.Console.Deploy.pdb
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.csprojResolveAssemblyReference.cache
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.dll
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Deploy\obj\Debug\SmartBox.Console.Deploy.pdb

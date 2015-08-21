@@ -1503,9 +1503,9 @@ namespace SmartBox.Console.Web.Controllers
                     var mainConfig = AppConfig.PublishConfig.GetValue(package.ClientType);
                     if (package.ClientType.EndsWith("ios", StringComparison.CurrentCultureIgnoreCase))
                     {
-                        package.DownloadUri = IOS_URL_PREFIX + mainConfig.Url;
+                        mainConfig.Url = IOS_URL_PREFIX + mainConfig.Url;
                     }
-
+                    package.DownloadUri = mainConfig.Url;
                     saveFilePath = mainConfig.Path;
                 }
                 else
@@ -1533,6 +1533,7 @@ namespace SmartBox.Console.Web.Controllers
                     packageExt.pe_AuthMan = CurrentUser.FullName;
                     packageExt.pe_SyncStatus = 0;
                     packageExt.pe_Direction = "发布";
+                    packageExt.pe_AuthSubmitTime = DateTime.Now;
                 }
                 else
                 {
@@ -1553,7 +1554,6 @@ namespace SmartBox.Console.Web.Controllers
 
                     //审核通过后再同步到Package4AI表
                     packageExt.pe_UsefulStstus = "0";//上架状态
-                    packageExt.pe_AuthStatus = 0;
                     packageExt.pe_Direction = "上架";
                     packageExt.pe_AuthStatus = 0;//待审核
                     packageExt.pe_AuthSubmitTime = DateTime.Now;
@@ -1593,42 +1593,11 @@ namespace SmartBox.Console.Web.Controllers
                 packageExt.pe_Description = form["packageDescription"];
                 packageExt.pe_Firmware = form["Firmware"];
                 packageExt.pe_Type = package.Type;
-
-                if (parm.ConfigValue == "1")
-                {
-                    //需要审核
-                    packageExt.pe_AuthStatus = 0;//待审核
-                    packageExt.pe_AuthSubmitTime = DateTime.Now;
-                    packageExt.pe_AuthSubmitUID = CurrentUser.UserUId;
-                    packageExt.pe_AuthSubmitName = CurrentUser.UnitName;
-                    packageExt.pe_Direction = "发布";
-                    packageExt.pe_Type = "";
-                    packageExt.pe_UsefulStstus = "0";
-                    packageExt.pe_UsefulTime = DateTime.Now;
-                    packageExt.pe_UsefulOperatorUID = CurrentUser.UserUId;
-                    packageExt.pe_UsefulOperatorName = CurrentUser.FullName;
-                }
-                else
-                {
-                    packageExt.pe_AuthStatus = 1;//审核通过
-                    packageExt.pe_AuthSubmitTime = DateTime.Now;
-                    packageExt.pe_AuthSubmitUID = CurrentUser.UserUId;
-                    packageExt.pe_AuthSubmitName = CurrentUser.FullName;
-                    packageExt.pe_AuthManUID = CurrentUser.UserUId;
-                    packageExt.pe_AuthMan = CurrentUser.FullName;
-                    packageExt.pe_AuthTime = DateTime.Now;
-                    packageExt.pe_SyncStatus = 0;
-                    packageExt.pe_Direction = "发布";
-                    packageExt.pe_Type = "";
-                    packageExt.pe_UsefulStstus = "1";
-                    packageExt.pe_UsefulTime = DateTime.Now;
-                    packageExt.pe_UsefulOperatorUID = CurrentUser.UserUId;
-                    packageExt.pe_UsefulOperatorName = CurrentUser.FullName;
-                }
+                
 
                 string conSolePath = HttpRuntime.AppDomainAppPath;//服务器路径
-                string pDir = SAVEOUTPATH + @"\" + packageExt.pe_id.ToString();//相对路径 用安装包ID做文件夹名
-                string saveDir = conSolePath + pDir;
+                string pDir = Path.Combine(SAVEOUTPATH, packageExt.pe_id.ToString());//相对路径 用安装包ID做文件夹名
+                string saveDir = Path.Combine(conSolePath , pDir);
 
                 if (!System.IO.Directory.Exists(saveDir))
                 {
@@ -1690,10 +1659,9 @@ namespace SmartBox.Console.Web.Controllers
                         data.Msg = "操作成功,更新SmartBox服务缓存失败。";
                     }
                 }
-
-                Hashtable ht = new Hashtable();
+                
                 //app更新到外网
-                BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(ht, packageExt.pe_id);
+                BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(saveFilePath, packageExt.pe_id);
 
                 #region pad布局检查
                 if (package.ClientType.StartsWith("Pad", StringComparison.CurrentCultureIgnoreCase))
@@ -1775,7 +1743,7 @@ namespace SmartBox.Console.Web.Controllers
             Hashtable r = new Hashtable();
             r["r"] = true;
             r["d"] = "复制发布成功!";
-            Bo.BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(r, 0);
+            Bo.BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(string.Empty, 0);
             return Json(r, JsonRequestBehavior.AllowGet);
         }
 
@@ -2847,10 +2815,6 @@ namespace SmartBox.Console.Web.Controllers
 
                     //内部发布到Package4AI
                     BoFactory.GetCommonBO.SMC_PackageExtInternalRelease(_ext);
-
-                    Hashtable ht = new Hashtable();
-                    //app更新到外网
-                    BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(ht, _ext.pe_id);
 
                     //同步到应用中心
                     _SyncPackageExt(_ext);

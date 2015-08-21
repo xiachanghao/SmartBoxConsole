@@ -947,16 +947,10 @@ namespace SmartBox.Console.Bo
         }
 
         [Frame(true, true)]
-        public virtual void CopyAppFilesToAppCenterServer(Hashtable r, int pe_id)
+        public virtual void CopyAppFilesToAppCenterServer(string filePath, int pe_id)
         {
             string packUploadFolder = ConfigurationManager.AppSettings["packUploadFolder"];
-            string filePath = string.Empty;
-            if (pe_id > 0)
-            {
-                SMC_PackageExtDao peDao = new SMC_PackageExtDao(AppConfig.statisticDBKey);
-                SMC_PackageExt pe = peDao.Get(pe_id);
-                filePath = Path.Combine(packUploadFolder, Path.GetFileName(pe.pe_DownloadUri));
-            }
+            
 
             if (Directory.Exists(packUploadFolder))
             {
