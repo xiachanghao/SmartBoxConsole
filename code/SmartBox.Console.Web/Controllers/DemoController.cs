@@ -27,12 +27,12 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult TaskCenter()
         {
             return View();
         }
-        
+
         public ActionResult TaskCenter_()
         {
             return View();
@@ -70,27 +70,27 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult LogoManage()
         {
             return View();
         }
-        
+
         public ActionResult AppLog()
         {
             return View();
         }
-        
+
         public ActionResult UserDevice()
         {
             return View();
         }
-        
+
         public ActionResult ServiceLog()
         {
             return View();
         }
-        
+
         public ActionResult PhoneLog()
         {
             return View();
@@ -116,7 +116,7 @@ namespace SmartBox.Console.Web.Controllers
                     r["r"] = false;
                     r["d"] = "布局已关联应用,不能删除,请先取消关联后再删除!";
                 }
-                else 
+                else
                     bo.DeleteStyleItem(id);
             }
             catch (Exception ex)
@@ -128,7 +128,7 @@ namespace SmartBox.Console.Web.Controllers
             return Json(r, JsonRequestBehavior.AllowGet);
         }
 
-        
+
 
         public ActionResult StyleItemDeleteItem(int StyleID, string App4AIID)
         {
@@ -157,7 +157,7 @@ namespace SmartBox.Console.Web.Controllers
             }
             return Json(r, JsonRequestBehavior.AllowGet);
         }
-        
+
         public ActionResult StyleDeleteItems(string ids)
         {
             Hashtable r = new Hashtable();
@@ -177,11 +177,11 @@ namespace SmartBox.Console.Web.Controllers
                 string strCant = "";
                 string[] idlist = ids.Split(",".ToCharArray());
                 if (idlist != null)
-                foreach (string s in idlist)
-                {
-                    if (string.IsNullOrEmpty(s))
-                        continue;
-                    
+                    foreach (string s in idlist)
+                    {
+                        if (string.IsNullOrEmpty(s))
+                            continue;
+
                         int styleId = int.Parse(s);
                         SmartBox.Console.Common.Entities.Style item = bo.GetEntity(styleId);
                         if (item == null)
@@ -212,8 +212,8 @@ namespace SmartBox.Console.Web.Controllers
                                 Log4NetHelper.Error(ex);
                             }
                         }
-                    
-                }
+
+                    }
 
                 if (!String.IsNullOrEmpty(strSuccess) && strSuccess.EndsWith(","))
                     strSuccess = strSuccess.TrimEnd(",".ToCharArray());
@@ -233,12 +233,12 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult IconManage()
         {
             return View();
         }
-        
+
         public ActionResult EditDevice(string deviceId)
         {
             Device device = Bo.BoFactory.GetDeviceBO.Get(deviceId);
@@ -276,7 +276,7 @@ namespace SmartBox.Console.Web.Controllers
         public ActionResult MobileStyleHomeItemAdd(int App4AIID, int StyleID)
         {
             SmartBox.Console.Common.Entities.StyleHomeItem item = null;
-            
+
             if (App4AIID > 0)
             {
                 item = Bo.BoFactory.GetStyleHomeItemBO.GetStyleHomeItemEntity(StyleID, App4AIID.ToString());
@@ -374,7 +374,7 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult DeviceManage()
         {
             return View();
@@ -384,7 +384,7 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult DeviceRetryLock()
         {
             IList<GlobalParam> parms = Bo.BoFactory.GetGlobalParamBO.LoadGlobalParam();
@@ -392,17 +392,17 @@ namespace SmartBox.Console.Web.Controllers
             ViewData["globalparm"] = str;
             return View();
         }
-        
+
         public ActionResult MonitorDefined()
         {
             return View();
         }
-        
+
         public ActionResult MonitorLinkman()
         {
             return View();
         }
-        
+
         public ActionResult UserEnableAuthorization()
         {
             GlobalParam p = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("user_need_auth");
@@ -414,7 +414,7 @@ namespace SmartBox.Console.Web.Controllers
             ViewData["user_need_auth"] = user_need_auth;
             return View();
         }
-        
+
         public ActionResult UserRetryLock()
         {
             IList<GlobalParam> parms = Bo.BoFactory.GetGlobalParamBO.LoadGlobalParam();
@@ -427,12 +427,12 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult UserDisableAuthException()
         {
             return View();
         }
-        
+
         public ActionResult UserDisableAuthorization()
         {
             return View();
@@ -457,37 +457,37 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult DeviceLostAdd()
         {
             return View();
         }
-        
+
         public ActionResult MonitorCmdAdd()
         {
             return View();
         }
-        
+
         public ActionResult MonitorLinkmanAdd()
         {
             return View();
         }
-        
+
         public ActionResult BackgroundImageAdd()
         {
             return View();
         }
-        
+
         public ActionResult IconManageAdd()
         {
             return View();
         }
-        
+
         public ActionResult DeviceUser()
         {
             return View();
         }
-        
+
         public ActionResult LogoManageAdd()
         {
             return View();
@@ -504,12 +504,12 @@ namespace SmartBox.Console.Web.Controllers
             ViewData["device_need_auth"] = device_need_auth;
             return View();
         }
-        
+
         public ActionResult DeviceEnableAuthorizationSys_()
         {
             return View();
         }
-        
+
         public ActionResult MonitorConfigAdd()
         {
             MonitorBO monitorBO = BoFactory.GetMonitorBO;
@@ -539,22 +539,22 @@ namespace SmartBox.Console.Web.Controllers
             this.ViewData["entity"] = entity;
             return View(config);
         }
-        
+
         public ActionResult MonitorWarning()
         {
             return View();
         }
-        
+
         public ActionResult MonitorLog()
         {
             return View();
         }
-        
+
         public ActionResult C()
         {
             return View();
         }
-        
+
         public ActionResult ManageLog()
         {
             return View();
@@ -574,7 +574,7 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult AppPackageAuthorization_()
         {
             return View();
@@ -634,7 +634,7 @@ namespace SmartBox.Console.Web.Controllers
             device["log_monitorvalue"] = "40";
             device["log_datetime"] = "2014-01-24 13:05:19.000";
             device["log_df_kind"] = "hostsys";
-            device["log_df_code"] = "blue";            
+            device["log_df_code"] = "blue";
             device["log_df_lever"] = "蓝色";
             device["log_status"] = "1";
             device["log_hostip"] = "192.168.200.142";
@@ -698,7 +698,7 @@ namespace SmartBox.Console.Web.Controllers
             device["operator_uid"] = "dwgly";
             device["operator_time"] = "2014-01-24 13:05:19.000";
             device["operator_kind"] = "登陆";
-    
+
             device = new Hashtable();
             devices.Add(device);
             device["id"] = 2;
@@ -707,7 +707,7 @@ namespace SmartBox.Console.Web.Controllers
             device["operator_uid"] = "dwgly";
             device["operator_time"] = "2014-01-24 13:05:19.000";
             device["operator_kind"] = "登陆";
-    
+
             device = new Hashtable();
             devices.Add(device);
             device["id"] = 3;
@@ -876,27 +876,27 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult DeviceDisableAuthException()
         {
             return View();
         }
-        
+
         public ActionResult DeviceEnableAuthException()
         {
             return View();
         }
-        
+
         public ActionResult DeviceDisableAuthException_()
         {
             return View();
         }
-        
+
         public ActionResult DeviceEnableAuthException_()
         {
             return View();
         }
-        
+
         public ActionResult MonitorService()
         {
             return View();
@@ -906,7 +906,7 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public ActionResult MonitorServiceAdd()
         {
             return View();
@@ -954,7 +954,7 @@ namespace SmartBox.Console.Web.Controllers
             device["lm_udept"] = @"";
             device["lm_mobile"] = "13761832598";
             device["lm_email"] = "baojie@beyondbit.com";
-            
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1055,7 +1055,7 @@ namespace SmartBox.Console.Web.Controllers
             device["df_startsenddate"] = "09:00:00";
             device["df_endsenddate"] = "17:00:00";
             device["df_issend"] = "y";
-            
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1067,14 +1067,14 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult GetMonitorConfigList(string hostname, string updatestatus, string isuse, string enalbe_time_start, string enalbe_time_end, string orderby, int pageSize, int pageIndex)
         {
-            SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetMonitorBO.GetMonitorConfigList(hostname, updatestatus, isuse, enalbe_time_start,enalbe_time_end, orderby, pageSize, pageIndex);
+            SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetMonitorBO.GetMonitorConfigList(hostname, updatestatus, isuse, enalbe_time_start, enalbe_time_end, orderby, pageSize, pageIndex);
 
             Hashtable result = new Hashtable();
             result["rows"] = items.Result;
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetMonitorServiceList()
         {
             Hashtable result = new Hashtable();
@@ -1115,7 +1115,7 @@ namespace SmartBox.Console.Web.Controllers
             device["updatedate"] = "2014-01-24 13:10:56.000";
             device["desc"] = "local";
             device["status"] = "1";
-            
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1165,7 +1165,7 @@ namespace SmartBox.Console.Web.Controllers
             device["updatedate"] = "2014-01-24 13:10:56.000";
             device["desc"] = "local";
             device["status"] = "1";
-            
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1218,8 +1218,8 @@ namespace SmartBox.Console.Web.Controllers
             device["cmd_discription"] = "13761832598";
             device["cmdid"] = 3;
 
-           
-            
+
+
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
@@ -1244,7 +1244,7 @@ namespace SmartBox.Console.Web.Controllers
             device["sw_mobile"] = "13761832598";
             device["sw_email"] = "baojie@beyondbit.com";
             device["swid"] = 1;
-            
+
             device = new Hashtable();
             devices.Add(device);
             device["sw_id"] = 2;
@@ -1258,7 +1258,7 @@ namespace SmartBox.Console.Web.Controllers
             device["sw_mobile"] = "13761832598";
             device["sw_email"] = "baojie@beyondbit.com";
             device["swid"] = 2;
-            
+
             device = new Hashtable();
             devices.Add(device);
             device["sw_id"] = 3;
@@ -1272,7 +1272,7 @@ namespace SmartBox.Console.Web.Controllers
             device["sw_mobile"] = "13761832598";
             device["sw_email"] = "baojie@beyondbit.com";
             device["swid"] = 3;
-            
+
             device = new Hashtable();
             devices.Add(device);
             device["sw_id"] = 4;
@@ -1286,7 +1286,7 @@ namespace SmartBox.Console.Web.Controllers
             device["sw_mobile"] = "13761832598";
             device["sw_email"] = "baojie@beyondbit.com";
             device["swid"] = 4;
-            
+
             device = new Hashtable();
             devices.Add(device);
             device["sw_id"] = 5;
@@ -1300,7 +1300,7 @@ namespace SmartBox.Console.Web.Controllers
             device["sw_mobile"] = "13761832598";
             device["sw_email"] = "baojie@beyondbit.com";
             device["swid"] = 5;
-            
+
             device = new Hashtable();
             devices.Add(device);
             device["sw_id"] = 6;
@@ -1319,7 +1319,7 @@ namespace SmartBox.Console.Web.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        
+
 
         public JsonResult GetAppPackageSyncList(string appName, string application, string unitcode, string auth_time_start, string auth_time_end, string syncstatus, string orderby, int pageIndex, int pageSize)
         {
@@ -1343,12 +1343,12 @@ namespace SmartBox.Console.Web.Controllers
         public ActionResult ServiceConfigAdd(string key)
         {
             SystemConfig config = null;
-            
+
             if (!String.IsNullOrEmpty(key))
             {
                 List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
                 pars.Add(new KeyValuePair<string, object>("[key]", key));
-                config = Bo.BoFactory.GetSystemConfigBO.Get(pars);                
+                config = Bo.BoFactory.GetSystemConfigBO.Get(pars);
             }
 
             if (config == null)
@@ -1367,7 +1367,7 @@ namespace SmartBox.Console.Web.Controllers
         public JsonResult ServiceConfigAddPost(string key, string val)
         {
             Hashtable result = new Hashtable();
-            bool r = Bo.BoFactory.GetSystemConfigBO.SaveSystemConfig(key, val, result);         
+            bool r = Bo.BoFactory.GetSystemConfigBO.SaveSystemConfig(key, val, result);
 
             return Json(result);
         }
@@ -1401,7 +1401,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult DelConfig(string key)
         {
@@ -1477,7 +1477,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         [AcceptVerbs(HttpVerbs.Post)]
         public JsonResult DelConfigs(string ids)
         {
@@ -1489,7 +1489,7 @@ namespace SmartBox.Console.Web.Controllers
                 {
                     if (!String.IsNullOrEmpty(key))
                     {
-                        
+
                         List<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
                         pars.Add(new KeyValuePair<string, object>("[key]", key));
                         SystemConfig config = Bo.BoFactory.GetSystemConfigBO.Get(pars);
@@ -1503,12 +1503,12 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult GetUserUnlockList()
         {
             Hashtable result = new Hashtable();
             result["total"] = 6;
-            
+
             List<Hashtable> users = new List<Hashtable>();
             result["rows"] = users;
 
@@ -1599,17 +1599,17 @@ namespace SmartBox.Console.Web.Controllers
             Hashtable result = new Hashtable();
             result["rows"] = items.Result;
             result["total"] = items.RecordCount;
-            return Json(result, JsonRequestBehavior.AllowGet);            
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetUserComparerationList(string uid, string uname, string u_unitcode, string u_compare_time_start, string u_compare_time_end, string orderby, int pageSize, int pageIndex)
         {
-            SmartBox.Console.Common.SelectPagnationEx<SmartBox.Console.Common.Entities.SMC_User> items = Bo.BoFactory.GetSMC_UserBo.GetUserComparerationList(uid, uname, u_unitcode, u_compare_time_start,u_compare_time_end, orderby, pageSize, pageIndex);
+            SmartBox.Console.Common.SelectPagnationEx<SmartBox.Console.Common.Entities.SMC_User> items = Bo.BoFactory.GetSMC_UserBo.GetUserComparerationList(uid, uname, u_unitcode, u_compare_time_start, u_compare_time_end, orderby, pageSize, pageIndex);
 
             Hashtable result = new Hashtable();
             result["rows"] = items.Result;
             result["total"] = items.RecordCount;
-            return Json(result, JsonRequestBehavior.AllowGet);            
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetServiceConfigList(string key, string orderby, int pageSize, int pageIndex)
@@ -1619,7 +1619,7 @@ namespace SmartBox.Console.Web.Controllers
             Hashtable result = new Hashtable();
             result["rows"] = items.Result;
             result["total"] = items.RecordCount;
-            return Json(result, JsonRequestBehavior.AllowGet);            
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetUserManageList(string uid, string uname, string u_unitcode, string u_disable_time_start, string u_disable_time_end, string u_enable_time_start, string u_enable_time_end, int lockStatus, int enabledStatus, int authStatus, string orderby, int pageSize, int pageIndex)
@@ -1631,7 +1631,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetUserInfoManageList(string uid, string uname, string u_unitcode, string u_disable_time_start, string u_disable_time_end, string u_enable_time_start, string u_enable_time_end, int lockStatus, int enabledStatus, int authStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationEx<SmartBox.Console.Common._OnLineUser> items = Bo.BoFactory.GetSMC_UserBo.GetUserInfoManageList(uid, uname, u_unitcode, u_disable_time_start, u_disable_time_end, u_enable_time_start, u_enable_time_end, lockStatus, enabledStatus, authStatus, orderby, pageSize, pageIndex);
@@ -1641,7 +1641,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetUserDeviceOnline(string uid, string uname, string u_unitcode, string u_disable_time_start, string u_disable_time_end, string u_enable_time_start, string u_enable_time_end, int lockStatus, int enabledStatus, int authStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationEx<UserOnline> items = Bo.BoFactory.GetSMC_UserBo.GetUserDeviceOnline(uid, uname, u_unitcode, u_disable_time_start, u_disable_time_end, u_enable_time_start, u_enable_time_end, lockStatus, enabledStatus, authStatus, orderby, pageSize, pageIndex);
@@ -1651,7 +1651,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetPrivilegeManageList(string app, string unitcode, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetPrivilegeManageList(app, unitcode, orderby, pageSize, pageIndex);
@@ -1659,9 +1659,9 @@ namespace SmartBox.Console.Web.Controllers
             Hashtable result = new Hashtable();
             result["rows"] = items.Result;
             result["total"] = items.RecordCount;
-            return Json(result, JsonRequestBehavior.AllowGet); 
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetApplicationManageList(string app, string unitcode, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetApplicationManageList(app, unitcode, orderby, pageSize, pageIndex);
@@ -1669,7 +1669,7 @@ namespace SmartBox.Console.Web.Controllers
             Hashtable result = new Hashtable();
             result["rows"] = items.Result;
             result["total"] = items.RecordCount;
-            return Json(result, JsonRequestBehavior.AllowGet); 
+            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetUserLoginUnLockList(string uid, string uname, string u_unitcode, string u_lock_time_start, string u_lock_time_end, string u_lock_expire_time_start, string u_lock_expire_time_end, int lockStatus, int enabledStatus, int authStatus, string orderby, int pageSize, int pageIndex)
@@ -1701,7 +1701,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceSync(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetDeviceSync(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
@@ -1721,7 +1721,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetTimeIndex(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetTimeIndex(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
@@ -1731,7 +1731,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetStatisticsByUnit(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetStatisticsByUnit(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
@@ -1741,7 +1741,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetUserDevice(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetUserDevice(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
@@ -1761,7 +1761,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceUnLock(string uid, string model, string u_unitcode, string lost_time_start, string lost_time_end, string unlost_time_start, string unlost_time_end, int status, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetDeviceUnLock(uid, model, u_unitcode, lost_time_start, lost_time_end, unlost_time_start, unlost_time_end, status, orderby, pageSize, pageIndex);
@@ -1781,7 +1781,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceUser(string uid, string model, string deviceid, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetDeviceUser(uid, model, deviceid, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1791,7 +1791,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceEnableAuthorizationSys(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetDeviceEnableAuthorizationSys(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1817,7 +1817,7 @@ namespace SmartBox.Console.Web.Controllers
             var o = Bo.BoFactory.GetCommonBO.GetApplicationCategory();
             return Json(o, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetTaskCenter(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             List<IDictionary<string, object>> items = Bo.BoFactory.GetCommonBO.GetTaskCenter(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1837,7 +1837,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetSelectUser(string uid, string username, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetSMC_UserBo.GetSelectUser(uid, username, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1857,7 +1857,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceEnableAuthorizationException(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetDeviceExceptionBO.GetDeviceEnableAuthorizationException(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1872,7 +1872,7 @@ namespace SmartBox.Console.Web.Controllers
         {
             return View();
         }
-        
+
         public JsonResult GetUserEnableAuthorizationException(string uid, string username, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetSMC_UserExceptionBo.GetUserEnableAuthorizationException(uid, username, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1882,7 +1882,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetUserDisableAuthorizationException(string uid, string username, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetSMC_UserExceptionBo.GetUserDisableAuthorizationException(uid, username, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1892,7 +1892,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceDisableAuthorizationException(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetDeviceExceptionBO.GetDeviceDisableAuthorizationException(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1902,7 +1902,7 @@ namespace SmartBox.Console.Web.Controllers
             result["total"] = items.RecordCount;
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetDeviceDisableAuthorizationSys(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             SmartBox.Console.Common.SelectPagnationExDictionary items = Bo.BoFactory.GetCommonBO.GetDeviceDisableAuthorizationSys(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
@@ -1924,7 +1924,7 @@ namespace SmartBox.Console.Web.Controllers
                 if (String.IsNullOrEmpty(uid))
                     continue;
 
-                Bo.BoFactory.GetSMC_UserBo.PassUser(uid);                
+                Bo.BoFactory.GetSMC_UserBo.PassUser(uid);
             }
 
             return Json(result);
@@ -1947,7 +1947,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult LockSelectedUser(string ids)
         {
             Hashtable result = new Hashtable();
@@ -1984,20 +1984,23 @@ namespace SmartBox.Console.Web.Controllers
 
                 Hashtable r = new Hashtable();
                 Bo.BoFactory.GetSMC_UserBo.KickoutUser(uid, r, client);
-                if ((bool)r["r"]) {
+                if ((bool)r["r"])
+                {
                     successStr += uid + "、";
                     successCnt++;
-                } else {
+                }
+                else
+                {
                     failedStr += uid + "、";
                     failedCnt++;
                 }
 
-                
+
                 //Bo.BoFactory.GetSMC_UserBo.PassUser(uid);                
             }
             if (successCnt > 0)
                 result["d"] += successStr + "已强制退出！ ";
-            
+
             if (failedCnt > 0)
                 result["d"] += failedStr + "强制退出失败！";
 
@@ -2039,7 +2042,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteSelectedEnableDeviceException(string ids)
         {
             Hashtable result = new Hashtable();
@@ -2056,7 +2059,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteSelectedEnableUserException(string ids)
         {
             Hashtable result = new Hashtable();
@@ -2073,7 +2076,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteSelectedDisableUserException(string ids)
         {
             Hashtable result = new Hashtable();
@@ -2090,7 +2093,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteSelectedDisableDeviceException(string ids)
         {
             Hashtable result = new Hashtable();
@@ -2120,6 +2123,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult GetUserDevices(string uid)
         {
+            uid = Server.UrlEncode(uid);
             List<IDictionary<string, object>> re = Bo.BoFactory.GetCommonBO.GetUserDevices(uid);
             return Json(re, JsonRequestBehavior.AllowGet);
         }
@@ -2132,9 +2136,11 @@ namespace SmartBox.Console.Web.Controllers
             result["d"] = re ? "设备挂失成功!" : "设备挂失失败!";
             return Json(result);
         }
-        
+
         public ActionResult DeviceExceptionAddPost(string deviceid, string t)
         {
+            deviceid = Server.UrlEncode(deviceid);
+            t = Server.UrlEncode(t);
             IDictionary<string, object> result = new Dictionary<string, object>();
             if (String.IsNullOrEmpty(t) || (t.ToLower() != "e" && t.ToLower() != "d"))
             {
@@ -2158,9 +2164,12 @@ namespace SmartBox.Console.Web.Controllers
             result["d"] = re ? "设备例外保存成功!" : "设备例外保存失败!";
             return Json(result);
         }
-        
+
         public ActionResult UserExceptionAddPost(string useruid, string t)
         {
+            useruid = Server.UrlEncode(useruid);
+            t = Server.UrlEncode(t);
+
             IDictionary<string, object> result = new Dictionary<string, object>();
             if (String.IsNullOrEmpty(t) || (t.ToLower() != "e" && t.ToLower() != "d"))
             {
@@ -2198,6 +2207,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult PassDevice(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetCommonBO.PassDevice(id, CurrentUser.UserUId);
@@ -2209,6 +2219,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public System.Drawing.Bitmap GetDimensionalCode(string link)
         {
+            link = Server.UrlEncode(link);
             System.Drawing.Bitmap bmp = null;
             try
             {
@@ -2231,6 +2242,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public ActionResult SyncPackageExt(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable r = new Hashtable();
             SMC_PackageExt ext = BoFactory.GetVersionTrackBo.GetPackageExt(id);
             int batch_no = BoFactory.GetSMC_AutoTableIDBo.GetMaxId("SMC_PackageExtSyncToOutside", "sync_bat_no");
@@ -2241,6 +2253,7 @@ namespace SmartBox.Console.Web.Controllers
 
         private bool _PassAppPackage(string id, Hashtable result)
         {
+            id = Server.UrlEncode(id);
             SMC_PackageExt ext = BoFactory.GetSMC_PackageExtBO.Get(id);
             bool r = Bo.BoFactory.GetSMC_PackageExtBO.PassAppPackage(id, CurrentUser.UserUId, CurrentUser.FullName);
             if (r)
@@ -2314,8 +2327,8 @@ namespace SmartBox.Console.Web.Controllers
                         }
                         else
                         {//修改
-                            BoFactory.GetVersionTrackBo.UpdatePackage(package, tempFilePath, saveFileName);                            
-                        }                        
+                            BoFactory.GetVersionTrackBo.UpdatePackage(package, tempFilePath, saveFileName);
+                        }
                     }
 
 
@@ -2352,13 +2365,14 @@ namespace SmartBox.Console.Web.Controllers
                     ext.pe_DownloadUri = ConfigurationManager.AppSettings["packUrl"] + Path.GetFileName(saveFileName);
                     Bo.BoFactory.GetSMC_PackageExtBO.Save(ext);
                     //需要审核
-                    
+
                 }
             }
             return r;
         }
         public JsonResult PassAppPackage(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable result = new Hashtable();
             bool r = _PassAppPackage(id, result);
             result["r"] = r;
@@ -2369,6 +2383,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult NotPassAppPackage(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetSMC_PackageExtBO.NotPassAppPackage(id, CurrentUser.UserUId);
@@ -2380,6 +2395,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult LostDevice(string deviceid)
         {
+            deviceid = Server.UrlEncode(deviceid);
             Hashtable result = new Hashtable();
             SmartBox.Console.Common.Entities.SMC_UserException ex = new Common.Entities.SMC_UserException();
             ex.ID = 54;
@@ -2389,9 +2405,10 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult UnLostDevice(string deviceid)
         {
+            deviceid = Server.UrlEncode(deviceid);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetCommonBO.UnLostDevice(deviceid, CurrentUser.UserUId);
@@ -2400,9 +2417,10 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult SyncDevice(string deviceid)
         {
+            deviceid = Server.UrlEncode(deviceid);
             Hashtable result = new Hashtable();
 
             //bool r = Bo.BoFactory.GetCommonBO.UnLostDevice(deviceid, CurrentUser.UserUId);
@@ -2414,16 +2432,18 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult UnLockDevice(string deviceid)
         {
+            deviceid = Server.UrlEncode(deviceid);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetCommonBO.UnLockDevice(deviceid, CurrentUser.UserUId);
             result["r"] = r;
             result["d"] = "设备" + (r ? "解除锁定成功！" : "解除锁定失败！");
-            
+
             return Json(result);
         }
         public JsonResult UnBindDevice(string deviceuser_id)
         {
+            deviceuser_id = Server.UrlEncode(deviceuser_id);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetCommonBO.UnBindDevice(deviceuser_id, CurrentUser.UserUId);
@@ -2448,7 +2468,7 @@ namespace SmartBox.Console.Web.Controllers
             {
                 if (String.IsNullOrEmpty(id))
                     continue;
-                bool r = Bo.BoFactory.GetCommonBO.UnBindDevice(id, CurrentUser.UserUId);
+                bool r = Bo.BoFactory.GetCommonBO.UnBindDevice(Server.UrlEncode(id), CurrentUser.UserUId);
             }
 
             return Json(result);
@@ -2456,6 +2476,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult SaveUserAuthSetting(string enableUserAuth)
         {
+            enableUserAuth = Server.UrlEncode(enableUserAuth);
             GlobalParam p = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("user_need_auth");
             if (p == null)
             {
@@ -2472,9 +2493,10 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult SaveDeviceAuthSetting(string enableDeviceAuth)
         {
+            enableDeviceAuth = Server.UrlEncode(enableDeviceAuth);
             GlobalParam p = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("device_need_auth");
             if (p == null)
             {
@@ -2500,11 +2522,22 @@ namespace SmartBox.Console.Web.Controllers
         public JsonResult GlobalParamPost(string app_sj_need_auth, string user_default_status, string namelist_black_or_white, string user_unlock_auto_enabled, string user_unlock_auto_hours,
             string lock_user_farto_lasttime_hours, string lock_count_mode, string allowed_wrong_times_when_login, string disable_device_after_notpass_device, string bua_auth_url)
         {
+            app_sj_need_auth = Server.UrlEncode(app_sj_need_auth);
+            user_default_status = Server.UrlEncode(user_default_status);
+            namelist_black_or_white = Server.UrlEncode(namelist_black_or_white);
+            user_unlock_auto_enabled = Server.UrlEncode(user_unlock_auto_enabled);
+            user_unlock_auto_hours = Server.UrlEncode(user_unlock_auto_hours);
+            lock_user_farto_lasttime_hours = Server.UrlEncode(lock_user_farto_lasttime_hours);
+            lock_count_mode = Server.UrlEncode(lock_count_mode);
+            allowed_wrong_times_when_login = Server.UrlEncode(allowed_wrong_times_when_login);
+            disable_device_after_notpass_device = Server.UrlEncode(disable_device_after_notpass_device);
+            bua_auth_url = Server.UrlEncode(bua_auth_url);
+
             Hashtable result = new Hashtable();
             List<GlobalParam> parms = new List<GlobalParam>();//Bo.BoFactory.GetGlobalParamBO.LoadGlobalParam();
 
             GlobalParam parm = new GlobalParam();
-           
+
             parm.ConfigKey = "app_sj_need_auth";
             parm.ConfigValue = app_sj_need_auth;
             parms.Add(parm);
@@ -2518,7 +2551,7 @@ namespace SmartBox.Console.Web.Controllers
             parm.ConfigKey = "namelist_black_or_white";
             parm.ConfigValue = namelist_black_or_white;
             parms.Add(parm);
-            
+
             parm = new GlobalParam();
             parm.ConfigKey = "disable_device_after_notpass_device";
             parm.ConfigValue = disable_device_after_notpass_device;
@@ -2564,7 +2597,7 @@ namespace SmartBox.Console.Web.Controllers
             List<GlobalParam> parms = new List<GlobalParam>();//Bo.BoFactory.GetGlobalParamBO.LoadGlobalParam();
 
             GlobalParam parm = new GlobalParam();
-           
+
             //parm.ConfigKey = "app_sj_need_auth";
             //parm.ConfigValue = app_sj_need_auth;
             //parms.Add(parm);
@@ -2612,7 +2645,7 @@ namespace SmartBox.Console.Web.Controllers
             return Json(result);
         }
 
-        
+
         public JsonResult UserRetryLockPost(string app_sj_need_auth, string user_default_status, string namelist_black_or_white, string user_unlock_auto_enabled, string user_unlock_auto_hours,
             string lock_user_farto_lasttime_hours, string lock_count_mode, string allowed_wrong_times_when_login)
         {
@@ -2620,7 +2653,7 @@ namespace SmartBox.Console.Web.Controllers
             List<GlobalParam> parms = new List<GlobalParam>();//Bo.BoFactory.GetGlobalParamBO.LoadGlobalParam();
 
             GlobalParam parm = new GlobalParam();
-           
+
             //parm.ConfigKey = "app_sj_need_auth";
             //parm.ConfigValue = app_sj_need_auth;
             //parms.Add(parm);
@@ -2679,12 +2712,12 @@ namespace SmartBox.Console.Web.Controllers
                 if (String.IsNullOrEmpty(id))
                     continue;
 
-                Bo.BoFactory.GetCommonBO.PassDevice(id, CurrentUser.UserUId);
+                Bo.BoFactory.GetCommonBO.PassDevice(Server.UrlEncode(id), CurrentUser.UserUId);
             }
 
             return Json(result);
         }
-        
+
         public JsonResult PassSelectedAppPackage(string ids)
         {
             Hashtable result = new Hashtable();
@@ -2699,12 +2732,12 @@ namespace SmartBox.Console.Web.Controllers
                 Hashtable _result = new Hashtable();
                 _result["r"] = true;
                 _result["d"] = "操作成功！";
-                _PassAppPackage(id, _result);
+                _PassAppPackage(Server.UrlEncode(id), _result);
             }
 
             return Json(result);
         }
-        
+
         public JsonResult NotPassSelectedAppPackage(string ids)
         {
             Hashtable result = new Hashtable();
@@ -2716,12 +2749,12 @@ namespace SmartBox.Console.Web.Controllers
                 if (String.IsNullOrEmpty(id))
                     continue;
 
-                Bo.BoFactory.GetSMC_PackageExtBO.NotPassAppPackage(id, CurrentUser.UserUId);
+                Bo.BoFactory.GetSMC_PackageExtBO.NotPassAppPackage(Server.UrlEncode(id), CurrentUser.UserUId);
             }
 
             return Json(result);
         }
-        
+
         /// <summary>
         /// 批量挂失
         /// </summary>
@@ -2738,12 +2771,12 @@ namespace SmartBox.Console.Web.Controllers
                 if (String.IsNullOrEmpty(id))
                     continue;
 
-                Bo.BoFactory.GetCommonBO.LostDevice(id, CurrentUser.UserUId);
+                Bo.BoFactory.GetCommonBO.LostDevice(Server.UrlEncode(id), CurrentUser.UserUId);
             }
 
             return Json(result);
         }
-        
+
         /// <summary>
         /// 批量解除挂失
         /// </summary>
@@ -2760,12 +2793,12 @@ namespace SmartBox.Console.Web.Controllers
                 if (String.IsNullOrEmpty(id))
                     continue;
 
-                Bo.BoFactory.GetCommonBO.UnLostDevice(id, CurrentUser.UserUId);
+                Bo.BoFactory.GetCommonBO.UnLostDevice(Server.UrlEncode(id), CurrentUser.UserUId);
             }
 
             return Json(result);
         }
-        
+
         /// <summary>
         /// 批量同步设备
         /// </summary>
@@ -2787,7 +2820,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         /// <summary>
         /// 批量解除锁定
         /// </summary>
@@ -2804,7 +2837,7 @@ namespace SmartBox.Console.Web.Controllers
                 if (String.IsNullOrEmpty(id))
                     continue;
 
-                Bo.BoFactory.GetCommonBO.UnLockDevice(id, CurrentUser.UserUId);
+                Bo.BoFactory.GetCommonBO.UnLockDevice(Server.UrlEncode(id), CurrentUser.UserUId);
             }
 
             return Json(result);
@@ -2812,6 +2845,8 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult UnLockUser(string uid, string uname)
         {
+            uid = Server.UrlEncode(uid);
+            uname = Server.UrlEncode(uname);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetSMC_UserBo.UnLockUser(uid);
@@ -2821,9 +2856,11 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult LockUser(string uid, string uname)
         {
+            uid = Server.UrlEncode(uid);
+            uname = Server.UrlEncode(uname);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetSMC_UserBo.LockUser(uid);
@@ -2836,10 +2873,12 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult Kickout(string uid, string uname)
         {
+            uid = Server.UrlEncode(uid);
+            uname = Server.UrlEncode(uname);
             Hashtable result = new Hashtable();
             SmartBox.Console.Service.ServiceReference1.ManagerServiceClient client = new SmartBox.Console.Service.ServiceReference1.ManagerServiceClient();
             Bo.BoFactory.GetSMC_UserBo.KickoutUser(uid, result, client);
-            
+
             result["d"] = "用户" + uname + ((bool)result["r"] ? "已强制退出！" : "未强制退出！");
 
             return Json(result);
@@ -2847,6 +2886,8 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult NotPassUser(string uid, string uname)
         {
+            uid = Server.UrlEncode(uid);
+            uname = Server.UrlEncode(uname);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetSMC_UserBo.NotPassUser(uid);
@@ -2859,6 +2900,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult DeleteEnableDeviceException(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetDeviceExceptionBO.DeleteEnableDeviceException(id, CurrentUser.UserUId);
@@ -2867,9 +2909,10 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteEnableUserException(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable result = new Hashtable();
             bool r = Bo.BoFactory.GetSMC_UserExceptionBo.DeleteEnableUserException(id, CurrentUser.UserUId);
             //bool r = Bo.BoFactory.GetDeviceExceptionBO.DeleteEnableDeviceException(id, CurrentUser.UserUId);
@@ -2878,7 +2921,7 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteDisableUserException(string id)
         {
             Hashtable result = new Hashtable();
@@ -2889,9 +2932,10 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result);
         }
-        
+
         public JsonResult DeleteDisableDeviceException(string id)
         {
+            id = Server.UrlEncode(id);
             Hashtable result = new Hashtable();
 
             bool r = Bo.BoFactory.GetDeviceExceptionBO.DeleteDisableDeviceException(id, CurrentUser.UserUId);
@@ -2903,6 +2947,8 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult NotPassDevice(string deviceuserapplyid, string refuse_msg)
         {
+            deviceuserapplyid = Server.UrlEncode(deviceuserapplyid);
+            refuse_msg = Server.UrlEncode(refuse_msg);
             Hashtable result = new Hashtable();
             GlobalParam parm = Bo.BoFactory.GetGlobalParamBO.GetGlobalParam("disable_device_after_notpass_device");
             bool r = Bo.BoFactory.GetDeviceUserApplyBO.NotPassDevice(deviceuserapplyid, CurrentUser.UserUId, parm, refuse_msg);
@@ -2933,12 +2979,12 @@ namespace SmartBox.Console.Web.Controllers
 
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-        
+
         public JsonResult GetBackgroundImageList()
         {
             Hashtable result = new Hashtable();
             result["total"] = 6;
-            
+
             List<Hashtable> users = new List<Hashtable>();
             result["rows"] = users;
 

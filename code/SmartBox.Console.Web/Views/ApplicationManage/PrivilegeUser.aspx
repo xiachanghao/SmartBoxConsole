@@ -42,7 +42,7 @@
 
         var page = 0;
         function ClearPrivilegeUser() {
-            var privilegecode = '<%=Request.QueryString["privilegecode"] %>';
+            var privilegecode = '<%=Server.UrlEncode( Request.QueryString["privilegecode"]) %>';
             if (privilegecode !== undefined && privilegecode != '' && privilegecode != 'undefined') {
                 $.ajax({
                     type: "POST",

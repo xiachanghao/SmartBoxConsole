@@ -55,10 +55,7 @@
     <div style="height:3px;display:;"></div>
     </div>
     <div data-options="region:'center'" style="width:100%;">
-            
-    <div id="tb" style="text-align:right;">
-<a id="btn_upload" onclick="javascript:return void();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a>
-</div>
+
      <table id="grid" class="easyui-datagrid" style="width:100%;border-top:1px solid #DDDDDD"
 					data-options="url:'<%=Url.Content("~/Demo/GetSecurityAuditList") %>',idField:'id',method:'get',displayMsg:'当前{from}-{to}，共 {total}',loadMsg:'正在加载...',rownumbers:true,checkOnSelect:false,selectOnCheck:true,singleSelect:false,pagination:true,border:false,fit:true,fitColumns:true,toolbar: '#tb'">
 				<thead>

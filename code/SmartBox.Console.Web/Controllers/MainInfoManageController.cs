@@ -111,7 +111,7 @@ namespace SmartBox.Console.Web.Controllers
         public ActionResult MainInfoManage()
         {
             string clientType = Request.QueryString["t"];
-            ViewData["clientType"] = clientType;
+            ViewData["clientType"] = Server.UrlEncode(clientType);
             return View();
         }
 

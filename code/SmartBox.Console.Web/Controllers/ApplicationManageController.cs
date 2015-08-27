@@ -863,11 +863,11 @@ namespace SmartBox.Console.Web.Controllers
             try
             {
                 PageView view = new PageView(form);
-                string sync_bat_no = Request.QueryString["sync_bat_no"];
-                string sync_time_start = Request.QueryString["sync_time_start"];
-                string sync_time_end = Request.QueryString["sync_time_end"];
-                string sync_status = Request.QueryString["sync_status"];
-                string packageName = Request.QueryString["packageName"];
+                string sync_bat_no = Server.UrlEncode(Request.QueryString["sync_bat_no"]);
+                string sync_time_start = Server.UrlEncode(Request.QueryString["sync_time_start"]);
+                string sync_time_end = Server.UrlEncode(Request.QueryString["sync_time_end"]);
+                string sync_status = Server.UrlEncode(Request.QueryString["sync_status"]);
+                string packageName = Server.UrlEncode(Request.QueryString["packageName"]);
                 data = BoFactory.GetSMC_PackageExtSyncToOutsideBO.QueryPackageAsyncResultList(view, sync_bat_no, sync_time_start, sync_time_end, sync_status, packageName);
             }
             catch (Exception ex)
@@ -883,11 +883,11 @@ namespace SmartBox.Console.Web.Controllers
             try
             {
                 PageView view = new PageView(form);
-                string sync_bat_no = Request.QueryString["sync_bat_no"];
-                string sync_time_start = Request.QueryString["sync_time_start"];
-                string sync_time_end = Request.QueryString["sync_time_end"];
-                string sync_status = Request.QueryString["sync_status"];
-                string userName = Request.QueryString["userName"];
+                string sync_bat_no = Server.UrlEncode(Request.QueryString["sync_bat_no"]);
+                string sync_time_start = Server.UrlEncode(Request.QueryString["sync_time_start"]);
+                string sync_time_end = Server.UrlEncode(Request.QueryString["sync_time_end"]);
+                string sync_status = Server.UrlEncode(Request.QueryString["sync_status"]);
+                string userName = Server.UrlEncode(Request.QueryString["userName"]);
                 data = BoFactory.GetSMC_BUAUserSyncToInsideBO.QueryBUAUserAsyncToInsideResultList(view, sync_bat_no, sync_time_start, sync_time_end, sync_status, userName);
             }
             catch (Exception ex)
@@ -904,11 +904,11 @@ namespace SmartBox.Console.Web.Controllers
             try
             {
                 PageView view = new PageView(form);
-                string sync_bat_no = Request.QueryString["sync_bat_no"];
-                string sync_time_start = Request.QueryString["sync_time_start"];
-                string sync_time_end = Request.QueryString["sync_time_end"];
-                string sync_status = Request.QueryString["sync_status"];
-                string userName = Request.QueryString["userName"];
+                string sync_bat_no = Server.UrlEncode(Request.QueryString["sync_bat_no"]);
+                string sync_time_start = Server.UrlEncode(Request.QueryString["sync_time_start"]);
+                string sync_time_end = Server.UrlEncode(Request.QueryString["sync_time_end"]);
+                string sync_status = Server.UrlEncode(Request.QueryString["sync_status"]);
+                string userName = Server.UrlEncode(Request.QueryString["userName"]);
                 data = BoFactory.GetSMC_BUAUserSyncToOutsideBO.QueryBUAUserAsyncToOutsideResultList(view, sync_bat_no, sync_time_start, sync_time_end, sync_status, userName);
             }
             catch (Exception ex)
@@ -947,7 +947,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public ActionResult EditOutPackage(string id)
         {
-            id = Request.QueryString["id"];
+            id = Server.UrlEncode(Request.QueryString["id"]);
             SMC_Package4Out package4Out = new SMC_Package4Out();
             try
             {
@@ -1593,11 +1593,11 @@ namespace SmartBox.Console.Web.Controllers
                 packageExt.pe_Description = form["packageDescription"];
                 packageExt.pe_Firmware = form["Firmware"];
                 packageExt.pe_Type = package.Type;
-                
+
 
                 string conSolePath = HttpRuntime.AppDomainAppPath;//服务器路径
                 string pDir = Path.Combine(SAVEOUTPATH, packageExt.pe_id.ToString());//相对路径 用安装包ID做文件夹名
-                string saveDir = Path.Combine(conSolePath , pDir);
+                string saveDir = Path.Combine(conSolePath, pDir);
 
                 if (!System.IO.Directory.Exists(saveDir))
                 {
@@ -1659,7 +1659,7 @@ namespace SmartBox.Console.Web.Controllers
                         data.Msg = "操作成功,更新SmartBox服务缓存失败。";
                     }
                 }
-                
+
                 //app更新到外网
                 BoFactory.GetCommonBO.CopyAppFilesToAppCenterServer(saveFilePath, packageExt.pe_id);
 

@@ -115,7 +115,7 @@ D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\bin\Debug\SmartBox.Console.Dao.pdb
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\bin\Debug\SmartBox.Console.Service.pdb
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\bin\Debug\SmartBox.Console.Reminder.pdb
-D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\bin\Debug\SmartBox.Console.Service.XmlSerializers.dll
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\obj\Debug\SmartBox.Console.UserMenu.csprojResolveAssemblyReference.cache
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\obj\Debug\SmartBox.Console.UserMenu.dll
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\obj\Debug\SmartBox.Console.UserMenu.pdb
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.UserMenu\bin\Debug\SmartBox.Console.Service.XmlSerializers.dll

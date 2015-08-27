@@ -76,6 +76,7 @@ namespace SmartBox.Console.Web.Controllers
                         Session["_CurrentUser_"] = _currentUser;
                     }
                 }
+                HttpRuntime.Cache[_currentUser.UserUId.ToLower()] = DateTime.Now.AddMinutes(Session.Timeout);
                 return _currentUser;
             }
         }

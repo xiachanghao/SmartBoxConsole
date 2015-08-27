@@ -55,10 +55,7 @@
     <div style="height:3px;display:;"></div>
     </div>
     <div data-options="region:'center'" style="width:100%;">
-            
-    <div id="tb" style="text-align:right;">
-<a id="btn_upload" onclick="javascript:return void();" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:true">删除</a>
-</div>
+      
      <table id="grid" class="easyui-datagrid" style="width:100%;border-top:1px solid #DDDDDD"
 					data-options="url:'<%=Url.Content("~/Demo/GetServiceLogList") %>',idField:'id',method:'get',displayMsg:'当前{from}-{to}，共 {total}',loadMsg:'正在加载...',rownumbers:true,checkOnSelect:false,selectOnCheck:true,singleSelect:false,pagination:true,border:false,fit:true,fitColumns:true,toolbar: '#tb'">
 				<thead>
@@ -71,10 +68,6 @@
                         <th data-options="field:'log_kind'" width="30">类别</th>
 						<th data-options="field:'logid',formatter: function(value,row,index){
 				return //'<a href=\'#\' onclick=\'javascript:return void('+value+',&quot;AddJobPluginGroup&quot;)\'>删除</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;RemoveJobPluginGroup&quot;)\'>载出</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;RestartJobPluginGroup&quot;)\'>重载</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;SetTargetJobTime&quot;)\'>运行时间</a>' + 
-                //'&nbsp;<a href=\'#\' onclick=\'javascript:return OperateDll('+value+',&quot;PauseTargetJob&quot;)\'>暂停</a>' + 
                 '';
 			}" width="80">操作</th>
 						<%--<th data-options="field:'unitcost',align:'right'" width="80">Unit Cost</th>

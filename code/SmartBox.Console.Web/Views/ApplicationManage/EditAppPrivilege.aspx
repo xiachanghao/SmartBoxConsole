@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/ListBUDN.Master" Inherits="System.Web.Mvc.ViewPage<dynamic>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
-	应用授权
+    应用授权
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -9,43 +9,50 @@
     <div class="table_box">
         <h4>应用授权</h4>
         <div class="table_box_data table_box_data_model_details">
-            <table  cellspacing="0" cellpadding="0">
+            <table cellspacing="0" cellpadding="0">
                 <tbody>
-                <tr>
+                    <tr>
                         <th width="30%">应用名称：</th>
                         <td class=""><span id="tbAppName" /></td>
                     </tr>
-                    <tr style="display:none;">
+                    <tr style="display: none;">
                         <th width="30%">BUA应用系统：</th>
-                        <td class=""><select id="selBUAApp" class="easyui-combobox" data-options='panelHeight:"120",valueField: "AppCode",textField: "AppName",data: <%=ViewData["apps"]%>' style="width:184px;">
-                        <option value="">请选择</option>
-                        </select></td>
+                        <td class="">
+                            <select id="selBUAApp" class="easyui-combobox" data-options='panelHeight:"120",valueField: "AppCode",textField: "AppName",data: <%=ViewData["apps"]%>' style="width: 184px;">
+                                <option value="">请选择</option>
+                            </select></td>
                     </tr>
                     <tr>
                         <th width="30%">BUA应用系统权限：</th>
-                        <td class=""><select id="selBUAPrivilege" class="easyui-combobox" data-options='panelHeight:"120",valueField: "privilegeid",textField: "privilegename",data: <%=ViewData["privilegs"]%>' style="width:184px;">
-                        </select>只支持类型为Privilege的权限,其他类型的权限不支持!</td>
+                        <td class="">
+                            <select id="selBUAPrivilege" class="easyui-combobox" data-options='panelHeight:"120",valueField: "privilegeid",textField: "privilegename",data: <%=ViewData["privilegs"]%>' style="width: 184px;">
+                            </select>只支持类型为Privilege的权限,其他类型的权限不支持!</td>
                     </tr>
-                    <tr style="display:;">
+                    <tr style="display: ;">
                         <th>启用同步:</th>
-                        <td><select id="selAutoSync" class="easyui-combobox" data-options="panelHeight:'auto'" name="state" style="width:284px;">
-		                <option value="ENABLE">启用</option>
-		                <option value="DISABLE">禁用</option>
-                        </select> </td>
+                        <td>
+                            <select id="selAutoSync" class="easyui-combobox" data-options="panelHeight:'auto'" name="state" style="width: 284px;">
+                                <option value="ENABLE">启用</option>
+                                <option value="DISABLE">禁用</option>
+                            </select>
+                        </td>
                     </tr>
-                    <tr style="display:none;">
+                    <tr style="display: none;">
                         <th width="30%">同步时间间隔：</th>
-                        <td class=""><input id="SyncInterval" />小时</td>
+                        <td class="">
+                            <input id="SyncInterval" />小时</td>
                     </tr>
-                    <tr style="display:none;">
+                    <tr style="display: none;">
                         <th width="30%">发送日期：</th>
-                        <td class=""><input id="tbTimeStart" name="tbTimeStart" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/></td>
+                        <td class="">
+                            <input id="tbTimeStart" name="tbTimeStart" readonly="readonly" type="text" class="Wdate" onclick="WdatePicker()" />-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly" type="text" class="Wdate" onclick="WdatePicker()" /></td>
                     </tr>
-                    <tr style="display:none;">
+                    <tr style="display: none;">
                         <th width="30%">执行日期：</th>
-                        <td class=""><input id="tbTimeStart" name="tbTimeStart" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/>-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly"  type="text"  class="Wdate" onClick="WdatePicker()"/></td>
+                        <td class="">
+                            <input id="tbTimeStart" name="tbTimeStart" readonly="readonly" type="text" class="Wdate" onclick="WdatePicker()" />-<input id="tbTimeEnd" name="tbTimeEnd" readonly="readonly" type="text" class="Wdate" onclick="WdatePicker()" /></td>
                     </tr>
-                   
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -57,7 +64,7 @@
                 </tfoot>
             </table>
         </div>
-    
+
     </div>
 
 </asp:Content>
@@ -65,7 +72,7 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="HeaderContent" runat="server">
 
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
     var entity = {};
 function closeWin() {
@@ -109,13 +116,13 @@ function closeWin() {
 
     $(document).ready(function () {
 
-        var appid = '<%=Request.QueryString["appid"] %>';
-        var buaappid = '<%=Request.QueryString["buaappid"] %>';
-        var privilege = '<%=Request.QueryString["privilege"] %>';
-        var appName = '<%=Request.QueryString["appName"] %>';
-        var appCode = '<%=Request.QueryString["appCode"] %>';
-        var BuaPrivilegeCode = '<%=Request.QueryString["BuaPrivilegeCode"] %>';
-        var SyncIntervalTime = '<%=Request.QueryString["SyncIntervalTime"] %>';
+        var appid = '<%=Server.UrlEncode(Request.QueryString["appid"] )%>';
+        var buaappid = '<%=Server.UrlEncode(Request.QueryString["buaappid"]) %>';
+        var privilege = '<%=Server.UrlEncode(Request.QueryString["privilege"]) %>';
+        var appName = '<%=Server.UrlEncode(Request.QueryString["appName"]) %>';
+        var appCode = '<%=Server.UrlEncode(Request.QueryString["appCode"]) %>';
+        var BuaPrivilegeCode = '<%=Server.UrlEncode(Request.QueryString["BuaPrivilegeCode"]) %>';
+        var SyncIntervalTime = '<%=Server.UrlEncode(Request.QueryString["SyncIntervalTime"]) %>';
         if (SyncIntervalTime == 'null')
             SyncIntervalTime = '';
         if (buaappid == 'null')
@@ -161,5 +168,5 @@ function closeWin() {
         });
     });
 
-</script>
+    </script>
 </asp:Content>

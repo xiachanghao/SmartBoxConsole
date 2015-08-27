@@ -25,6 +25,12 @@
         window.onload = function () {
             setHomeIframePadding(null);
         }
+        window.onbeforeunload = function () {
+            $.ajax({ 
+                type: "POST",
+                url: '<%=Url.Action("Logout","Account") %>'
+            });
+        }
         function setHomeIframePadding(iframe) {
             var centerwidth = $('#center').width();
             var centerheight = $('#center').height();

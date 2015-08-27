@@ -49,7 +49,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public ActionResult ViewLogs(string cid)
         {
-            ViewData["cid"] = cid;
+            ViewData["cid"] = Server.UrlEncode(cid);
             return View();
         }
 
@@ -89,7 +89,7 @@ namespace SmartBox.Console.Web.Controllers
 
         public JsonResult PushProcess(string m)
         {
-            string method = m;
+            string method = Server.UrlEncode(m);
             var res = new JsonResult();
 
             object resp = null;

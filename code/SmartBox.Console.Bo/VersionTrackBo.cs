@@ -2019,14 +2019,13 @@ namespace SmartBox.Console.Bo
         [Frame(false, true)]
         public virtual void InsertApplication(Application app)
         {
-            applicationDao.ExistApplication(app.Name, app.DisplayName);
+            applicationDao.ExistApplication(app);
             applicationDao.Insert(app);
         }
 
         [Frame(false, true)]
         public virtual void UpdateApplication(Application app)
         {
-            applicationDao.ExistApplication(app.Name, app.DisplayName);
             applicationDao.Update(app);
         }
 

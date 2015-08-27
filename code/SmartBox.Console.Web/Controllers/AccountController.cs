@@ -70,10 +70,11 @@ namespace SmartBox.Console.Web.Controllers
         {
             string SSO_SignOnUrl = ConfigurationManager.AppSettings["SSO_SignOnUrl"];
 
-
+            HttpRuntime.Cache.Remove(CurrentUser.UserUId.ToLower());
             FormsAuthentication.SignOut();
             this.Session.Clear();
             this.Session.Abandon();
+
 
             if (!String.IsNullOrEmpty(SSO_SignOnUrl))
             {
@@ -151,26 +152,23 @@ namespace SmartBox.Console.Web.Controllers
                 //if(true)
                 try
                 {
-                    if (BoFactory.GetVersionTrackBo.CheckUserName(userName, password, Request.UserHostAddress))
+
+                    if (HttpRuntime.Cache[userName.ToLower()] != null && ((DateTime)HttpRuntime.Cache[userName.ToLower()]) > DateTime.Now)
+                    {
+                        ViewData["msg"] = "该用户已在其他浏览器中登录";
+                        return View();
+                    }
+                    if (BoFactory.GetVersionTrackBo.CheckUserName(userName, password, Request.UserHostAddress)
+                        || BoFactory.GetSMC_UserListBo.CheckUserName(userName, password))
                     {
                         System.Web.Security.FormsAuthentication.SetAuthCookie(userName, false);
-                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {
-                        bool r = BoFactory.GetSMC_UserListBo.CheckUserName(userName, password);
-                        if (r)
-                        {
-                            System.Web.Security.FormsAuthentication.SetAuthCookie(userName, false);
-                            return RedirectToAction("Index", "Home");
-                        }
-                        else
-                        {
-                            ViewData["msg"] = "登陆失败，请检查用户名和密码";
-                            return View();
-                        }
-
+                        ViewData["msg"] = "登陆失败，请检查用户名和密码";
+                        return View();
                     }
+                    return RedirectToAction("Index", "Home");
                 }
                 catch (Exception ex)
                 {

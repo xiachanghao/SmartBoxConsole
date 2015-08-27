@@ -79,7 +79,7 @@
                  $.ajax({
                      type: "POST",
                      url: '<%=Url.Action("JobCommandCtrl") %>',
-                     data: { JosType: selectStatus, ComdArgs: args , pd_id: <%=Request.QueryString["pd_id"] %>},
+                     data: { JosType: selectStatus, ComdArgs: args , pd_id: <%=Server.UrlEncode(Request.QueryString["pd_id"]) %>},
                      dataType: "json",
                      success: function (data) {
                          $("#loadingpannel").hide();

@@ -118,7 +118,8 @@ D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\bin\Debug\Antlr3.Runtime.pdb
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\bin\Debug\Newtonsoft.Json.xml
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\bin\Debug\System.Web.Optimization.xml
-D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\bin\Debug\SmartBox.Console.Service.XmlSerializers.dll
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\obj\Debug\SmartBox.Console.Bo.csprojResolveAssemblyReference.cache
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\obj\Debug\SmartBox.Console.Bo.dll
 D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\obj\Debug\SmartBox.Console.Bo.pdb
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\bin\Debug\SmartBox.Console.Service.XmlSerializers.dll
+D:\公司\互联网软件\研发中心Git\SmartBoxConsole\code\SmartBox.Console.Bo\bin\Debug\log4net.dll

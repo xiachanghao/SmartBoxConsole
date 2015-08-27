@@ -107,12 +107,12 @@ namespace SmartBox.Console.Dao
         /// </summary>
         /// <param name="appName">应用标识</param>
         /// <param name="appDisplayName">显示名称</param>
-        public void ExistApplication(string appName, string appDisplayName)
+        public void ExistApplication(Application app)
         {
-            if (null != base.Get(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Name", appName) }))
+            if (null != base.Get(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("Name", app.Name) }))
                 throw new ArgumentException("应用标识已存在");
-            if (null != base.Get(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("DisplayName", appDisplayName) }))
-                throw new ArgumentException("显示名称已存在");
+            //if (null != base.Get(new List<KeyValuePair<string, object>>() { new KeyValuePair<string, object>("DisplayName", app.DisplayName) }))
+            //    throw new ArgumentException("显示名称已存在");
         }
     }
 }

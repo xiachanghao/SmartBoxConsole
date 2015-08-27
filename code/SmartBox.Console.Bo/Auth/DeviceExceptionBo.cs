@@ -64,14 +64,14 @@ namespace SmartBox.Console.Bo
             //DeviceExceptionDao dao = new DeviceExceptionDao(AppConfig.mainDbKey);
             return DeviceExceptionDao.GetDeviceEnableAuthorizationException(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
-        
+
         [Frame(false, false)]
         public virtual SelectPagnationExDictionary GetDeviceDisableAuthorizationException(string uid, string model, string u_unitcode, string u_auth_submit_time_start, string u_auth_submit_time_end, int deviceAuthStatus, string orderby, int pageSize, int pageIndex)
         {
             //DeviceExceptionDao dao = new DeviceExceptionDao(AppConfig.mainDbKey);
             return DeviceExceptionDao.GetDeviceDisableAuthorizationException(uid, model, u_unitcode, u_auth_submit_time_start, u_auth_submit_time_end, deviceAuthStatus, orderby, pageSize, pageIndex);
         }
-        
+
         //[Frame(false, false)]
         //public virtual bool ExistsByUID(string uid)
         //{
@@ -99,7 +99,7 @@ namespace SmartBox.Console.Bo
                 return false;
             }
         }
-        
+
         /// <summary>
         ///  删除设备启用例外
         /// </summary>
@@ -124,115 +124,61 @@ namespace SmartBox.Console.Bo
         [Frame(false, false)]
         public virtual bool AddDeviceEnableException(string deviceid)
         {
-            if (deviceid.IndexOf(",") != -1) {
-                string[] dids = deviceid.Split(",".ToCharArray());
-                foreach (string did in dids)
-                {
-                    IList<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
-                    KeyValuePair<string, object> p = new KeyValuePair<string, object>("useruid", did);
-                    pars.Add(p);
-                    KeyValuePair<string, object> p2 = new KeyValuePair<string, object>("type", 1);
-                    pars.Add(p2);
-
-                    DeviceException de = _dao.Get(pars);
-                    if (de == null)
-                    {
-                        de = new DeviceException();
-                        de.Type = 1;
-                        de.UserUID = did;
-                        try
-                        {
-                            _dao.Insert(de);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-                return true;
-            }
-            else {
+            string[] dids = deviceid.Split(",".ToCharArray());
+            foreach (string did in dids)
+            {
                 IList<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
-                KeyValuePair<string, object> p = new KeyValuePair<string, object>("useruid", deviceid);
+                KeyValuePair<string, object> p = new KeyValuePair<string, object>("useruid", did);
                 pars.Add(p);
+                KeyValuePair<string, object> p2 = new KeyValuePair<string, object>("type", 1);
+                pars.Add(p2);
 
                 DeviceException de = _dao.Get(pars);
                 if (de == null)
                 {
                     de = new DeviceException();
                     de.Type = 1;
-                    de.UserUID = deviceid;
+                    de.UserUID = did;
                     try
                     {
                         _dao.Insert(de);
                     }
                     catch
                     {
-                        return false;
                     }
-                    return true;
                 }
-                else
-                    return true;
             }
+            return true;
         }
 
         [Frame(false, false)]
         public virtual bool AddDeviceDisableException(string deviceid)
         {
-            if (deviceid.IndexOf(",") != -1)
-            {
-                string[] dids = deviceid.Split(",".ToCharArray());
-                foreach (string did in dids)
-                {
-                    IList<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
-                    KeyValuePair<string, object> p = new KeyValuePair<string, object>("useruid", did);
-                    pars.Add(p);
-                    KeyValuePair<string, object> p2 = new KeyValuePair<string, object>("type", 2);
-                    pars.Add(p2);
-
-                    DeviceException de = _dao.Get(pars);
-                    if (de == null)
-                    {
-                        de = new DeviceException();
-                        de.Type = 2;
-                        de.UserUID = did;
-                        try
-                        {
-                            _dao.Insert(de);
-                        }
-                        catch
-                        {
-                        }
-                    }
-                }
-                return true;
-            }
-            else
+            string[] dids = deviceid.Split(",".ToCharArray());
+            foreach (string did in dids)
             {
                 IList<KeyValuePair<string, object>> pars = new List<KeyValuePair<string, object>>();
-                KeyValuePair<string, object> p = new KeyValuePair<string, object>("useruid", deviceid);
+                KeyValuePair<string, object> p = new KeyValuePair<string, object>("useruid", did);
                 pars.Add(p);
+                KeyValuePair<string, object> p2 = new KeyValuePair<string, object>("type", 2);
+                pars.Add(p2);
 
                 DeviceException de = _dao.Get(pars);
                 if (de == null)
                 {
                     de = new DeviceException();
                     de.Type = 2;
-                    de.UserUID = deviceid;
+                    de.UserUID = did;
                     try
                     {
                         _dao.Insert(de);
                     }
                     catch
                     {
-                        return false;
                     }
-                    return true;
                 }
-                else
-                    return true;
             }
+            return true;
         }
     }
 }

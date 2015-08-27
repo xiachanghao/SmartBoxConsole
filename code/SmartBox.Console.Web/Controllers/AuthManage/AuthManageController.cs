@@ -146,14 +146,8 @@ namespace SmartBox.Console.Web.Controllers.AuthManage
             string root_unit_id = "";
             string current_unit_id = "";
 
-            var url = Request.QueryString["url"];
-            if (!String.IsNullOrEmpty(url))
-            {
-                //计算传出的unitid
-                int i = url.IndexOf('=') + 1;
-                string s = url.Remove(0, i);
-                current_unit_id = s;
-            }
+            t = Server.UrlEncode(t);
+            var url = Server.UrlEncode(Request.QueryString["url"]);
 
             if (String.IsNullOrEmpty(t))
                 t = "unit";
@@ -534,7 +528,7 @@ namespace SmartBox.Console.Web.Controllers.AuthManage
             //{
             //    _unit_id = int.Parse(unit_id);
             //}
-            data = BoFactory.GetSMC_RoleBo.QueryRolesByUnitID(view, unit_id);
+            data = BoFactory.GetSMC_RoleBo.QueryRolesByUnitID(view, Server.UrlEncode(unit_id));
             return Json(data);
         }
 
