@@ -1,0 +1,147 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>SmartBox.Console.Database-SmartBox</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{00443579-f37e-4770-af08-c5753310131b}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql100DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>SmartBox.Console.Database</RootNamespace>
+    <AssemblyName>SmartBox.Console.Database</AssemblyName>
+    <ModelCollation>2052,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>Chinese_PRC_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="Snapshots" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\IOSOutsideApplication.sql" />
+    <Build Include="dbo\Tables\DeviceUser.sql" />
+    <Build Include="dbo\Tables\Action4Android.sql" />
+    <Build Include="dbo\Tables\DeviceException.sql" />
+    <Build Include="dbo\Tables\DeviceConfig.sql" />
+    <Build Include="dbo\Tables\DeviceBind.sql" />
+    <Build Include="dbo\Tables\Device.sql" />
+    <Build Include="dbo\Tables\HomePlan.sql" />
+    <Build Include="dbo\Tables\FriendInviteCache.sql" />
+    <Build Include="dbo\Tables\FriendGroup.sql" />
+    <Build Include="dbo\Tables\ConfigTemp.sql" />
+    <Build Include="dbo\Tables\ConfigInfoPC__.sql" />
+    <Build Include="dbo\Tables\ConfigInfoPC.sql" />
+    <Build Include="dbo\Tables\ConfigInfo__.sql" />
+    <Build Include="dbo\Tables\ConfigInfo.sql" />
+    <Build Include="dbo\Tables\ClientType.sql" />
+    <Build Include="dbo\Tables\City.sql" />
+    <Build Include="dbo\Tables\ChatTerminal.sql" />
+    <Build Include="dbo\Tables\ChatRemoveLog.sql" />
+    <Build Include="dbo\Tables\ChatLog.sql" />
+    <Build Include="dbo\Tables\Authentication.sql" />
+    <Build Include="dbo\Tables\AppPrivilege.sql" />
+    <Build Include="dbo\Tables\ApplyDeviceBind.sql" />
+    <Build Include="dbo\Tables\ApplicationCategory.sql" />
+    <Build Include="dbo\Tables\IMGroup.sql" />
+    <Build Include="dbo\Tables\Manager.sql" />
+    <Build Include="dbo\Tables\Image.sql" />
+    <Build Include="dbo\Tables\Icon.sql" />
+    <Build Include="dbo\Tables\IMGroupUserRole.sql" />
+    <Build Include="dbo\Tables\PluginInfoTemp.sql" />
+    <Build Include="dbo\Tables\PluginInfo.sql" />
+    <Build Include="dbo\Tables\PluginCategory.sql" />
+    <Build Include="dbo\Tables\PersonSetting.sql" />
+    <Build Include="dbo\Tables\Pattern.sql" />
+    <Build Include="dbo\Tables\Package4Out.sql" />
+    <Build Include="dbo\Tables\Package4AI.sql" />
+    <Build Include="dbo\Tables\Notice.sql" />
+    <Build Include="dbo\Tables\MessageCache.sql" />
+    <Build Include="dbo\Tables\LogInfo.sql" />
+    <Build Include="dbo\Tables\UserOnline.sql" />
+    <Build Include="dbo\Tables\UserLoginInfo.sql" />
+    <Build Include="dbo\Tables\UserInfo.sql" />
+    <Build Include="dbo\Tables\UserAuthLog.sql" />
+    <Build Include="dbo\Tables\UpdateInfo.sql" />
+    <Build Include="dbo\Tables\SystemConfig.sql" />
+    <Build Include="dbo\Tables\StyleHomeItem.sql" />
+    <Build Include="dbo\Tables\Style.sql" />
+    <Build Include="dbo\Tables\SessionStore.sql" />
+    <Build Include="dbo\Tables\Server.sql" />
+    <Build Include="dbo\Tables\VersionTrack.sql" />
+    <Build Include="dbo\Tables\UserResource.sql" />
+    <Build Include="dbo\Tables\WebApplication.sql" />
+    <Build Include="dbo\Tables\Weather.sql" />
+    <Build Include="dbo\Tables\UserPluginRef.sql" />
+    <Build Include="dbo\Tables\PrivilegeUser.sql" />
+    <Build Include="dbo\Tables\UserInfoRef.sql" />
+    <Build Include="dbo\Tables\ActionExtend.sql" />
+    <Build Include="dbo\Tables\LastestWeather.sql" />
+    <Build Include="dbo\Tables\NoticeView.sql" />
+    <Build Include="dbo\Tables\IMGroupUser.sql" />
+    <Build Include="dbo\Tables\Application.sql" />
+    <Build Include="dbo\Tables\Friend.sql" />
+    <Build Include="dbo\Tables\ContactCategory.sql" />
+    <Build Include="dbo\Tables\Contacet.sql" />
+    <Build Include="dbo\Tables\ContactProperty.sql" />
+    <Build Include="dbo\Tables\ContactCategoryRef.sql" />
+    <Build Include="dbo\Tables\App4AI.sql" />
+    <Build Include="dbo\Tables\IMGroupRLM.sql" />
+    <Build Include="dbo\Tables\FileStore.sql" />
+    <Build Include="dbo\Tables\HomePlanDesign.sql" />
+    <Build Include="dbo\Tables\DeviceUserApply.sql" />
+    <Build Include="dbo\Functions\Split.sql" />
+    <Build Include="dbo\Stored Procedures\PAGESELECT.sql" />
+    <Build Include="dbo\Stored Procedures\Select_Pagination_ex.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Snapshots\SmartBox.Console.Database-SmartBox_20150803_10-59-20.dacpac" />
+  </ItemGroup>
+</Project>
